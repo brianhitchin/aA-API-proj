@@ -15,15 +15,15 @@ module.exports = {
         city: 'Venue1 city',
         state: 'CA',
         lat: '1.1',
-        long: '1.11'
+        lng: '1.11'
       },
       {
-        groupdId: 2,
+        groupId: 2,
         address: 'Venue2 address',
         city: 'Venue2 city',
         state: 'NY',
         lat: '2.2',
-        long: '2.22'
+        lng: '2.22'
       },
       {
         groupId: 3,
@@ -31,7 +31,7 @@ module.exports = {
         city: 'Venue3 city',
         state: 'IL',
         lat: '3.3',
-        long: '3.33'
+        lng: '3.33'
       }
     ], {});
   },
