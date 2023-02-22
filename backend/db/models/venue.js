@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     state: {
-      type: DataTypes.VARCHAR,
+      type: DataTypes.STRING,
       allowNull: false
     },
     lat: {

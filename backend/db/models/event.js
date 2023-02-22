@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       ),
       Event.belongsTo(
         models.Group,
-        {foreignKey: 'groupdId'}
+        {foreignKey: 'groupId'}
       ),
       Event.hasMany(
         models.EventImage,

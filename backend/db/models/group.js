@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       ),
       Group.hasMany(
         models.Venue,
-        {foreignKey:'groupdId'}
+        {foreignKey:'groupId'}
       ),
       Group.hasMany(
         models.GroupImage,
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       ),
       Group.belongsTo(
         models.User,
-        {foreignKey:'organizerId'}
+        {foreignKey:'organizerId', as:'Organizer'}
       )
     }
   }
