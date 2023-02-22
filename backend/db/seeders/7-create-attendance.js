@@ -24,7 +24,6 @@ module.exports = {
         eventId: 3,
         userId: 3,
         status: 'Absent'
-
       }
     ], {});
   },

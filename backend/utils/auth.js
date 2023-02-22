@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Group, Membership } = require('../db/models');
+const { User, Group, Membership, Venue } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -63,11 +63,13 @@ const orgCheck = (role = 'Member') => {
     return async (req, _res, next) => {
         const err = new Error('Authorization required');
         err.status = 401;
-        const checkIfExists = await Group.findByPk(req.params.groupId)
-        if (checkIfExists == null || checkIfExists == undefined) {
-            err.status = 404
-            err.message = "Group couldnt be found"
-            return next(err)
+        if (req.params.groupId) {
+            const checkIfExists = await Group.findByPk(req.params.groupId)
+            if (checkIfExists == null || checkIfExists == undefined) {
+                err.status = 404
+                err.message = "Group couldnt be found"
+                return next(err)
+            }
         }
         switch (role) {
             case 'Member':
@@ -110,4 +112,43 @@ const orgCheck = (role = 'Member') => {
         }
     }
 }
-module.exports = { setTokenCookie, restoreUser, requireAuth, orgCheck };
+
+const orgCheckVe = (role = 'Member') => {
+    return async (req, _res, next) => {
+        const err = new Error('Authorization required');
+        err.status = 401;
+        if (req.params.venueId) {
+            const checkIfExists = await Venue.findByPk(req.params.venueId)
+            if (checkIfExists == null || checkIfExists == undefined) {
+                err.status = 404
+                err.message = "Venue couldnt be found"
+                return next(err)
+            }
+        }
+        switch (role) {
+            case 'Member':
+                return next();
+            case 'Co-Host':
+                console.log(req.user)
+                return next();
+                
+                err.errors = { message: 'Authorization required - not Co-Host or Organizer' };
+                return next(err);
+            case 'Organizer':
+                let group = await Group.findOne({
+                    where: {
+                        id: req.params.groupId
+                    }
+                })
+                if (group !== null && group !== undefined) {
+                    if (group.organizerId == req.user.id) {
+                        return next();
+                    }
+                }
+                err.errors = { message: 'Authorization required - not Organizer' };
+                return next(err);
+        }
+    }
+}
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, orgCheck, orgCheckVe };
