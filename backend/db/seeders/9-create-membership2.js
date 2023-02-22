@@ -11,12 +11,12 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         userId: 1,
-        groupId: 6,
-        status: 'Organizer'
+        groupId: 3,
+        status: 'Member'
       },
       {
         userId: 2,
-        groupId: 6,
+        groupId: 3,
         status: 'Member'
       }
     ], {});

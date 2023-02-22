@@ -79,8 +79,20 @@ const orgCheck = (role = 'Member') => {
                 })
                 if (member !== null) {
                     return next();
-                } 
+                }
                 err.errors = { message: 'Authorization required' };
+                return next(err);
+            case 'Co-Host':
+                let cohost = await Membership.findOne({
+                    where: {
+                        userId: req.user.id,
+                        groupId: req.params.groupId
+                    }
+                })
+                if (cohost !== null && (cohost.dataValues.status == 'Co-host' || cohost.dataValues.status == 'Organizer' )) {
+                    return next();
+                }
+                err.errors = { message: 'Authorization required - not Co-Host or Organizer' };
                 return next(err);
             case 'Organizer':
                 let group = await Group.findOne({

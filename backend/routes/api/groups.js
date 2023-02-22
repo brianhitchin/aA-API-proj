@@ -25,8 +25,9 @@ router.get('/current', requireAuth, async (req, res, next) => {
     })
     let joinedGroupList = []
     for (let group of joinedGroup) {
-        joinedGroupList.push(group.dataValues.id)
+        joinedGroupList.push(group.dataValues.groupId)
     }
+    console.log(joinedGroupList, joinedGroup)
     let groups = await Group.findAll({
         where: {
             id: {
@@ -142,10 +143,10 @@ router.put('/:groupId', requireAuth, orgCheck('Member'), async (req, res, next) 
         group.type = type
         group.private = private
         group.city = city
-        group.state = state    
+        group.state = state
         await group.save()
         res.json(group)
-    } catch(err) {
+    } catch (err) {
         if (!group || group == undefined || group == null) {
             const err = new Error();
             err.message = "Group couldn't be found"
@@ -169,12 +170,40 @@ router.put('/:groupId', requireAuth, orgCheck('Member'), async (req, res, next) 
 })
 
 router.delete('/:groupId', requireAuth, orgCheck('Organizer'), async (req, res, next) => {
-    await Group.destroy({
+    try {
+        await Group.destroy({
+            where: {
+                id: req.params.groupId
+            }
+        })
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
+    } catch (error) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+})
+
+router.get('/:groupId/venues', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
+    const venues = await Venue.findAll({
         where: {
-            id: req.params.groupId
+            groupId: req.params.groupId
         }
     })
-    next();
+    if (!venues || venues == undefined || venues == null) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    } else {
+        res.json({
+            Venues: venues
+        })
+    }
 })
 
 module.exports = router;

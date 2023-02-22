@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Venue.belongsTo(
         models.Group,
-        {foreignKey:'groupId'}
+        { foreignKey: 'groupId' }
       ),
-      Venue.hasMany(
-        models.Event,
-        {foreignKey:'venueId'}
-      )
+        Venue.hasMany(
+          models.Event,
+          { foreignKey: 'venueId' }
+        )
     }
   }
   Venue.init({
@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Venue',
+    defaultScope: {
+      attributes: ['id', 'groupId', 'address', 'city', 'state', 'lat', 'lng']
+    }
   });
   return Venue;
 };
