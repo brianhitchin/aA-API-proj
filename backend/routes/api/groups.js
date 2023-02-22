@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { requireAuth, orgCheck } = require('../../utils/auth');
-const { Group, GroupImage, Membership, User, Venue } = require('../../db/models');
+const { Group, GroupImage, Membership, User, Venue, EventImage, Attendance, Event } = require('../../db/models');
 const sequelize = require('sequelize')
 const Op = sequelize.Op
 
@@ -242,6 +242,34 @@ router.post('/:groupId/venues', requireAuth, orgCheck('Co-Host'), async (req, re
         err.status = 400;
         next(err);
     }
+})
+
+router.get('/:groupId/events', async (req, res, next) => {
+    const groupchk = await Group.findByPk(req.params.groupId)
+    if (!groupchk) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    const events = await Event.findAll({
+        include: [
+        {model: Group, attributes: ['id', 'name', 'city', 'state']},
+        {model: Venue, attributes: ['id', 'city', 'state']},
+        {model: EventImage, attributes: []},
+        {model: Attendance, attributes: []}],
+        attributes: {
+            include: [[sequelize.fn("COUNT", sequelize.col("Attendances.id")), "numAttending"],
+            [sequelize.col("EventImages.url"), "previewImage"]]
+        },
+        where: {
+            groupId: req.params.groupId
+        },
+        group: ['Event.id']
+    })
+    res.json({
+        Events: events
+    })
 })
 
 module.exports = router;
