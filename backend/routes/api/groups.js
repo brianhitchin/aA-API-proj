@@ -3,6 +3,7 @@ const router = express.Router()
 const { requireAuth, orgCheck } = require('../../utils/auth');
 const { Group, GroupImage, Membership, User, Venue } = require('../../db/models');
 const sequelize = require('sequelize')
+const Op = sequelize.Op
 
 router.get('/', async (req, res, next) => {
     //maybe refactor later, cannot think of any other way than N+1. Tried including.
@@ -17,9 +18,20 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/current', requireAuth, async (req, res, next) => {
+    let joinedGroup = await Membership.findAll({
+        where: {
+            userId: req.user.id
+        }
+    })
+    let joinedGroupList = []
+    for (let group of joinedGroup) {
+        joinedGroupList.push(group.dataValues.id)
+    }
     let groups = await Group.findAll({
         where: {
-            organizerId: req.user.id
+            id: {
+                [Op.in]: [...joinedGroupList]
+            }
         },
         include: [
             { model: Membership, attributes: [] },
@@ -31,9 +43,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
         },
         group: ['Group.id']
     });
-    if (groups[0].id !== undefined) {
-        console.log(groups.length)
-        res.json(groups)
+    if (groups !== undefined) {
+        res.json({
+            Groups: groups
+        }
+        )
     } else {
         const err = new Error('No groups!');
         err.status = 404;
@@ -92,7 +106,7 @@ router.post('/', requireAuth, async (req, res, next) => {
     }
 })
 
-router.post('/:groupId/images', requireAuth, async (req, res, next) => {
+router.post('/:groupId/images', requireAuth, orgCheck('Organizer'), async (req, res, next) => {
     const { url, preview } = req.body
     const group = await Group.findByPk(req.params.groupId)
     if (!group) {
@@ -115,8 +129,52 @@ router.post('/:groupId/images', requireAuth, async (req, res, next) => {
     if (checker) {
         res.json(checker)
     } else {
-        throw new Error('no chkr')
+        throw new Error('No group made')
     }
+})
+
+router.put('/:groupId', requireAuth, orgCheck('Member'), async (req, res, next) => {
+    const { name, about, type, private, city, state } = req.body
+    const group = await Group.findByPk(req.params.groupId)
+    try {
+        group.name = name
+        group.about = about
+        group.type = type
+        group.private = private
+        group.city = city
+        group.state = state    
+        await group.save()
+        res.json(group)
+    } catch(err) {
+        if (!group || group == undefined || group == null) {
+            const err = new Error();
+            err.message = "Group couldn't be found"
+            err.status = 404;
+            next(err);
+        } else {
+            const err = new Error();
+            err.status = 400
+            err.message = 'Validation Error'
+            err.errors = {
+                "name": "Name must be 60 characters or less",
+                "about": "About must be 50 characters or more",
+                "type": "Type must be 'Online' or 'In person'",
+                "private": "Private must be a boolean",
+                "city": "City is required",
+                "state": "State is required",
+            }
+            next(err)
+        }
+    }
+})
+
+router.delete('/:groupId', requireAuth, orgCheck('Organizer'), async (req, res, next) => {
+    await Group.destroy({
+        where: {
+            id: req.params.groupId
+        }
+    })
+    next();
 })
 
 module.exports = router;

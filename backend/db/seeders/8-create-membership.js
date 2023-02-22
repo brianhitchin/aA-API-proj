@@ -7,30 +7,30 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'Attendances';
+    options.tableName = 'Memberships';
     return queryInterface.bulkInsert(options, [
       {
-        eventId: 1,
         userId: 1,
-        status: 'Attendance1 status'
+        groupId: 1,
+        status: 'Organizer'
       },
       {
-        eventId: 2,
         userId: 2,
-        status: 'Attendance2 status'
+        groupId: 2,
+        status: 'Organizer'
 
       },
       {
-        eventId: 3,
         userId: 3,
-        status: 'Attendance3 status'
+        groupId: 3,
+        status: 'Organizer'
 
       }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'Attendances';
+    options.tableName = 'Memberships';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       userId: { [Op.in]: [1,2,3] }
