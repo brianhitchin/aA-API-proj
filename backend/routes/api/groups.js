@@ -206,4 +206,42 @@ router.get('/:groupId/venues', requireAuth, orgCheck('Co-Host'), async (req, res
     }
 })
 
+router.post('/:groupId/venues', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
+    const { address, city, state, lat, lng } = req.body
+    const group = await Group.findByPk(req.params.groupId)
+    if (!group || group == undefined || group == null) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    try {
+        const newVenue = await Venue.create({
+            groupId: req.params.groupId,
+            address,
+            city,
+            state,
+            lat,
+            lng
+        })
+        res.json(await Venue.findOne({
+            where: {
+                address: address
+            }
+        }))
+    } catch (error) {
+        const err = new Error();
+        err.message = 'Validation error'
+        err.errors = {
+            "address": "Street address is required",
+            "city": "City is required",
+            "state": "State is required",
+            "lat": "Latitude is not valid",
+            "lng": "Longitude is not valid"
+        }
+        err.status = 400;
+        next(err);
+    }
+})
+
 module.exports = router;
