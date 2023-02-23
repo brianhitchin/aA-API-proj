@@ -315,4 +315,76 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
     res.json(newEventChk)
 })
 
+router.get('/:groupId/members', async (req, res, next) => {
+    const groupChk = await Group.findByPk(req.params.groupId)
+    if (!groupChk || !groupChk.dataValues) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    const members = await Membership.findAll({
+        where: {
+            groupId: req.params.groupId
+        }
+    })
+    const memberList = []
+    for (let member of members) {
+        memberList.push(member.dataValues.userId)
+    }
+    const memberDetails = await User.findAll({
+        where: {
+            id: {
+                [Op.in]: [...memberList]
+            }
+        },
+        attributes: ['id', 'firstName', 'lastName'],
+        include: { model: Membership, attributes: ['status'], where: { groupId: req.params.groupId } }
+    })
+    res.json({
+        Members: memberDetails
+    })
+})
+
+//N+1 ok. tojson members and attach the 342 include as N+1 for all
+//prob memberDetails, leave upto 341, and foreach 342
+
+router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
+    const groupChk = await Group.findByPk(req.params.groupId)
+    if (!groupChk || !groupChk.dataValues) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    const { memberId, status } = req.body
+    const existChk = await Membership.findOne({
+        where: {
+            userId: req.user.id,
+            groupId: req.params.groupId,
+        }
+    })
+    if (existChk && existChk.status == 'Pending') {
+        const err = new Error();
+        err.message = "Membership has already been requested"
+        err.status = 400;
+        next(err);
+    }
+    if (existChk) {
+        const err = new Error();
+        err.message = "User is already a member of the group"
+        err.status = 400;
+        next(err)
+    }
+    const newMembership = await Membership.create({
+        userId: req.user.id,
+        groupId: req.params.groupId,
+        status: 'Pending'
+    })
+    res.json({
+        memberId: newMembership.id,
+        status: newMembership.status
+    })
+})
+
 module.exports = router;
