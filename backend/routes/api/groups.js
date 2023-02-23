@@ -388,7 +388,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
 })
 
 router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
-    const {memberId, status} = req.body
+    const { memberId, status } = req.body
     if (status == 'Pending') {
         const err = new Error('Validations required');
         err.status = 400;
@@ -404,7 +404,6 @@ router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req,
         }
     }
     const rightUser = await User.findByPk(memberId)
-    console.log(memberId, rightUser.dataValues)
     if (!rightUser || !rightUser.id) {
         const err = new Error('Validations required');
         err.status = 400;
@@ -430,6 +429,51 @@ router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req,
         memberId,
         status: rightMembership.status
     })
+})
+
+router.delete('/:groupId/membership', requireAuth, orgCheck('Member'), async (req, res, next) => {
+    const { memberId } = req.body
+    if (req.coro !== 'Organizer') {
+        if (req.user.id !== memberId) {
+            const err = new Error('Authorization required')
+            err.status = 401;
+            err.errors = { message: 'Authorization required - not organizer nor user' };
+            return next(err);
+        }
+    }
+    const rightUser = await User.findByPk(memberId)
+    if (!rightUser || !rightUser.id) {
+        const err = new Error('Validations required');
+        err.status = 400;
+        err.errors = { memberId: "User couldn't be found" };
+        return next(err)
+    }
+    const groupChk = await Group.findByPk(req.params.groupId)
+    if (!groupChk || !groupChk.dataValues) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    const rightMembership = await Membership.findOne({
+        where: {
+            userId: memberId,
+            groupId: req.params.groupId
+        }
+    })
+    if (!rightMembership || !rightMembership.id) {
+        const err = new Error("Membership does not exist for this User");
+        err.status = 404;
+        return next(err)
+    }
+    try {
+        await rightMembership.destroy();
+        res.json({
+            message: "Successfully deleted membership from group"
+        })
+    } catch (error) {
+
+    }
 })
 
 module.exports = router;

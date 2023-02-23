@@ -79,7 +79,8 @@ const orgCheck = (role = 'Member') => {
                         groupId: req.params.groupId
                     }
                 })
-                if (member !== null) {
+                if (member) {
+                    req.coro = member.dataValues.status
                     return next();
                 }
                 err.errors = { message: 'Authorization required' };
