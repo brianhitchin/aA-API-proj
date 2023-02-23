@@ -12,18 +12,18 @@ module.exports = {
       {
         eventId: 1,
         userId: 1,
-        status: 'Present'
+        status: 'Attendee'
       },
       {
         eventId: 2,
         userId: 2,
-        status: 'Absent'
+        status: 'Co-Host'
 
       },
       {
         eventId: 3,
         userId: 3,
-        status: 'Absent'
+        status: 'Host'
       }
     ], {});
   },

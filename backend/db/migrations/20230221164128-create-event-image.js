@@ -19,7 +19,7 @@ module.exports = {
         references: {model: 'Events'}
       },
       url: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
       },
       preview: {

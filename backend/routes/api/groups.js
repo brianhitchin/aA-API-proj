@@ -27,7 +27,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
     for (let group of joinedGroup) {
         joinedGroupList.push(group.dataValues.groupId)
     }
-    console.log(joinedGroupList, joinedGroup)
     let groups = await Group.findAll({
         where: {
             id: {
@@ -254,10 +253,10 @@ router.get('/:groupId/events', async (req, res, next) => {
     }
     const events = await Event.findAll({
         include: [
-        {model: Group, attributes: ['id', 'name', 'city', 'state']},
-        {model: Venue, attributes: ['id', 'city', 'state']},
-        {model: EventImage, attributes: []},
-        {model: Attendance, attributes: []}],
+            { model: Group, attributes: ['id', 'name', 'city', 'state'] },
+            { model: Venue, attributes: ['id', 'city', 'state'] },
+            { model: EventImage, attributes: [] },
+            { model: Attendance, attributes: [] }],
         attributes: {
             include: [[sequelize.fn("COUNT", sequelize.col("Attendances.id")), "numAttending"],
             [sequelize.col("EventImages.url"), "previewImage"]]
@@ -270,6 +269,50 @@ router.get('/:groupId/events', async (req, res, next) => {
     res.json({
         Events: events
     })
+})
+
+router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    const groupchk = await Group.findByPk(req.params.groupId)
+    if (!groupchk) {
+        const err = new Error();
+        err.message = "Group couldn't be found"
+        err.status = 404;
+        next(err);
+    }
+    const newEvent = await Event.create({
+        venueId,
+        groupId: req.params.groupId,
+        name,
+        description,
+        type,
+        capacity,
+        price,
+        startDate,
+        endDate
+    })
+    const newEventChk = await Event.findOne({
+        where: {
+            name: name
+        }
+    })
+    if (!newEventChk || !newEventChk.id) {
+        const err = new Error();
+        err.message = "Validation error"
+        err.status = 400;
+        err.errors = {
+            "venueId": "Venue does not exist",
+            "name": "Name must be at least 5 characters",
+            "type": "Type must be Online or In person",
+            "capacity": "Capacity must be an integer",
+            "price": "Price is invalid",
+            "description": "Description is required",
+            "startDate": "Start date must be in the future",
+            "endDate": "End date is less than start date"
+        }
+        return next(err)
+    }
+    res.json(newEventChk)
 })
 
 module.exports = router;
