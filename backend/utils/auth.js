@@ -91,7 +91,9 @@ const orgCheck = (role = 'Member') => {
                         groupId: req.params.groupId
                     }
                 })
-                if (cohost !== null && (cohost.dataValues.status == 'Co-host' || cohost.dataValues.status == 'Organizer' )) {
+                console.log(cohost.dataValues.status)
+                if (cohost !== null && (cohost.dataValues.status == 'Co-Host' || cohost.dataValues.status == 'Organizer' )) {
+                    req.coro = cohost.dataValues.status
                     return next();
                 }
                 err.errors = { message: 'Authorization required - not Co-Host or Organizer' };

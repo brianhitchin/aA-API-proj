@@ -387,4 +387,49 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
     })
 })
 
+router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
+    const {memberId, status} = req.body
+    if (status == 'Pending') {
+        const err = new Error('Validations required');
+        err.status = 400;
+        err.errors = { status: "Cannot change a membership status to pending" };
+        return next(err)
+    }
+    if (status == 'Co-Host') {
+        if (req.coro !== 'Organizer') {
+            const err = new Error('Authorization required');
+            err.status = 401;
+            err.errors = { message: 'Authorization required - to change to Co-Host, you need to be the organizer' };
+            return next(err)
+        }
+    }
+    const rightUser = await User.findByPk(memberId)
+    console.log(memberId, rightUser.dataValues)
+    if (!rightUser || !rightUser.id) {
+        const err = new Error('Validations required');
+        err.status = 400;
+        err.errors = { memberId: "User couldn't be found" };
+        return next(err)
+    }
+    const rightMembership = await Membership.findOne({
+        where: {
+            userId: memberId,
+            groupId: req.params.groupId
+        }
+    })
+    if (!rightMembership || !rightMembership.id) {
+        const err = new Error("Membership between the user and the group does not exist");
+        err.status = 404;
+        return next(err)
+    }
+    rightMembership.status = status
+    await rightMembership.save();
+    res.json({
+        id: rightMembership.id,
+        groupId: rightMembership.groupId,
+        memberId,
+        status: rightMembership.status
+    })
+})
+
 module.exports = router;
