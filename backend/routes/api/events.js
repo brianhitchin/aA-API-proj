@@ -93,4 +93,15 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
     }
 })
 
+router.delete('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, next) => {
+    await Event.destroy({
+        where: {
+            id: req.params.eventId
+        }
+    })
+    res.json({
+        "message": "Successfully deleted"
+    })
+})
+
 module.exports = router;

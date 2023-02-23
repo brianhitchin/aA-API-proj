@@ -17,7 +17,7 @@ module.exports = {
       {
         userId: 2,
         groupId: 2,
-        status: 'Organizer'
+        status: 'Co-Host'
 
       },
       {
@@ -25,6 +25,16 @@ module.exports = {
         groupId: 3,
         status: 'Organizer'
 
+      },
+      {
+        userId: 1,
+        groupId: 3,
+        status: 'Member'
+      },
+      {
+        userId: 2,
+        groupId: 3,
+        status: 'Member'
       }
     ], {});
   },

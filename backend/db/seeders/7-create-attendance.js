@@ -24,6 +24,16 @@ module.exports = {
         eventId: 3,
         userId: 3,
         status: 'Host'
+      },
+      {
+        eventId: 3,
+        userId: 1,
+        status: 'Attendee'
+      },
+      {
+        eventId: 3,
+        userId: 2,
+        status: 'Co-Host'
       }
     ], {});
   },

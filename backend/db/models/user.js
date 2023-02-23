@@ -43,15 +43,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(
         models.Attendance,
-        {foreignKey: 'userId'}
+        {foreignKey: 'userId', onDelete: 'cascade', hooks: true}
       ),
       User.hasMany(
         models.Membership,
-        {foreignKey: 'userId'}
+        {foreignKey: 'userId', onDelete: 'cascade', hooks: true}
       ),
       User.hasMany(
         models.Group,
-        {foreignKey: 'organizerId'}
+        {foreignKey: 'organizerId', onDelete: 'cascade', hooks: true}
       )
     }
   };
