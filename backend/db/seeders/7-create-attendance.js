@@ -31,6 +31,11 @@ module.exports = {
         status: 'Attendee'
       },
       {
+        eventId: 1,
+        userId: 3,
+        status: 'Pending'
+      },
+      {
         eventId: 3,
         userId: 2,
         status: 'Co-Host'

@@ -180,7 +180,6 @@ const orgCheckEv = (role = 'Attendee') => {
                     return next(err);
                 }
                 return next();
-
             case 'Co-Host':
                 const attendanceC = await Attendance.findOne({
                     where: {
@@ -188,13 +187,13 @@ const orgCheckEv = (role = 'Attendee') => {
                         eventId: req.params.eventId
                     }
                 })
-                if (!attendanceC || !attendanceC.status) {
+                if (attendanceC.status == 'Co-Host' || attendanceC.status == 'Host') {return next();}
+                else {
                     err.errors = { message: 'Authorization required - not Co-Host or Host' };
                     return next(err);
                 }
-                if (attendanceC.status == 'Co-Host' || attendanceC.status == 'Host') {return next();}
             case 'Host':
-                const membershipChkO = await Membership.findOne({
+                const membershipChkO = await Attendance.findOne({
                     where: {
                         userId: req.user.id,
                         eventId: req.params.eventId
