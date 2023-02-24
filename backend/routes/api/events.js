@@ -6,21 +6,93 @@ const sequelize = require('sequelize')
 const Op = sequelize.Op
 
 router.get('/', async (req, res, next) => {
-    const events = await Event.findAll({
-        include: [
-            { model: Group, attributes: ['id', 'name', 'city', 'state'] },
-            { model: Venue, attributes: ['id', 'city', 'state'] },
-            { model: EventImage, attributes: [] },
-            { model: Attendance, attributes: [] }],
-        attributes: {
-            include: [[sequelize.fn("COUNT", sequelize.col("Attendances.id")), "numAttending"],
-            [sequelize.col("EventImages.url"), "previewImage"]]
-        },
-        group: ['Event.id']
-    })
-    res.json({
-        Events: events
-    })
+    let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+    let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+    if (page > 10 || size > 20) {
+        let err = new Error();
+        err.status = 400
+        err.message = "Validation Error"
+        err.errors = {
+            page: "Page must be greater than or equal to 1",
+            size: "Size must be greater than or equal to 1",
+            name: "Name must be a string",
+            type: "Type must be 'Online' or 'In Person'",
+            startDate: "Start date must be a valid datetime"
+        }
+        return next(err)
+    }
+    const pagination = {};
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    }
+    let where = {}
+    if (req.query.name) {
+        where.name = req.query.name
+    }
+    if (req.query.type) {
+        where.type = req.query.type
+    }
+    try {
+        const events = await Event.findAll({
+            where,
+            include: [
+                { model: Group, attributes: ['id', 'name', 'city', 'state'] },
+                { model: Venue, attributes: ['id', 'city', 'state'] },
+                { model: EventImage, attributes: [] },
+                { model: Attendance, attributes: [] }],
+            group: ['Event.id'],
+            ...pagination
+        })
+        let resObj = []
+        let resObjF = []
+        for (let i=0; i<events.length; i++) {
+            const entree = events[i]
+            resObj.push(entree.toJSON())
+        }
+        for (let j=0; j<resObj.length;j++) {
+            const entree = resObj[j]
+            const entreeAttendance = await Attendance.findAll({
+                where: {
+                    eventId: entree.id
+                }
+            })
+            const entreeImage = await EventImage.findOne({
+                where: {
+                    eventId: entree.id
+                },
+                attributes: ['url']
+            }) 
+            entree.numAttending = entreeAttendance.length
+            if (entreeImage) {
+                entree.previewImage = entreeImage.url
+            } else {
+                entree.previewImage = 'No image yet!'
+            }
+            if (req.query.startDate) {
+                const day = new Date(req.query.startDate).toDateString()
+                const splicedday = entree.startDate.toDateString()
+                if (day == splicedday) {
+                    resObjF.push(entree)
+                }
+            }
+        }
+        if (req.query.startDate) {res.json(resObjF)}
+        else {res.json(resObj)}
+    } catch (error) {
+        let err = new Error();
+        console.log(error)
+        err.status = 400
+        err.message = "Validation Error"
+        err.errors = {
+            page: "Page must be greater than or equal to 1",
+            size: "Size must be greater than or equal to 1",
+            name: "Name must be a string",
+            type: "Type must be 'Online' or 'In Person'",
+            startDate: "Start date must be a valid datetime"
+        }
+        return next(err)
+    }
 })
 
 router.get('/:eventId', async (req, res, next) => {
@@ -240,7 +312,7 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
 })
 
 router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
-    const {userId} = req.body
+    const { userId } = req.body
     const thisevent = await Event.findByPk(req.params.eventId)
     if (!thisevent || !thisevent.id) {
         const err = new Error();

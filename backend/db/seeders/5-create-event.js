@@ -7,6 +7,10 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    function dc(x) {
+      let y = new Date(x.toString().slice(0,15))
+      return y
+    }
     options.tableName = 'Events';
     return queryInterface.bulkInsert(options, [
       {
@@ -17,8 +21,8 @@ module.exports = {
         type: 'Event1 type',
         capacity: 50,
         price: 30,
-        startDate: '2022-01-01',
-        endDate: '2022-01-02'
+        startDate: dc('2022-01-01 00:00:00'),
+        endDate: dc('2022-01-01 00:00:00')
       },
       {
         venueId: 2,
@@ -28,8 +32,8 @@ module.exports = {
         type: 'Event2 type',
         capacity: 20,
         price: 10,
-        startDate: '2022-01-02',
-        endDate: '2022-01-03'
+        startDate: dc('2022-01-01 00:00:00'),
+        endDate: dc('2022-01-03 00:00:00')
       },
       {
         venueId: 3,
@@ -39,8 +43,8 @@ module.exports = {
         type: 'Event3 type',
         capacity: 1000,
         price: 100,
-        startDate: '2022-01-03',
-        endDate: '2022-01-04'
+        startDate: dc('2022-01-03 00:00:00'),
+        endDate: dc('2022-01-04 00:00:00')
       }
     ], {});
   },
