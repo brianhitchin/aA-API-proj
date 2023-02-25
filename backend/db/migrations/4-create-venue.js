@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Venues', {
+    await queryInterface.createTable("Venues", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = {
       },
       groupId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Groups'},
+        references: {model: "Groups"},
         onDelete: 'SET NULL'
       },
       address: {
