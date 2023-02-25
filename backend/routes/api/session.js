@@ -1,5 +1,5 @@
 const express = require('express')
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
 const { check } = require('express-validator');
@@ -35,7 +35,13 @@ router.post(
         await setTokenCookie(res, user);
 
         return res.json({
-            user: user
+            user: {
+                "id": user.id,
+                "firstName": user.firstName,
+                "lastName": user.lastName,
+                "email": user.email,
+                "username": user.username
+            }
         });
     }
 );
@@ -50,7 +56,7 @@ router.delete(
 
 router.get(
     '/',
-    restoreUser,
+    requireAuth, restoreUser,
     (req, res) => {
         const { user } = req;
         if (user) {
