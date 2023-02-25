@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Memberships', {
+    await queryInterface.createTable("Memberships", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,13 +16,13 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Users'},
+        references: {model: "Users"},
         onDelete: 'CASCADE'
       },
       groupId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Groups'},
+        references: {model: "Groups"},
         onDelete: 'CASCADE'
       },
       status: {

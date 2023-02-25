@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('EventImages', {
+    await queryInterface.createTable("EventImages", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = {
       eventId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Events'},
+        references: {model: "Events"},
         onDelete: 'CASCADE'
       },
       url: {
