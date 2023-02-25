@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model: 'Events'},
-        onDelete: 'cascade'
+        onDelete: 'CASCADE'
       },
       url: {
         type: Sequelize.STRING,

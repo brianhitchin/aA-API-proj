@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       ),
       Event.belongsTo(
         models.Group,
-        {foreignKey: 'groupId'}
+        {foreignKey: 'groupId', onDelete: 'cascade', hooks: true, allowNull: false}
       ),
       Event.hasMany(
         models.EventImage,
-        {foreignKey: 'eventId', onDelete: 'cascade', hooks: true}
+        {foreignKey: 'eventId', onDelete: 'CASCADE', hooks: true}
       ),
       Event.hasMany(
         models.Attendance,

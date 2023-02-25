@@ -13,23 +13,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Group.hasMany(
         models.Event,
-        {foreignKey:'groupId', onDelete: 'cascade', hooks: true},
+        {foreignKey:'groupId', onDelete: 'CASCADE', hooks: true},
       ),
       Group.hasMany(
         models.Venue,
-        {foreignKey:'groupId'}
+        {foreignKey:'groupId', onDelete: 'SET NULL', hooks: true}
       ),
       Group.hasMany(
         models.GroupImage,
-        {foreignKey:'groupId', onDelete: 'cascade', hooks: true}
+        {foreignKey:'groupId', onDelete: 'CASCADE', hooks: true}
       ),
       Group.hasMany(
         models.Membership,
-        {foreignKey:'groupId', onDelete: 'cascade', hooks: true}
+        {foreignKey:'groupId', onDelete: 'CASCADE', hooks: true}
       ),
       Group.belongsTo(
         models.User,
-        {foreignKey:'organizerId', as:'Organizer'}
+        {foreignKey:'organizerId', as:'Organizer', onDelete: 'cascade', hooks: true, allowNull: false}
       )
     }
   }

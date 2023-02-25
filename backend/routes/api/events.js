@@ -92,7 +92,6 @@ router.get('/', async (req, res, next) => {
             }
         })
         let err = new Error();
-        console.log(error)
         err.status = 400
         err.message = "Validation Error"
         err.errors = {
@@ -151,7 +150,8 @@ router.post('/:eventId/images', requireAuth, orgCheckEv('Attendee'), async (req,
     const checker = await EventImage.findOne({
         where: {
             url: url
-        }
+        },
+        attributes: ['id', 'url', 'preview']
     })
     res.json(checker)
 })
@@ -160,6 +160,13 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
     const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
     const curEvent = await Event.findByPk(req.params.eventId)
     try {
+        const exist = await Venue.findByPk(venueId)
+        if (!exist) {
+            return res.status(404).json({
+                message: "Venue couldn't be found",
+                statusCode: 404
+            })
+        }
         curEvent.venueId = venueId
         curEvent.name = name
         curEvent.type = type
@@ -169,7 +176,18 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
         curEvent.startDate = startDate
         curEvent.endDate = endDate
         await curEvent.save();
-        res.json(curEvent)
+        res.json({
+            id: curEvent.id,
+            groupId: curEvent.groupId,
+            venue: curEvent.venueId,
+            name: curEvent.name,
+            type: curEvent.type,
+            capacity: curEvent.capacity,
+            price: curEvent.price,
+            description: curEvent.description,
+            startDate: curEvent.startDate,
+            endDate: curEvent.endDate            
+        })
     } catch (error) {
         return res.status(400).json({
             message: "Event couldn't be found",
@@ -316,7 +334,6 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
         status: "Pending"
     })
     res.json({
-        eventId: req.params.eventId,
         userId: req.user.id,
         status: "Pending"
     })
@@ -331,7 +348,7 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
             statusCode: 404
         })
     }
-    if (status == 'Pending') {
+    if (status == 'Pending' || status == 'pending') {
         return res.status(400).json({
             message: "Cannot change a attendance status to pending",
             statusCode: 400
@@ -348,7 +365,6 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
         },
         attributes: ['id', 'eventId', 'userId', 'status']
     })
-    console.log(aretheycomingeve)
     if (!aretheycoming || !aretheycoming.id) {
         return res.status(404).json({
             message: "Attendance between the user and the event does not exist",
@@ -361,7 +377,12 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
     }
     aretheycoming.status = status
     await aretheycoming.save();
-    res.json(aretheycoming)
+    res.json({
+        id: aretheycoming.id,
+        eventId: aretheycoming.groupId,
+        userId: aretheycoming.userId,
+        status: aretheycoming.status
+    })
 })
 
 router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
@@ -400,7 +421,12 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
         err.message = "Only the User or organizer may delete an Attendance"
         return next(err)
     }
-    await thisattendance.destroy();
+    await Attendance.destroy({
+        where: {
+            eventId: req.params.eventId,
+            userId
+        }
+    });
     res.json({
         message: "Successfully deleted attendance from event"
     })

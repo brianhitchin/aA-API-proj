@@ -278,6 +278,7 @@ router.delete('/:groupId', requireAuth, orgCheck('Organizer'), async (req, res, 
     } catch (error) {
         return res.status(404).json({
             message: "Group couldn't be found",
+            what: error,
             statusCode: 404
         })
         const err = new Error();
@@ -523,9 +524,12 @@ router.get('/:groupId/members', async (req, res, next) => {
                 final.push(y)
             }
         }
+        res.json({
+            Members: final
+        })
     }
     res.json({
-        Members: final
+        Members: resObj
     })
 })
 
@@ -573,7 +577,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
         status: 'Pending'
     })
     res.json({
-        memberId: newMembership.id,
+        userId: newMembership.userId,
         status: newMembership.status
     })
 })
@@ -695,12 +699,20 @@ router.delete('/:groupId/membership', requireAuth, orgCheck('Member'), async (re
         return next(err)
     }
     try {
-        await rightMembership.destroy();
+        await Membership.destroy({
+            where: {
+                userId: memberId,
+                groupId: req.params.groupId
+            }
+        });
         res.json({
             message: "Successfully deleted membership from group"
         })
     } catch (error) {
-
+        return res.status(404).json({
+            message: "wtf",
+            statusCode: 404,
+        })
     }
 })
 

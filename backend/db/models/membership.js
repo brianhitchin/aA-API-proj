@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Membership.belongsTo(
         models.Group,
-        {foreignKey:'groupId'}
+        {foreignKey:'groupId', onDelete: 'cascade', hooks: true, allowNull: false}
       ),
       Membership.belongsTo(
         models.User,
-        {foreignKey:'userId'}
+        {foreignKey:'userId', onDelete: 'cascade', hooks: true, allowNull: false}
       )
     }
   }

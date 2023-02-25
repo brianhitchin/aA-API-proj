@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model: 'Groups'},
-        onDelete: 'cascade'
+        onDelete: 'CASCADE'
       },
       name: {
         type: Sequelize.STRING,

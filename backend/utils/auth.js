@@ -60,15 +60,16 @@ const requireAuth = function (req, _res, next) {
 }
 
 const orgCheck = (role = 'Member') => {
-    return async (req, _res, next) => {
+    return async (req, res, next) => {
         const err = new Error('Authorization required');
         err.status = 401;
         if (req.params.groupId) {
             const checkIfExists = await Group.findByPk(req.params.groupId)
             if (checkIfExists == null || checkIfExists == undefined) {
-                err.status = 404
-                err.message = "Group couldnt be found"
-                return next(err)
+                return res.status(404).json({
+                    message: "Group couldn't be found",
+                    statusCode: 404,
+                })
             }
         }
         switch (role) {
@@ -83,8 +84,11 @@ const orgCheck = (role = 'Member') => {
                     req.coro = member.dataValues.status
                     return next();
                 }
-                err.errors = { message: 'Authorization required' };
-                return next(err);
+                return res.status(401).json({
+                    message: "Group couldn't be found",
+                    statusCode: 401,
+                    errors: { message: 'Authorization required' }
+                })
             case 'Co-Host':
                 let cohost = await Membership.findOne({
                     where: {
@@ -92,13 +96,15 @@ const orgCheck = (role = 'Member') => {
                         groupId: req.params.groupId
                     }
                 })
-                console.log(cohost.dataValues.status)
-                if (cohost !== null && (cohost.dataValues.status == 'Co-Host' || cohost.dataValues.status == 'Organizer' )) {
+                if (cohost !== null && (cohost.dataValues.status == 'Co-Host' || cohost.dataValues.status == 'Organizer')) {
                     req.coro = cohost.dataValues.status
                     return next();
                 }
-                err.errors = { message: 'Authorization required - not Co-Host or Organizer' };
-                return next(err);
+                return res.status(401).json({
+                    message: "Authorization required",
+                    statusCode: 401,
+                    errors: { message: 'Authorization required - not Co-Host or Organizer' }
+                })
             case 'Organizer':
                 let group = await Group.findOne({
                     where: {
@@ -110,21 +116,23 @@ const orgCheck = (role = 'Member') => {
                         return next();
                     }
                 }
-                err.errors = { message: 'Authorization required - not Organizer' };
-                return next(err);
+                return res.status(401).json({
+                    message: "Authorization required",
+                    statusCode: 401,
+                    errors: { message: 'Authorization required - not Organizer' }
+                })
         }
     }
 }
 
 const orgCheckVe = (role = 'Member') => {
-    return async (req, _res, next) => {
-        const err = new Error('Authorization required');
-        err.status = 401;
+    return async (req, res, next) => {
         const checkIfExists = await Venue.findByPk(req.params.venueId)
         if (checkIfExists == null || checkIfExists == undefined) {
-            err.status = 404
-            err.message = "Venue couldnt be found"
-            return next(err)
+            return res.status(404).json({
+                message: "Venue couldn't be found",
+                statusCode: 404,
+            })
         }
         switch (role) {
             case 'Member':
@@ -137,10 +145,13 @@ const orgCheckVe = (role = 'Member') => {
                     }
                 })
                 if (!membershipChkC || !membershipChkC.status) {
-                    err.errors = { message: 'Authorization required - not Co-Host or Organizer' };
-                    return next(err);
+                    return res.status(401).json({
+                        message: "Authorization required",
+                        statusCode: 401,
+                        errors: { message: 'Authorization required - not Co-Host or Organizer' }
+                    })
                 }
-                if (membershipChkC.status == 'Co-Host' || membershipChkC.status == 'Organizer') {return next();}
+                if (membershipChkC.status == 'Co-Host' || membershipChkC.status == 'Organizer') { return next(); }
             case 'Organizer':
                 const attendanceO = await Membership.findOne({
                     where: {
@@ -149,23 +160,25 @@ const orgCheckVe = (role = 'Member') => {
                     }
                 })
                 if (!attendanceO || !attendanceO.status) {
-                    err.errors = { message: 'Authorization required - not Organizer' };
-                    return next(err);
+                    return res.status(401).json({
+                        message: "Authorization required",
+                        statusCode: 401,
+                        errors: { message: 'Authorization required - not Organizer' }
+                    })
                 }
-                if (attendanceO.status == 'Organizer') {return next();}
+                if (attendanceO.status == 'Organizer') { return next(); }
         }
     }
 }
 
 const orgCheckEv = (role = 'Attendee') => {
-    return async (req, _res, next) => {
-        const err = new Error('Authorization required');
-        err.status = 401;
+    return async (req, res, next) => {
         const checkIfExists = await Event.findByPk(req.params.eventId)
         if (checkIfExists == null || checkIfExists == undefined) {
-            err.status = 404
-            err.message = "Event couldnt be found"
-            return next(err)
+            return res.status(404).json({
+                message: "Event couldn't be found",
+                statusCode: 404,
+            })
         }
         switch (role) {
             case 'Attendee':
@@ -176,8 +189,11 @@ const orgCheckEv = (role = 'Attendee') => {
                     }
                 })
                 if (!attendance || !attendance.status) {
-                    err.errors = { message: 'Authorization required' };
-                    return next(err);
+                    return res.status(401).json({
+                        message: "Authorization required",
+                        statusCode: 401,
+                        errors: { message: 'Authorization required' }
+                    })
                 }
                 return next();
             case 'Co-Host':
@@ -187,10 +203,22 @@ const orgCheckEv = (role = 'Attendee') => {
                         eventId: req.params.eventId
                     }
                 })
-                if (attendanceC.status == 'Co-Host' || attendanceC.status == 'Host') {return next();}
+                if (!attendanceC) {
+                    return res.status(401).json({
+                        message: "Attendance between the user and the event does not exist",
+                        statusCode: 404
+                    })
+                }
+                console.log(attendanceC.status)
+                if (attendanceC.status !== 'Co-Host' && attendanceC.status !== 'Host') { 
+                    return res.status(401).json({
+                        message: "Authorization required",
+                        statusCode: 401,
+                        errors: { message: 'Authorization required - not Co-Host or Organizer' }
+                    })
+                 }
                 else {
-                    err.errors = { message: 'Authorization required - not Co-Host or Host' };
-                    return next(err);
+                    return next()
                 }
             case 'Host':
                 const membershipChkO = await Attendance.findOne({
@@ -200,10 +228,13 @@ const orgCheckEv = (role = 'Attendee') => {
                     }
                 })
                 if (!membershipChkO || !membershipChkO.status) {
-                    err.errors = { message: 'Authorization required - not Host' };
-                    return next(err);
+                    return res.status(401).json({
+                        message: "Authorization required",
+                        statusCode: 401,
+                        errors: { message: 'Authorization required - not Host' }
+                    })
                 }
-                if (membershipChkO.status == 'Host') {return next();}
+                if (membershipChkO.status == 'Host') { return next(); }
         }
     }
 }

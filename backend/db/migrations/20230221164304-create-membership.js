@@ -17,13 +17,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model: 'Users'},
-        onDelete: 'cascade'
+        onDelete: 'CASCADE'
       },
       groupId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model: 'Groups'},
-        onDelete: 'cascade'
+        onDelete: 'CASCADE'
       },
       status: {
         type: Sequelize.STRING,
