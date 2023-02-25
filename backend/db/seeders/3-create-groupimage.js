@@ -11,18 +11,33 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: 'GroupImages1 url',
-        preview: 'GroupImages1 preview'
+        url: 'GroupImages1 url t',
+        preview: true
+      },
+      {
+        groupId: 1,
+        url: 'GroupImages1 url f',
+        preview: false
       },
       {
         groupId: 2,
-        url: 'GroupImages2 url',
-        preview: 'GroupImages2 preview'
+        url: 'GroupImages2 url t',
+        preview: true
+      },
+      {
+        groupId: 2,
+        url: 'GroupImages2 url f',
+        preview: false
       },
       {
         groupId: 3,
-        url: 'GroupImages3 url',
-        preview: 'GroupImages3 preview'
+        url: 'GroupImages3 url t',
+        preview: true
+      },
+      {
+        groupId: 3,
+        url: 'GroupImages3 url f',
+        preview: false
       }
     ], {});
   },

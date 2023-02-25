@@ -9,17 +9,17 @@ router.get('/', async (req, res, next) => {
     let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
     if (page > 10 || size > 20) {
-        let err = new Error();
-        err.status = 400
-        err.message = "Validation Error"
-        err.errors = {
-            page: "Page must be greater than or equal to 1",
-            size: "Size must be greater than or equal to 1",
-            name: "Name must be a string",
-            type: "Type must be 'Online' or 'In Person'",
-            startDate: "Start date must be a valid datetime"
-        }
-        return next(err)
+        return res.status(400).json({
+            message: "Event couldn't be found",
+            statusCode: 400,
+            errors: {
+                page: "Page must be greater than or equal to 1",
+                size: "Size must be greater than or equal to 1",
+                name: "Name must be a string",
+                type: "Type must be 'Online' or 'In Person'",
+                startDate: "Start date must be a valid datetime"
+            }
+        })
     }
     const pagination = {};
     if (page >= 1 && size >= 1) {
@@ -80,6 +80,17 @@ router.get('/', async (req, res, next) => {
         if (req.query.startDate) {res.json(resObjF)}
         else {res.json(resObj)}
     } catch (error) {
+        return res.status(400).json({
+            message: "Event couldn't be found",
+            statusCode: 400,
+            errors: {
+                page: "Page must be greater than or equal to 1",
+                size: "Size must be greater than or equal to 1",
+                name: "Name must be a string",
+                type: "Type must be 'Online' or 'In Person'",
+                startDate: "Start date must be a valid datetime"
+            }
+        })
         let err = new Error();
         console.log(error)
         err.status = 400
@@ -96,26 +107,38 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:eventId', async (req, res, next) => {
-    const events = await Event.findByPk(req.params.eventId, {
-        include: [
-            { model: Group, attributes: ['id', 'name', 'private', 'city', 'state'] },
-            { model: Venue, attributes: ['id', 'address', 'city', 'state', 'lat', 'lng'] },
-            { model: EventImage, attributes: ['id', 'url', 'preview'] },
-            { model: Attendance, attributes: [] }],
-        attributes: {
-            include: [[sequelize.fn("COUNT", sequelize.col("Attendances.id")), "numAttending"]]
-        },
-    })
-    if (!events.id) {
-        const err = new Error();
-        err.message = "Event couldn't be found"
-        err.status = 404;
-        next(err);
-    } else {
-        res.json({
-            Events: events
+    const events = await Event.findByPk(req.params.eventId)
+    if (!events) {
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
         })
-    }
+    } 
+    const resObj = events.toJSON()
+    const rightvenue = await Venue.findOne({
+        where: {
+            id: resObj.venueId
+        }
+    })
+    const images = await EventImage.findAll({
+        where: {
+            eventId: resObj.id
+        },
+        attributes: ['id', 'url', 'preview']
+    })
+    const orger = await Group.findByPk(resObj.groupId, {
+        attributes: ['id', 'name', 'private', 'city', 'state']
+    })
+    const attender = await Attendance.findAll({
+        where: {
+            eventId: resObj.id
+        }
+    })
+    resObj.numAttending = attender.length
+    resObj.Group = orger
+    resObj.Venue = rightvenue
+    resObj.EventImages = images
+    res.json(resObj)
 })
 
 router.post('/:eventId/images', requireAuth, orgCheckEv('Attendee'), async (req, res, next) => {
@@ -148,6 +171,20 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
         await curEvent.save();
         res.json(curEvent)
     } catch (error) {
+        return res.status(400).json({
+            message: "Event couldn't be found",
+            statusCode: 400,
+            errors: {
+                "venueId": "Venue does not exist",
+                "name": "Name must be at least 5 characters",
+                "type": "Type must be Online or In person",
+                "capacity": "Capacity must be an integer",
+                "price": "Price is invalid",
+                "description": "Description is required",
+                "startDate": "Start date must be in the future",
+                "endDate": "End date is less than start date"
+            }
+        })
         const newErr = new Error();
         newErr.status = 400
         newErr.message = 'Validation Error'
@@ -179,10 +216,10 @@ router.delete('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, 
 router.get('/:eventId/attendees', async (req, res, next) => {
     const rightEvent = await Event.findByPk(req.params.eventId)
     if (!rightEvent || !rightEvent.id) {
-        const err = new Error();
-        err.status = 404;
-        err.message = "Event couldn't be found"
-        return next(err)
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
+        })
     }
     let regid = rightEvent.dataValues.groupId
     const ruorg = await Group.findByPk(regid)
@@ -241,10 +278,10 @@ router.get('/:eventId/attendees', async (req, res, next) => {
 router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
     const rightEvent = await Event.findByPk(req.params.eventId)
     if (!rightEvent || !rightEvent.id) {
-        const err = new Error();
-        err.status = 404;
-        err.message = "Event couldn't be found"
-        return next(err)
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
+        })
     }
     const alreadyexist = await Attendance.findOne({
         where: {
@@ -254,11 +291,19 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
     })
     if (alreadyexist) {
         if (alreadyexist.status == 'Pending') {
+            return res.status(400).json({
+                message: "Attendance has already been requested",
+                statusCode: 400
+            })
             const err = new Error();
             err.status = 400;
             err.message = "Attendance has already been requested"
             return next(err)
         } else {
+            return res.status(400).json({
+                message: "User is already an attendee of the event",
+                statusCode: 400
+            })
             const err = new Error();
             err.status = 400;
             err.message = "User is already an attendee of the event"
@@ -281,12 +326,16 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
     const { userId, status } = req.body
     const rightEvent = await Event.findByPk(req.params.eventId)
     if (!rightEvent || !rightEvent.id) {
-        const err = new Error();
-        err.status = 404;
-        err.message = "Event couldn't be found"
-        return next(err)
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
+        })
     }
     if (status == 'Pending') {
+        return res.status(400).json({
+            message: "Cannot change a attendance status to pending",
+            statusCode: 400
+        })
         const err = new Error();
         err.status = 400;
         err.message = "Cannot change a attendance status to pending"
@@ -301,6 +350,10 @@ router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (re
     })
     console.log(aretheycomingeve)
     if (!aretheycoming || !aretheycoming.id) {
+        return res.status(404).json({
+            message: "Attendance between the user and the event does not exist",
+            statusCode: 404
+        })
         const err = new Error();
         err.status = 404;
         err.message = "Attendance between the user and the event does not exist"
@@ -315,10 +368,10 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
     const { userId } = req.body
     const thisevent = await Event.findByPk(req.params.eventId)
     if (!thisevent || !thisevent.id) {
-        const err = new Error();
-        err.status = 404;
-        err.message = "Event couldn't be found"
-        return next(err)
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
+        })
     }
     const thisgroup = await Group.findByPk(thisevent.groupId)
     const thisattendance = await Attendance.findOne({
@@ -328,12 +381,20 @@ router.delete('/:eventId/attendance', requireAuth, async (req, res, next) => {
         }
     })
     if (!thisattendance || !thisattendance.id) {
+        return res.status(404).json({
+            message: "Attendance does not exist for this User",
+            statusCode: 404
+        })
         const err = new Error();
         err.status = 404;
         err.message = "Attendance does not exist for this User"
         return next(err)
     }
     if (thisgroup.organizerId !== req.user.id && req.user.id !== userId) {
+        return res.status(403).json({
+            message: "Only the User or organizer may delete an Attendance",
+            statusCode: 403
+        })
         const err = new Error();
         err.status = 403;
         err.message = "Only the User or organizer may delete an Attendance"

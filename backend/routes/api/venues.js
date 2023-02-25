@@ -7,6 +7,10 @@ router.put('/:venueId', requireAuth, orgCheckVe('Co-Host'), async (req, res, nex
     const { address, city, state, lat, lng } = req.body
     const relvenue = await Venue.findByPk(req.params.venueId)
     if (!relvenue || !relvenue.id) {
+        return res.status(404).json({
+            message: "Venue couldn't be found",
+            statusCode: 404
+        })
         const err = new Error();
         err.status = 404;
         err.message = "Venue couldn't be found"
@@ -21,6 +25,17 @@ router.put('/:venueId', requireAuth, orgCheckVe('Co-Host'), async (req, res, nex
         await relvenue.save()
         res.json(relvenue)
     } catch (error) {
+        return res.status(400).json({
+            message: "Validation error",
+            statusCode: 400,
+            errors: {
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid"
+            }
+        })
         const err = new Error();
         err.status = 400;
         err.message = "Validation error"
