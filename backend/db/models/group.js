@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Group.belongsTo(
         models.User,
         {foreignKey:'organizerId', as:'Organizer', onDelete: 'cascade', hooks: true, allowNull: false}
+      ),
+      Group.hasMany(
+        models.GroupImage,
+        {foreignKey:'groupId', onDelete: 'cascade', hooks: true}
       )
     }
   }
@@ -48,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: "Group",
+    modelName: 'Group',
   });
   return Group;
 };
