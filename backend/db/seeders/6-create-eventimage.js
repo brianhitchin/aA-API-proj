@@ -46,7 +46,7 @@ module.exports = {
     options.tableName = 'EventImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      preview: { [Op.in]: [true, false] }
+      eventId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };
