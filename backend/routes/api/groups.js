@@ -371,6 +371,9 @@ router.get('/:groupId/events', async (req, res, next) => {
     const events = await Event.findAll({
         where: {
             groupId: req.params.groupId
+        },
+        attributes: {
+            include: ['capacity', 'price']
         }
     })
     const resObj = []
