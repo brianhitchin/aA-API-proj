@@ -176,8 +176,7 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
             })
         }
     }
-    if (!curEvent.id || !curEvent.startDate || !curEvent.endDate || curEvent.startDate > curEvent.endDate || !curEvent.name
-        || !curEvent.type || !curEvent.capacity || !curEvent.price || !curEvent.description) {
+    if (!venueId || !startDate || !endDate || startDate > endDate || !name || !type || !capacity || !price || !description) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
