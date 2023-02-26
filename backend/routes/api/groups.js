@@ -416,8 +416,8 @@ router.get('/:groupId/events', async (req, res, next) => {
 
 router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
     let { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
-    startDate = new Date(startDate.toString().slice(0, 15))
-    endDate = new Date(endDate.toString().slice(0, 15))
+    startDate = new Date(startDate.toString().slice(0, 10))
+    endDate = new Date(endDate.toString().slice(0, 10))
     const groupchk = await Group.findByPk(req.params.groupId)
     if (!groupchk) {
         return res.status(404).json({
