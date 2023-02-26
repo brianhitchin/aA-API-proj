@@ -437,12 +437,13 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             startDate,
             endDate
         })
+        const rightVenue = await Venue.findByPk(venueId)
         const newEventChk = await Event.scope('cevent').findOne({
             where: {
                 name: name
             }
         })
-        if (!newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || newEventChk.startDate > newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
+        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || newEventChk.startDate > newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
             || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description) {
             await Event.destroy({
                 where: {
