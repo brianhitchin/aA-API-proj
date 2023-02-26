@@ -379,7 +379,7 @@ router.get('/:groupId/events', async (req, res, next) => {
     }
     for (let j = 0; j < resObj.length; j++) {
         const resOb = resObj[j]
-        const ei = await EventImage.findAll({
+        const ei = await EventImage.findOne({
             where: {
                 eventId: resOb.id,
                 preview: true
