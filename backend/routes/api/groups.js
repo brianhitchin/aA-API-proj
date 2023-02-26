@@ -436,7 +436,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         startDate,
         endDate
     })
-    const newEventChk = await Event.findOne({
+    const newEventChk = await Event.scope('cevent').findOne({
         where: {
             name: name
         }
