@@ -8,6 +8,51 @@ const Op = sequelize.Op
 router.get('/', async (req, res, next) => {
     let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+    if (req.query.name) {
+        if (!typeof(req.query.name) == string) {
+            return res.status(400).json({
+                message: "Event couldn't be found",
+                statusCode: 400,
+                errors: {
+                    page: "Page must be greater than or equal to 1",
+                    size: "Size must be greater than or equal to 1",
+                    name: "Name must be a string",
+                    type: "Type must be 'Online' or 'In Person'",
+                    startDate: "Start date must be a valid datetime"
+                }
+            })
+        }
+    }
+    if (req.query.type) {
+        if (!typeof(req.query.name) == string) {
+            return res.status(400).json({
+                message: "Event couldn't be found",
+                statusCode: 400,
+                errors: {
+                    page: "Page must be greater than or equal to 1",
+                    size: "Size must be greater than or equal to 1",
+                    name: "Name must be a string",
+                    type: "Type must be 'Online' or 'In Person'",
+                    startDate: "Start date must be a valid datetime"
+                }
+            })
+        }
+    }
+    if (req.query.startDate) {
+        if (!typeof(req.query.name) == string) {
+            return res.status(400).json({
+                message: "Event couldn't be found",
+                statusCode: 400,
+                errors: {
+                    page: "Page must be greater than or equal to 1",
+                    size: "Size must be greater than or equal to 1",
+                    name: "Name must be a string",
+                    type: "Type must be 'Online' or 'In Person'",
+                    startDate: "Start date must be a valid datetime"
+                }
+            })
+        }
+    }
     if (page > 10 || size > 20) {
         return res.status(400).json({
             message: "Event couldn't be found",
