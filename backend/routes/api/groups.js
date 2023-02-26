@@ -372,9 +372,7 @@ router.get('/:groupId/events', async (req, res, next) => {
         where: {
             groupId: req.params.groupId
         },
-        attributes: {
-            include: ['capacity', 'price']
-        }
+        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate']
     })
     const resObj = []
     for (let i = 0; i < events.length; i++) {
@@ -409,6 +407,7 @@ router.get('/:groupId/events', async (req, res, next) => {
         if (ei) { resOb.previewImage = ei.url } else { resOb.previewImage = 'No preview image yet!' }
         resOb.Group = gp
         if (vn) { resOb.Venue = vn } else { resOb.Venue = null }
+
     }
     res.json({
         Events: resObj
