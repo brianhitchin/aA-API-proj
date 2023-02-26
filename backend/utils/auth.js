@@ -60,4 +60,4 @@ const requireAuth = function (req, _res, next) {
 }
 
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, orgCheck, orgCheckVe, orgCheckEv };
+module.exports = { setTokenCookie, restoreUser, requireAuth };
