@@ -14,24 +14,24 @@ module.exports = {
         address: 'Venue1 address',
         city: 'Venue1 city',
         state: 'CA',
-        lat: '1.1',
-        lng: '1.11'
+        lat: 1.1,
+        lng: 1.11
       },
       {
         groupId: 2,
         address: 'Venue2 address',
         city: 'Venue2 city',
         state: 'NY',
-        lat: '2.2',
-        lng: '2.22'
+        lat: 2.2,
+        lng: 2.22
       },
       {
         groupId: 3,
         address: 'Venue3 address',
         city: 'Venue3 city',
         state: 'IL',
-        lat: '3.3',
-        lng: '3.33'
+        lat: 3.3,
+        lng: 3.33
       }
     ], {});
   },

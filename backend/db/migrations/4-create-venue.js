@@ -35,7 +35,7 @@ module.exports = {
         allowNull: false
       },
       lng: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
       createdAt: {

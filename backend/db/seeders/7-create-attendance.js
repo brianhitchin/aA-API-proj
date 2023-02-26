@@ -38,7 +38,7 @@ module.exports = {
       {
         eventId: 3,
         userId: 2,
-        status: 'Co-Host'
+        status: 'Waitlist'
       }
     ], {});
   },
