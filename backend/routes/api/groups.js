@@ -436,16 +436,19 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         startDate,
         endDate
     })
-    const newEventChk = await Event.scope('cevent').findOne({
-        where: {
-            name: name
-        }
-    })
-    if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate) {
+    try {
+        const newEventChk = await Event.scope('cevent').findOne({
+            where: {
+                name: name
+            }
+        })
+        newEventChk.price = parseFloat(newEventChk.price)
+        res.json(newEventChk)
+    } catch (error) {
         return res.status(400).json({
             message: "Validation error",
             statusCode: 400,
-            errors : {
+            errors: {
                 "venueId": "Venue does not exist",
                 "name": "Name must be at least 5 characters",
                 "type": "Type must be Online or In person",
@@ -456,23 +459,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 "endDate": "End date is less than start date"
             }
         })
-        const err = new Error();
-        err.message = "Validation error"
-        err.status = 400;
-        err.errors = {
-            "venueId": "Venue does not exist",
-            "name": "Name must be at least 5 characters",
-            "type": "Type must be Online or In person",
-            "capacity": "Capacity must be an integer",
-            "price": "Price is invalid",
-            "description": "Description is required",
-            "startDate": "Start date must be in the future",
-            "endDate": "End date is less than start date"
-        }
-        return next(err)
     }
-    newEventChk.price = parseFloat(newEventChk.price)
-    res.json(newEventChk)
 })
 
 router.get('/:groupId/members', async (req, res, next) => {
@@ -591,7 +578,7 @@ router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req,
         return res.status(400).json({
             message: "Validation required",
             statusCode: 400,
-            errors : { status: "Cannot change a membership status to pending" }
+            errors: { status: "Cannot change a membership status to pending" }
         })
         const err = new Error('Validations required');
         err.status = 400;
@@ -603,7 +590,7 @@ router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req,
             return res.status(401).json({
                 message: "Authorization required",
                 statusCode: 401,
-                errors : { message: 'Authorization required - to change to Co-Host, you need to be the organizer' }
+                errors: { message: 'Authorization required - to change to Co-Host, you need to be the organizer' }
             })
             const err = new Error('Authorization required');
             err.status = 401;
@@ -616,7 +603,7 @@ router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req,
         return res.status(400).json({
             message: "Validations required",
             statusCode: 400,
-            errors : { memberId: "User couldn't be found" }
+            errors: { memberId: "User couldn't be found" }
         })
         const err = new Error('Validations required');
         err.status = 400;
