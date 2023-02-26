@@ -425,8 +425,43 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             statusCode: 404
         })
     }
-    if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate || !venueId || !name
-        || !type || !capacity || !price || !description) {
+    try {
+        const newEvent = await Event.create({
+            venueId,
+            groupId: req.params.groupId,
+            name,
+            description,
+            type,
+            capacity,
+            price,
+            startDate,
+            endDate
+        })
+        const newEventChk = await Event.scope('cevent').findOne({
+            where: {
+                name: name
+            }
+        })
+        if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate || !venueId || !name
+            || !type || !capacity || !price || !description) {
+            return res.status(400).json({
+                message: "Validation error",
+                statusCode: 400,
+                errors: {
+                    "venueId": "Venue does not exist",
+                    "name": "Name must be at least 5 characters",
+                    "type": "Type must be Online or In person",
+                    "capacity": "Capacity must be an integer",
+                    "price": "Price is invalid",
+                    "description": "Description is required",
+                    "startDate": "Start date must be in the future",
+                    "endDate": "End date is less than start date"
+                }
+            })
+        }
+        newEventChk.price = parseFloat(newEventChk.price)
+        res.json(newEventChk)
+    } catch (error) {
         return res.status(400).json({
             message: "Validation error",
             statusCode: 400,
@@ -441,25 +476,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 "endDate": "End date is less than start date"
             }
         })
-    }
-    const newEvent = await Event.create({
-        venueId,
-        groupId: req.params.groupId,
-        name,
-        description,
-        type,
-        capacity,
-        price,
-        startDate,
-        endDate
-    })
-    const newEventChk = await Event.scope('cevent').findOne({
-        where: {
-            name: name
-        }
-    })
-    newEventChk.price = parseFloat(newEventChk.price)
-    res.json(newEventChk)
+    }  
 })
 
 router.get('/:groupId/members', async (req, res, next) => {
