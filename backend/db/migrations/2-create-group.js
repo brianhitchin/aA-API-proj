@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Groups", {
+    await queryInterface.createTable('Groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = {
       organizerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: "Users"},
+        references: {model: 'users'},
         onDelete: 'CASCADE'
       },
       name: {
@@ -56,7 +56,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Groups";
+    options.tableName = 'Groups';
     await queryInterface.dropTable('Groups');
   }
 };
