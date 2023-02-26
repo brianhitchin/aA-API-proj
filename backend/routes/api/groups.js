@@ -599,7 +599,7 @@ router.post('/:groupId/membership', requireAuth, async (req, res, next) => {
 
 router.put('/:groupId/membership', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
     const { memberId, status } = req.body
-    if (status == 'Pending') {
+    if (status == 'Pending' || status == 'pending') {
         return res.status(400).json({
             message: "Validation required",
             statusCode: 400,
