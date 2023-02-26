@@ -213,7 +213,7 @@ router.post('/:groupId/images', requireAuth, orgCheck('Organizer'), async (req, 
     }
 })
 
-router.put('/:groupId', requireAuth, orgCheck('Member'), async (req, res, next) => {
+router.put('/:groupId', requireAuth, orgCheck('Organizer'), async (req, res, next) => {
     const { name, about, type, private, city, state } = req.body
     const group = await Group.findByPk(req.params.groupId)
     try {
