@@ -46,11 +46,11 @@ router.get('/', async (req, res, next) => {
         })
         let resObj = []
         let resObjF = []
-        for (let i=0; i<events.length; i++) {
+        for (let i = 0; i < events.length; i++) {
             const entree = events[i]
             resObj.push(entree.toJSON())
         }
-        for (let j=0; j<resObj.length;j++) {
+        for (let j = 0; j < resObj.length; j++) {
             const entree = resObj[j]
             const entreeAttendance = await Attendance.findAll({
                 where: {
@@ -62,7 +62,7 @@ router.get('/', async (req, res, next) => {
                     eventId: entree.id
                 },
                 attributes: ['url']
-            }) 
+            })
             entree.numAttending = entreeAttendance.length
             if (entreeImage) {
                 entree.previewImage = entreeImage.url
@@ -77,8 +77,8 @@ router.get('/', async (req, res, next) => {
                 }
             }
         }
-        if (req.query.startDate) {res.json(resObjF)}
-        else {res.json(resObj)}
+        if (req.query.startDate) { res.json(resObjF) }
+        else { res.json(resObj) }
     } catch (error) {
         return res.status(400).json({
             message: "Event couldn't be found",
@@ -112,7 +112,7 @@ router.get('/:eventId', async (req, res, next) => {
             message: "Event couldn't be found",
             statusCode: 404
         })
-    } 
+    }
     const resObj = events.toJSON()
     const rightvenue = await Venue.findOne({
         where: {
@@ -157,9 +157,17 @@ router.post('/:eventId/images', requireAuth, orgCheckEv('Attendee'), async (req,
 })
 
 router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, next) => {
-    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    let { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    startDate = new Date(startDate.toString().slice(0, 10))
+    endDate = new Date(endDate.toString().slice(0, 10))
     const curEvent = await Event.findByPk(req.params.eventId)
-    try {
+    if (!curEvent) {
+        return res.status(404).json({
+            message: "Event couldn't be found",
+            statusCode: 404
+        })
+    }
+    if (venueId) {
         const exist = await Venue.findByPk(venueId)
         if (!exist) {
             return res.status(404).json({
@@ -167,57 +175,45 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
                 statusCode: 404
             })
         }
-        curEvent.venueId = venueId
-        curEvent.name = name
-        curEvent.type = type
-        curEvent.capacity = capacity
-        curEvent.price = price
-        curEvent.description = description
-        curEvent.startDate = startDate
-        curEvent.endDate = endDate
-        await curEvent.save();
-        res.json({
-            id: curEvent.id,
-            groupId: curEvent.groupId,
-            venue: curEvent.venueId,
-            name: curEvent.name,
-            type: curEvent.type,
-            capacity: curEvent.capacity,
-            price: curEvent.price,
-            description: curEvent.description,
-            startDate: curEvent.startDate,
-            endDate: curEvent.endDate            
-        })
-    } catch (error) {
-        return res.status(400).json({
-            message: "Event couldn't be found",
-            statusCode: 400,
-            errors: {
-                "venueId": "Venue does not exist",
-                "name": "Name must be at least 5 characters",
-                "type": "Type must be Online or In person",
-                "capacity": "Capacity must be an integer",
-                "price": "Price is invalid",
-                "description": "Description is required",
-                "startDate": "Start date must be in the future",
-                "endDate": "End date is less than start date"
-            }
-        })
-        const newErr = new Error();
-        newErr.status = 400
-        newErr.message = 'Validation Error'
-        newErr.errors = {
-            "venueId": "Venue does not exist",
-            "name": "Name must be at least 5 characters",
-            "type": "Type must be Online or In person",
-            "capacity": "Capacity must be an integer",
-            "price": "Price is invalid",
-            "description": "Description is required",
-            "startDate": "Start date must be in the future",
-            "endDate": "End date is less than start date"
-        }
-        next(newErr)
     }
+    if (!curEvent.id || !curEvent.startDate || !curEvent.endDate || curEvent.startDate > curEvent.endDate || !curEvent.name
+        || !curEvent.type || !curEvent.capacity || !curEvent.price || !curEvent.description) {
+            return res.status(400).json({
+                message: "Event couldn't be found",
+                statusCode: 400,
+                errors: {
+                    "venueId": "Venue does not exist",
+                    "name": "Name must be at least 5 characters",
+                    "type": "Type must be Online or In person",
+                    "capacity": "Capacity must be an integer",
+                    "price": "Price is invalid",
+                    "description": "Description is required",
+                    "startDate": "Start date must be in the future",
+                    "endDate": "End date is less than start date"
+                }
+            })
+        }
+    curEvent.venueId = venueId
+    curEvent.name = name
+    curEvent.type = type
+    curEvent.capacity = capacity
+    curEvent.price = price
+    curEvent.description = description
+    curEvent.startDate = startDate
+    curEvent.endDate = endDate
+    await curEvent.save();
+    res.json({
+        id: curEvent.id,
+        groupId: curEvent.groupId,
+        venue: curEvent.venueId,
+        name: curEvent.name,
+        type: curEvent.type,
+        capacity: curEvent.capacity,
+        price: curEvent.price,
+        description: curEvent.description,
+        startDate: curEvent.startDate,
+        endDate: curEvent.endDate
+    })
 })
 
 router.delete('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, next) => {
