@@ -471,6 +471,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         }
         return next(err)
     }
+    newEventChk.price = parseFloat(newEventChk.price)
     res.json(newEventChk)
 })
 
