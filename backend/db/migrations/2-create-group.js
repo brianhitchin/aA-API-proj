@@ -16,7 +16,7 @@ module.exports = {
       organizerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'users'},
+        references: {model: 'Users'},
         onDelete: 'CASCADE'
       },
       name: {
@@ -53,10 +53,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Groups';
-    await queryInterface.dropTable('Groups');
+    await queryInterface.dropTable(options);
   }
 };
