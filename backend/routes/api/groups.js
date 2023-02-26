@@ -442,8 +442,13 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 name: name
             }
         })
-        if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate || !venueId || !name
-            || !type || !capacity || !price || !description) {
+        if (!newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || newEventChk.startDate > newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
+            || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description) {
+            await Event.destroy({
+                where: {
+                    name: name
+                }
+            })
             return res.status(400).json({
                 message: "Validation error",
                 statusCode: 400,
@@ -476,7 +481,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 "endDate": "End date is less than start date"
             }
         })
-    }  
+    }
 })
 
 router.get('/:groupId/members', async (req, res, next) => {
