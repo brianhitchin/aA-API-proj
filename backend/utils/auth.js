@@ -85,9 +85,8 @@ const orgCheck = (role = 'Member') => {
                     return next();
                 }
                 return res.status(401).json({
-                    message: "Group couldn't be found",
+                    message: "Membership does not exist for this User",
                     statusCode: 401,
-                    errors: { message: 'Authorization required' }
                 })
             case 'Co-Host':
                 let cohost = await Membership.findOne({
