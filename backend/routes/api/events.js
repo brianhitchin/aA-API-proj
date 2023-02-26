@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.type) {
-        if (typeof(req.query.name) !== string) {
+        if (typeof(req.query.type) !== string) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.startDate) {
-        if (typeof(req.query.name) !== string) {
+        if (typeof(req.query.startDate) !== string) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
