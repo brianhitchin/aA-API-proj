@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
     let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
     if (req.query.name) {
-        if (!typeof(req.query.name) == string) {
+        if (typeof(req.query.name) !== string) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.type) {
-        if (!typeof(req.query.name) == string) {
+        if (typeof(req.query.name) !== string) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.startDate) {
-        if (!typeof(req.query.name) == string) {
+        if (typeof(req.query.name) !== string) {
             return res.status(400).json({
                 message: "Event couldn't be found",
                 statusCode: 400,
