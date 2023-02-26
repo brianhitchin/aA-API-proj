@@ -425,26 +425,8 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             statusCode: 404
         })
     }
-    const newEvent = await Event.create({
-        venueId,
-        groupId: req.params.groupId,
-        name,
-        description,
-        type,
-        capacity,
-        price,
-        startDate,
-        endDate
-    })
-    try {
-        const newEventChk = await Event.scope('cevent').findOne({
-            where: {
-                name: name
-            }
-        })
-        newEventChk.price = parseFloat(newEventChk.price)
-        res.json(newEventChk)
-    } catch (error) {
+    if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate || !venueId || !name
+        || !type || !capacity || !price || !description) {
         return res.status(400).json({
             message: "Validation error",
             statusCode: 400,
@@ -460,6 +442,24 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             }
         })
     }
+    const newEvent = await Event.create({
+        venueId,
+        groupId: req.params.groupId,
+        name,
+        description,
+        type,
+        capacity,
+        price,
+        startDate,
+        endDate
+    })
+    const newEventChk = await Event.scope('cevent').findOne({
+        where: {
+            name: name
+        }
+    })
+    newEventChk.price = parseFloat(newEventChk.price)
+    res.json(newEventChk)
 })
 
 router.get('/:groupId/members', async (req, res, next) => {
