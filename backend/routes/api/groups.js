@@ -441,7 +441,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             name: name
         }
     })
-    if (!newEventChk || !newEventChk.id) {
+    if (!newEventChk || !newEventChk.id || !startDate || !endDate || startDate > endDate) {
         return res.status(400).json({
             message: "Validation error",
             statusCode: 400,
