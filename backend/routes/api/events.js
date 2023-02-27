@@ -27,7 +27,8 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.type) {
-        if (req.query.type !== 'In Person' && req.query.type !== 'Online') {
+        if (req.query.type !== 'In Person' && req.query.type !== 'Online' && req.query.type !== 'online' && req.query.type !== 'In person' &&
+        req.query.type !== 'in person') {
             return res.status(400).json({
                 message: "Validation Error",
                 statusCode: 400,
