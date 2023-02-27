@@ -150,7 +150,7 @@ const orgCheckVe = (role = 'Member') => {
                         errors: { message: 'Authorization required - not Co-Host or Organizer' }
                     })
                 }
-                if (membershipChkC.status == 'Co-Host' || membershipChkC.status == 'Organizer') { return next(); }
+                if (membershipChkC.status == 'Co-Host' || membershipChkC.status == 'Organizer' || membershipChkC.status == 'organizer' || membershipChkC.status == 'Co-host' || membershipChkC.status == 'co-host') { return next(); }
             case 'Organizer':
                 const attendanceO = await Membership.findOne({
                     where: {
@@ -162,10 +162,15 @@ const orgCheckVe = (role = 'Member') => {
                     return res.status(401).json({
                         message: "Authorization required",
                         statusCode: 401,
-                        errors: { message: 'Authorization required - not Organizer' }
+                        errors: { message: 'Authorization required' }
                     })
                 }
-                if (attendanceO.status == 'Organizer') { return next(); }
+                if (attendanceO.status == 'Organizer' || attendanceO.status == 'organizer') { return next(); }
+                return res.status(401).json({
+                    message: "Authorization required",
+                    statusCode: 401,
+                    errors: { message: 'Authorization required - not Organizer' }
+                })
         }
     }
 }
@@ -209,7 +214,7 @@ const orgCheckEv = (role = 'Attendee') => {
                     })
                 }
                 console.log(attendanceC.status)
-                if (attendanceC.status !== 'Co-Host' && attendanceC.status !== 'Host') { 
+                if (attendanceC.status !== 'Co-Host' && attendanceC.status !== 'host' || attendanceC.status !== 'co-host' || attendanceC.status !== 'Co-host' || attendanceC.status !== 'Host') { 
                     return res.status(401).json({
                         message: "Authorization required",
                         statusCode: 401,
