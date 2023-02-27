@@ -152,7 +152,11 @@ router.post('/', requireAuth, async (req, res, next) => {
             city,
             state
         })
-        const checker = await Group.findOne({ where: { name: name, about: about, type: type, private: private }, order: [['createdAt', 'DESC']], limit: 1 })
+        const checker = await Group.findOne({ 
+            where: { name: name }, 
+            order: [['createdAt', 'DESC']], 
+            limit: 1 
+        })
         const newMembership = await Membership.create({
             userId: req.user.id,
             groupId: newGroup.id,
@@ -473,6 +477,11 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         newEventChk.startDate = newEventChk.startDate.toDateString()
         newEventChk.endDate = newEventChk.endDate.toDateString()
         newEventChk.price = parseFloat(newEventChk.price)
+        const newAttendance = await Attendance.create({
+            eventId: newEvent.id,
+            userId: req.user.id,
+            status: 'Host'
+        })
         res.json(newEventChk)
     } catch (error) {
         return res.status(400).json({
