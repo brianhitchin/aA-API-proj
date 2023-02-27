@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     if (req.query.name) {
         if (typeof(req.query.name) !== 'string') {
             return res.status(400).json({
-                message: "Event couldn't be found",
+                message: "Validation Error",
                 statusCode: 400,
                 errors: {
                     page: "Page must be greater than or equal to 1",
@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
     if (req.query.type) {
         if (typeof(req.query.type) !== 'string') {
             return res.status(400).json({
-                message: "Event couldn't be found",
+                message: "Validation Error",
                 statusCode: 400,
                 errors: {
                     page: "Page must be greater than or equal to 1",
@@ -41,7 +41,7 @@ router.get('/', async (req, res, next) => {
     if (req.query.startDate) {
         if (typeof(req.query.startDate) !== 'string') {
             return res.status(400).json({
-                message: "Event couldn't be found",
+                message: "Validation Error",
                 statusCode: 400,
                 errors: {
                     page: "Page must be greater than or equal to 1",
@@ -55,7 +55,7 @@ router.get('/', async (req, res, next) => {
     }
     if (page > 10 || size > 20) {
         return res.status(400).json({
-            message: "Event couldn't be found",
+            message: "Validation Error",
             statusCode: 400,
             errors: {
                 page: "Page must be greater than or equal to 1",
