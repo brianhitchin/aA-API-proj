@@ -56,6 +56,7 @@ router.get('/', async (req, res, next) => {
                 }
             })
         }
+        where.startDate = req.query.startDate
     }
     if (page > 10 || size > 20) {
         return res.status(400).json({
