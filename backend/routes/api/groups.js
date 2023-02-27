@@ -477,6 +477,11 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         newEventChk.startDate = newEventChk.startDate.toDateString()
         newEventChk.endDate = newEventChk.endDate.toDateString()
         newEventChk.price = parseFloat(newEventChk.price)
+        const newAttendance = await Attendance.create({
+            eventId: newEvent.id,
+            userId: req.user.id,
+            status: 'Host'
+        })
         res.json(newEventChk)
     } catch (error) {
         return res.status(400).json({
