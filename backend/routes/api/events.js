@@ -56,7 +56,6 @@ router.get('/', async (req, res, next) => {
                 }
             })
         }
-        where.startDate = req.query.startDate
     }
     if (page > 10 || size > 20) {
         return res.status(400).json({
@@ -82,6 +81,9 @@ router.get('/', async (req, res, next) => {
     }
     if (req.query.type) {
         where.type = req.query.type
+    }
+    if (req.query.startDate) {
+        where.startDate = req.query.startDate
     }
     try {
         const events = await Event.findAll({
