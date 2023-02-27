@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isIn: [['In Person', 'Online']]
+        isIn: [['In Person', 'Online', 'online', 'In person', 'in person']]
       }
     },
     private: {
