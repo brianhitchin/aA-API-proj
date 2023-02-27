@@ -152,7 +152,7 @@ router.post('/', requireAuth, async (req, res, next) => {
             city,
             state
         })
-        const checker = await Group.findOne({ where: { name: name } })
+        const checker = await Group.findOne({ where: { name: name, about: about, type: type, private: private } })
         res.json(checker)
     } catch (err) {
         return res.status(400).json({
