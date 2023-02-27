@@ -82,6 +82,9 @@ router.get('/', async (req, res, next) => {
     if (req.query.type) {
         where.type = req.query.type
     }
+    if (req.query.startDate) {
+        where.startDate = req.query.startDate
+    }
     try {
         const events = await Event.findAll({
             where,
