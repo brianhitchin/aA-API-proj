@@ -9,22 +9,25 @@ router.get('/', async (req, res, next) => {
     let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
     if (req.query.name) {
-        if (typeof(req.query.name) !== 'string') {
-            return res.status(400).json({
-                message: "Validation Error",
-                statusCode: 400,
-                errors: {
-                    page: "Page must be greater than or equal to 1",
-                    size: "Size must be greater than or equal to 1",
-                    name: "Name must be a string",
-                    type: "Type must be 'Online' or 'In Person'",
-                    startDate: "Start date must be a valid datetime"
-                }
-            })
+        let numlist = ['1','2','3','4','5','6','7','8','9','0']
+        for (letter of req.query.name) {
+            if (numlist.includes(letter)) {
+                return res.status(400).json({
+                    message: "Validation Error",
+                    statusCode: 400,
+                    errors: {
+                        page: "Page must be greater than or equal to 1",
+                        size: "Size must be greater than or equal to 1",
+                        name: "Name must be a string",
+                        type: "Type must be 'Online' or 'In Person'",
+                        startDate: "Start date must be a valid datetime"
+                    }
+                })
+            }
         }
     }
     if (req.query.type) {
-        if (typeof(req.query.type) !== 'string') {
+        if (typeof (req.query.type) !== 'string' || req.query.type !== 'In Person' || req.query.type !== 'Online') {
             return res.status(400).json({
                 message: "Validation Error",
                 statusCode: 400,
@@ -39,7 +42,9 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (req.query.startDate) {
-        if (typeof(req.query.startDate) !== 'string') {
+        try {
+            const nd = new Date(req.query.startDate)
+        } catch (error) {
             return res.status(400).json({
                 message: "Validation Error",
                 statusCode: 400,
@@ -54,100 +59,100 @@ router.get('/', async (req, res, next) => {
         }
     }
     if (page > 10 || size > 20) {
-        return res.status(400).json({
-            message: "Validation Error",
-            statusCode: 400,
-            errors: {
-                page: "Page must be greater than or equal to 1",
-                size: "Size must be greater than or equal to 1",
-                name: "Name must be a string",
-                type: "Type must be 'Online' or 'In Person'",
-                startDate: "Start date must be a valid datetime"
-            }
-        })
-    }
-    const pagination = {};
-    if (page >= 1 && size >= 1) {
-        pagination.limit = size;
-        pagination.offset = size * (page - 1);
-    }
-    let where = {}
-    if (req.query.name) {
-        where.name = req.query.name
-    }
-    if (req.query.type) {
-        where.type = req.query.type
-    }
-    try {
-        const events = await Event.findAll({
-            where,
-            include: [
-                { model: Group, attributes: ['id', 'name', 'city', 'state'] },
-                { model: Venue, attributes: ['id', 'city', 'state'] },
-                { model: EventImage, attributes: [] },
-                { model: Attendance, attributes: [] }],
-            group: ['Event.id'],
-            ...pagination
-        })
-        let resObj = []
-        let resObjF = []
-        for (let i = 0; i < events.length; i++) {
-            const entree = events[i]
-            resObj.push(entree.toJSON())
-        }
-        for (let j = 0; j < resObj.length; j++) {
-            const entree = resObj[j]
-            const entreeAttendance = await Attendance.findAll({
-                where: {
-                    eventId: entree.id
-                }
-            })
-            const entreeImage = await EventImage.findOne({
-                where: {
-                    eventId: entree.id
-                },
-                attributes: ['url']
-            })
-            entree.numAttending = entreeAttendance.length
-            if (entreeImage) {
-                entree.previewImage = entreeImage.url
-            } else {
-                entree.previewImage = 'No image yet!'
-            }
-            if (req.query.startDate) {
-                const day = new Date(req.query.startDate).toDateString()
-                const splicedday = entree.startDate.toDateString()
-                if (day == splicedday) {
-                    resObjF.push(entree)
-                }
-            }
-        }
-        if (req.query.startDate) { res.json(resObjF) }
-        else { res.json(resObj) }
-    } catch (error) {
-        return res.status(400).json({
-            message: "Event couldn't be found",
-            statusCode: 400,
-            errors: {
-                page: "Page must be greater than or equal to 1",
-                size: "Size must be greater than or equal to 1",
-                name: "Name must be a string",
-                type: "Type must be 'Online' or 'In Person'",
-                startDate: "Start date must be a valid datetime"
-            }
-        })
-        let err = new Error();
-        err.status = 400
-        err.message = "Validation Error"
-        err.errors = {
+    return res.status(400).json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
             page: "Page must be greater than or equal to 1",
             size: "Size must be greater than or equal to 1",
             name: "Name must be a string",
             type: "Type must be 'Online' or 'In Person'",
             startDate: "Start date must be a valid datetime"
         }
-        return next(err)
+    })
+}
+const pagination = {};
+if (page >= 1 && size >= 1) {
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+}
+let where = {}
+if (req.query.name) {
+    where.name = req.query.name
+}
+if (req.query.type) {
+    where.type = req.query.type
+}
+try {
+    const events = await Event.findAll({
+        where,
+        include: [
+            { model: Group, attributes: ['id', 'name', 'city', 'state'] },
+            { model: Venue, attributes: ['id', 'city', 'state'] },
+            { model: EventImage, attributes: [] },
+            { model: Attendance, attributes: [] }],
+        group: ['Event.id'],
+        ...pagination
+    })
+    let resObj = []
+    let resObjF = []
+    for (let i = 0; i < events.length; i++) {
+        const entree = events[i]
+        resObj.push(entree.toJSON())
     }
+    for (let j = 0; j < resObj.length; j++) {
+        const entree = resObj[j]
+        const entreeAttendance = await Attendance.findAll({
+            where: {
+                eventId: entree.id
+            }
+        })
+        const entreeImage = await EventImage.findOne({
+            where: {
+                eventId: entree.id
+            },
+            attributes: ['url']
+        })
+        entree.numAttending = entreeAttendance.length
+        if (entreeImage) {
+            entree.previewImage = entreeImage.url
+        } else {
+            entree.previewImage = 'No image yet!'
+        }
+        if (req.query.startDate) {
+            const day = new Date(req.query.startDate).toDateString()
+            const splicedday = entree.startDate.toDateString()
+            if (day == splicedday) {
+                resObjF.push(entree)
+            }
+        }
+    }
+    if (req.query.startDate) { res.json(resObjF) }
+    else { res.json(resObj) }
+} catch (error) {
+    return res.status(400).json({
+        message: "Event couldn't be found",
+        statusCode: 400,
+        errors: {
+            page: "Page must be greater than or equal to 1",
+            size: "Size must be greater than or equal to 1",
+            name: "Name must be a string",
+            type: "Type must be 'Online' or 'In Person'",
+            startDate: "Start date must be a valid datetime"
+        }
+    })
+    let err = new Error();
+    err.status = 400
+    err.message = "Validation Error"
+    err.errors = {
+        page: "Page must be greater than or equal to 1",
+        size: "Size must be greater than or equal to 1",
+        name: "Name must be a string",
+        type: "Type must be 'Online' or 'In Person'",
+        startDate: "Start date must be a valid datetime"
+    }
+    return next(err)
+}
 })
 
 router.get('/:eventId', async (req, res, next) => {
@@ -222,21 +227,21 @@ router.put('/:eventId', requireAuth, orgCheckEv('Co-Host'), async (req, res, nex
         }
     }
     if (!venueId || !startDate || !endDate || startDate > endDate || !name || !type || !capacity || !price || !description) {
-            return res.status(400).json({
-                message: "Event couldn't be found",
-                statusCode: 400,
-                errors: {
-                    "venueId": "Venue does not exist",
-                    "name": "Name must be at least 5 characters",
-                    "type": "Type must be Online or In person",
-                    "capacity": "Capacity must be an integer",
-                    "price": "Price is invalid",
-                    "description": "Description is required",
-                    "startDate": "Start date must be in the future",
-                    "endDate": "End date is less than start date"
-                }
-            })
-        }
+        return res.status(400).json({
+            message: "Event couldn't be found",
+            statusCode: 400,
+            errors: {
+                "venueId": "Venue does not exist",
+                "name": "Name must be at least 5 characters",
+                "type": "Type must be Online or In person",
+                "capacity": "Capacity must be an integer",
+                "price": "Price is invalid",
+                "description": "Description is required",
+                "startDate": "Start date must be in the future",
+                "endDate": "End date is less than start date"
+            }
+        })
+    }
     curEvent.venueId = venueId
     curEvent.name = name
     curEvent.type = type
