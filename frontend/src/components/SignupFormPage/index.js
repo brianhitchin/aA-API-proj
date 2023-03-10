@@ -36,7 +36,7 @@ function SignupFormPage() {
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <label>
-        Email
+        Email <i class="fa-solid fa-poo"></i>
         <input
           type="text"
           value={email}
