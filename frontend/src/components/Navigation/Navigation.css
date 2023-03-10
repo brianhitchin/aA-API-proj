@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+body {
+    font-family: 'Comic Neue', serif;
+    font-size: 15px;
+}
+
 .hidden {
     display: none
+}
+
+.topnavbar {
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.ddbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.profile-dropdown > span {
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 0.5px solid gray;
+    border-right: 0.5px solid gray;
+    border-left-style: groove;
+    border-right-style: groove;
 }

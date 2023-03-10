@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -40,19 +41,16 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className={user ? "fa-solid fa-circle-user": "fa-regular fa-circle-user"} />
-      </button>
+    <div className="ddbar">
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li><i class="fa-solid fa-signature"></i> Welcome, {user.username}.</li>
-            <li><i class="fa-solid fa-person"></i> {user.firstName} {user.lastName}</li>
-            <li><i class="fa-regular fa-envelope"></i> {user.email}</li>
-            <li>
+            <span className="ddbarspan"><i class="fa-solid fa-signature"></i> Welcome, {user.username}.</span>
+            <span className="ddbarspan"><i class="fa-solid fa-person"></i> {user.firstName} {user.lastName}</span>
+            <span className="ddbarspan"><i class="fa-regular fa-envelope"></i> {user.email}</span>
+            <span className="ddbarspan">
               <button onClick={logout}>Log Out</button>
-            </li>
+            </span>
           </>
         ) : (
           <>
@@ -69,7 +67,10 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+      <button onClick={openMenu}>
+        <i className={user ? "fa-solid fa-circle-user": "fa-regular fa-circle-user"} />
+      </button>
+    </div>
   );
 }
 
