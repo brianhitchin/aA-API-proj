@@ -214,15 +214,16 @@ const orgCheckEv = (role = 'Attendee') => {
                     })
                 }
                 console.log(attendanceC.status)
-                if (attendanceC.status !== 'Co-Host' && attendanceC.status !== 'host' && attendanceC.status !== 'co-host' && attendanceC.status !== 'Co-host' && attendanceC.status !== 'Host') { 
+                if (attendanceC.status == 'Co-Host' || attendanceC.status == 'host' || attendanceC.status == 'co-host' || attendanceC.status == 'Co-host' || attendanceC.status == 'Host') { 
+                    return next()
+                    
+                 }
+                else {
                     return res.status(401).json({
                         message: "Authorization required",
                         statusCode: 401,
                         errors: { message: 'Authorization required - not Co-Host or Organizer' }
                     })
-                 }
-                else {
-                    return next()
                 }
             case 'Host':
                 const membershipChkO = await Attendance.findOne({
