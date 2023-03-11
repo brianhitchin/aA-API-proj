@@ -4,7 +4,7 @@ import './index.css'
 const Greeting = () => {
     return (
         <div className='greeting'>
-            <div>
+            <div className='greetingdiv'>
                 <h1 className='louder'>Dog friend finder - Where you can find a new dog friend!</h1>
                 <p className='loud'>Just like us, dogs have different interests too! From hiking to
                     reading to networking and skillsharing, there might be thousands of
@@ -12,7 +12,7 @@ const Greeting = () => {
                     you can do it with instead! Sign up today and meet a pup!
                 </p>
             </div>
-            <div>
+            <div className='greetingdiv'>
                 <img src={dogs} alt='' className='bannerImage'></img>
             </div>
         </div>

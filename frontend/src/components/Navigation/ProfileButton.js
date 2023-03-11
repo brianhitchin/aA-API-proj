@@ -10,7 +10,7 @@ import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -34,17 +34,19 @@ function ProfileButton({ user }) {
   }, [showMenu, user]);
 
   useEffect(() => {
-    if (!user) {
-      setShowMenu(true)
+    if (user) {
+      openMenu()
+      setTimeout(() => {
+        closeMenus()
+      }, 3000)
     }
-  }, [user])
+  }, [user, openMenu])
 
-  const closeMenu = () => setShowMenu(false);
+  const closeMenus = () => setShowMenu(false);
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -64,12 +66,12 @@ function ProfileButton({ user }) {
           <>
             <OpenModalMenuItem
               itemText="Log In"
-              onItemClick={closeMenu}
+              onItemClick={closeMenus}
               modalComponent={<LoginFormModal />}
             />
             <OpenModalMenuItem
               itemText="Sign Up"
-              onItemClick={closeMenu}
+              onItemClick={closeMenus}
               modalComponent={<SignupFormModal />}
             />
           </>
@@ -78,7 +80,7 @@ function ProfileButton({ user }) {
       {user ? (
         <div className={buttonClassName}>
           <button onClick={openMenu}>
-            <img src={showMenu ? userupf : userdownf} alt='' className={hidebutton} />
+            <img src={showMenu ? userdownf : userupf} alt='' className={hidebutton} />
           </button>
         </div>
       ) : (<></>)}

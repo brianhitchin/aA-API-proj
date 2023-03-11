@@ -22,6 +22,11 @@ function OpenModalMenuItem({
       <span onClick={onClick} className="ddbarspan2 nl">{itemText}</span>
     );
   }
+  if (itemText === 'Join MeetPup') {
+    return (
+      <span onClick={onClick} className="alonesignup">{itemText}</span>
+    );
+  }
   return (
     <span onClick={onClick} className="ddbarspan2 nb">{itemText}</span>
   );
