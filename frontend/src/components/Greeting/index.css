@@ -13,12 +13,12 @@
     width: 550px;
 }
 
-.greeting > div {
+.greetingdiv {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px;
+    margin: 20px;
     width: 550px;
     height: 350px;
 }
