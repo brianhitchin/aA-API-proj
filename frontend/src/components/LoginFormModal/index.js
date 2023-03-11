@@ -11,7 +11,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-
+  console.log('errors', errors)
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -42,9 +42,7 @@ function LoginFormModal() {
     <div className="loginmain">
       <h1 className="loginloginlmao">Log In</h1>
       <form onSubmit={handleSubmit} className='loginform'>
-        <ul className="loginerror">
-          {errors.length && <li>Please provide valid credentials.</li>}
-        </ul>
+        {(errors.length >= 1 || Object.values(errors).length >= 1) && <div className="loginerror">Please provide valid credentials.</div>}
         <label>
           <input
             type="text"

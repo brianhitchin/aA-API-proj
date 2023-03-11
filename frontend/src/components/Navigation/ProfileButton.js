@@ -37,7 +37,7 @@ function ProfileButton({ user }) {
     if (!user) {
       setShowMenu(true)
     }
-  }, [])
+  }, [user])
 
   const closeMenu = () => setShowMenu(false);
 
@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
             <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
             <div className="ddbarbutton">
               <button onClick={openMenu}>
-                <img src={showMenu ? userdownf : userupf} className='custombutton' />
+                <img src={showMenu ? userdownf : userupf} alt='' className='custombutton' />
               </button>
             </div>
           </>
