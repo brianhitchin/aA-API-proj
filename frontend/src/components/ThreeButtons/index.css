@@ -1,0 +1,48 @@
+.threebuttonsmain {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.tfimages {
+    width: 200px;
+    height: 200px;
+}
+
+.getgroups {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+}
+
+.creategroup {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+}
+
+.findevents {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+}
+
+.tbtext {
+    font-size: 12px;
+}
+
+.tbh3 {
+    font-weight: bold;
+}
