@@ -46,3 +46,8 @@
 .tbh3 {
     font-weight: bold;
 }
+
+.tbh3:hover {
+    text-decoration: underline;
+    cursor: grab;
+}
