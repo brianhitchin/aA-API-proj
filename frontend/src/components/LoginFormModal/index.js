@@ -28,7 +28,7 @@ function LoginFormModal() {
 
   const handleDemoClick = () => {
     setErrors([]);
-    return dispatch(sessionActions.login({ credential: "user3@user.io", password: "password3" }))
+    return dispatch(sessionActions.login({ credential: "demo@demo.io", password: "password4" }))
       .then(closeModal)
       .catch(
         async (res) => {
