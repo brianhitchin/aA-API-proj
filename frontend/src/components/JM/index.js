@@ -1,13 +1,15 @@
-import { useSelector} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRef, useState, useEffect } from "react";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import SignupFormModal from "../SignupFormModal";
+import * as sessionActions from "../../store/session";
 import './index.css'
 
 const JM = () => {
     const user = useSelector(state => state.session.user);
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const dispatch = useDispatch();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -32,14 +34,25 @@ const JM = () => {
         }
     }, [user])
 
+    const handleDemoClick = () => {
+        return dispatch(sessionActions.login({ credential: "demo@demo.io", password: "password4" }))
+    }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [user])
+
     return (
-        <div className="JMholder">
+        <div>
             {!user ? (
-                <OpenModalMenuItem
-                    itemText="Join MeetPup"
-                    onItemClick={closeMenu}
-                    modalComponent={<SignupFormModal />}
-                />)
+                <div className="JMholder">
+                    <OpenModalMenuItem
+                        itemText="Join MeetPup"
+                        onItemClick={closeMenu}
+                        modalComponent={<SignupFormModal />}
+                    />
+                    <button onClick={handleDemoClick} class='jmbutton'>Log in as Demo</button>
+                </div>)
                 : (<></>)
             }
         </div>
