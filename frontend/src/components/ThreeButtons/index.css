@@ -1,6 +1,6 @@
 .threebuttonsmain {
     display: flex;
-    margin: 20px;
+    margin: 0px 20px 20px 20px;
     align-items: center;
     flex-direction: row;
     justify-content: center;
