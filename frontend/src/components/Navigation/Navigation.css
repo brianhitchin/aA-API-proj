@@ -16,6 +16,16 @@
     padding-top: 2px;
 }
 
+.alonesignup {
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: teal;
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
 .ddbar {
     display: flex;
     justify-content: center;
