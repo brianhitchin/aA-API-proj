@@ -7,7 +7,13 @@
     height: 30px;
     justify-content: space-between;
     align-items: center;
-    margin: 20px;
+    margin: 0px;
+    padding: 10px;
+    width: 100%;
+}
+
+.logoimg {
+    padding-top: 2px;
 }
 
 .ddbar {
@@ -19,13 +25,32 @@
     padding-right: 20px;
 }
 
+.custombutton {
+    max-width: 50px;
+    max-height: 30px;
+}
+
 .profile-dropdown > span {
     padding-left: 20px;
     padding-right: 20px;
-    border-left: 0.5px solid gray;
-    border-right: 0.5px solid gray;
-    border-left-style: groove;
-    border-right-style: groove;
+}
+
+.nl {
+    border-left: 0.5px outset gray;
+}
+
+.nb {
+    border-left: 0.5px outset gray;
+    border-right: 0.5px outset gray;
+}
+
+.nr {
+    border-right: 0.5px outset gray;
+}
+
+.ddbarspan2:hover {
+    font-weight: bolder;
+    background-color: snow;
 }
 
 .ddbarbutton {
@@ -33,4 +58,12 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+#modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    border-collapse: separate; 
 }

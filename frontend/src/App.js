@@ -4,6 +4,7 @@ import { Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Greeting from "./components/Greeting";
+import HMW from "./components/HMW";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       <Greeting />
+      <HMW />
     </>
   );
 }

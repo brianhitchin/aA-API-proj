@@ -20,41 +20,57 @@ function LoginFormModal() {
       .catch(
         async (res) => {
           const data = await res.json();
+          console.log(data, data.errors)
           if (data && data.errors) setErrors(data.errors);
         }
       );
   };
 
+  const handleDemoClick = () => {
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "user3@user.io", password: "password3" }))
+      .then(closeModal)
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        }
+      );
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
+    <div className="loginmain">
+      <h1 className="loginloginlmao">Log In</h1>
+      <form onSubmit={handleSubmit} className='loginform'>
+        <ul className="loginerror">
+          {errors.length && <li>Please provide valid credentials.</li>}
         </ul>
         <label>
-          Username or Email
           <input
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
+            placeholder={"Username or Email"}
             required
+            className="logininputs"
           />
         </label>
         <label>
-          Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder={"Password"}
             required
+            className="logininputs"
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" className="loginbutton" disabled={credential.length < 4 || password.length < 6}>{
+          (credential.length < 4 || password.length < 6) ? "Please provide valid credentials." : "Log In"
+        }</button>
+        <div className="logindemo" onClick={handleDemoClick}>Demo User</div>
       </form>
-    </>
+    </div>
   );
 }
 

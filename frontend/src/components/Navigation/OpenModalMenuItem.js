@@ -1,6 +1,7 @@
 // frontend/src/components/Navigation/OpenModalMenuItem.js
 import React from 'react';
 import { useModal } from '../../context/Modal';
+import './Navigation.css'
 
 function OpenModalMenuItem({
   modalComponent, // component to render inside the modal
@@ -16,8 +17,13 @@ function OpenModalMenuItem({
     if (onItemClick) onItemClick();
   };
 
+  if (itemText === 'Log In') {
+    return (
+      <span onClick={onClick} className="ddbarspan2 nl">{itemText}</span>
+    );
+  }
   return (
-    <span onClick={onClick} className="ddbarspan">{itemText}</span>
+    <span onClick={onClick} className="ddbarspan2 nb">{itemText}</span>
   );
 }
 

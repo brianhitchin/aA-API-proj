@@ -11,7 +11,7 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='topnavbar'>
-      <NavLink exact to="/"><img src={logo} alt='logo'></img></NavLink>
+      <NavLink exact to="/"><img src={logo} alt='logo' className="logoimg"></img></NavLink>
       {isLoaded && (
           <ProfileButton user={sessionUser} />
       )}
