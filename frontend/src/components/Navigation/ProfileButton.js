@@ -67,9 +67,11 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-      <button onClick={openMenu}>
-        <i className={user ? "fa-solid fa-circle-user": "fa-regular fa-circle-user"} />
-      </button>
+      <div className="ddbarbutton">
+        <button onClick={openMenu}>
+          <i className={user ? "fa-solid fa-circle-user": "fa-regular fa-circle-user"} />
+        </button>
+      </div>
     </div>
   );
 }

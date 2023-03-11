@@ -1,1 +1,8 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+body {
+    background-image: url('./bg1.png');
+    background-size: cover;
+    font-family: 'Tilt Neon', serif;
+}
