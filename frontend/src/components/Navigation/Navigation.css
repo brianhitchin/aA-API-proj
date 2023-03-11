@@ -5,11 +5,11 @@
 .topnavbar {
     display: flex;
     height: 30px;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin: 0px;
     padding: 10px;
-    width: 100%;
+    max-width: 1887px;
 }
 
 .logoimg {
