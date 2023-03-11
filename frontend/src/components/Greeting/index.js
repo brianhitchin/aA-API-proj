@@ -1,5 +1,4 @@
-import topbanner from './tp.png'
-import botbanner from './bd.png'
+import dogs from './dogs.png'
 import './index.css'
 
 const Greeting = () => {
@@ -14,8 +13,7 @@ const Greeting = () => {
                 </p>
             </div>
             <div>
-                <img src={topbanner} alt='' className='bannerImage'></img>
-                <img src={botbanner} alt='' className='bannerImage'></img>
+                <img src={dogs} alt='' className='bannerImage'></img>
             </div>
         </div>
     )
