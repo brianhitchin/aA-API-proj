@@ -31,7 +31,7 @@ function ProfileButton({ user }) {
       return () => document.removeEventListener("click", closeMenu);
     }
 
-  }, [showMenu]);
+  }, [showMenu, user]);
 
   useEffect(() => {
     if (!user) {
@@ -48,6 +48,8 @@ function ProfileButton({ user }) {
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const buttonClassName = "ddbarbutton"
+  const hidebutton = "custombutton"
 
   return (
     <div className="ddbar">
@@ -57,11 +59,6 @@ function ProfileButton({ user }) {
             <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
             <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
             <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
-            <div className="ddbarbutton">
-              <button onClick={openMenu}>
-                <img src={showMenu ? userdownf : userupf} alt='' className='custombutton' />
-              </button>
-            </div>
           </>
         ) : (
           <>
@@ -78,6 +75,13 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
+      {user ? (
+        <div className={buttonClassName}>
+          <button onClick={openMenu}>
+            <img src={showMenu ? userdownf : userupf} alt='' className={hidebutton} />
+          </button>
+        </div>
+      ) : (<></>)}
     </div>
   );
 }
