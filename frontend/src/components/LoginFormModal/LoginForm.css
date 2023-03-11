@@ -3,14 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 30px;
-    width: 100%;
-    border-collapse: separate; 
+    width: 550px;
 }
 
 .loginloginlmao {
-    margin: 0px;
-    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .loginform {
@@ -18,23 +17,41 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 30px;
-    max-width: 80%;
+    width: 500px;
 }
 
-.logininputs{
+.logininputs {
     padding: 10px;
     margin: 10px;
-    border: 1px solid black;
+    border: 3px solid black;
     border-radius: 10px;
-    max-width: 80%;
+    width: 450px;
+}
+
+.logindemo {
+    padding: 10px;
+    text-decoration-line: underline;  
+    color: teal;
+    margin-bottom: 5px;
+}
+
+.logindemo:hover {
+    color: darkgreen
 }
 
 .loginbutton {
     border-radius: 10px;
-    max-width: 80%;
+    width: 450px;
     text-align: center;
-    color: lightgrey;
-    border: 1px solid gray;
-    box-shadow: 5px 3px 3px gray;
+    color: black;
+    border: 3px solid darkgrey;
+    box-shadow: 5px 5px 5px darkgray;
+    padding: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.loginbutton:hover {
+    border: 3px solid black;
+    font-weight: bolder;
 }

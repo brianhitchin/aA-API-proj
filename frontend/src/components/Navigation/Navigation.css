@@ -59,3 +59,11 @@
     align-items: center;
     padding: 20px;
 }
+
+#modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    border-collapse: separate; 
+}

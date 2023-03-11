@@ -25,6 +25,18 @@ function LoginFormModal() {
       );
   };
 
+  const handleDemoClick = () => {
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "user3@user.io", password: "password3" }))
+      .then(closeModal)
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        }
+      );
+  }
+
   return (
     <div className="loginmain">
       <h1 className="loginloginlmao">Log In</h1>
@@ -54,7 +66,10 @@ function LoginFormModal() {
             className="logininputs"
           />
         </label>
-        <button type="submit" className="loginbutton">Log In</button>
+        <button type="submit" className="loginbutton" disabled={credential.length < 4 || password.length < 6}>{
+          (credential.length < 4 || password.length < 6) ? "Please provide valid credentials." : "Log In"
+        }</button>
+        <div className="logindemo" onClick={handleDemoClick}>Demo User</div>
       </form>
     </div>
   );
