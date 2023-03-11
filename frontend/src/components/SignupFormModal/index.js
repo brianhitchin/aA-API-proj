@@ -34,7 +34,7 @@ function SignupFormModal() {
       <h1 className="signuplmao">Sign Up</h1>
       <form onSubmit={handleSubmit} className="signupform">
         <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          {Object.values(errors).map((error, idx) => <li key={idx} className="signuperror">{error}</li>)}
         </ul>
         <label>
           <input
