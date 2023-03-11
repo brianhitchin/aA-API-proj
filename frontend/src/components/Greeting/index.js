@@ -1,4 +1,4 @@
-import dogs from './dogs.png'
+import dogs from './dogfull.png'
 import './index.css'
 
 const Greeting = () => {

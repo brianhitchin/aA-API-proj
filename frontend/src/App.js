@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Greeting from "./components/Greeting";
 import HMW from "./components/HMW";
+import ThreeFunctions from "./components/ThreeButtons";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       <Greeting />
       <HMW />
+      <ThreeFunctions />
     </>
   );
 }

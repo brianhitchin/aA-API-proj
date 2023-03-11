@@ -78,7 +78,7 @@ function ProfileButton({ user }) {
       {user ? (
         <div className={buttonClassName}>
           <button onClick={openMenu}>
-            <img src={showMenu ? userdownf : userupf} alt='' className={hidebutton} />
+            <img src={showMenu ? userupf : userdownf} alt='' className={hidebutton} />
           </button>
         </div>
       ) : (<></>)}
