@@ -3,7 +3,7 @@
     margin: 20px;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .tbtext {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .tbh3 {

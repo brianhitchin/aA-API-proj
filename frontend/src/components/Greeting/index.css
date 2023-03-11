@@ -9,25 +9,25 @@
 }
 
 .bannerImage {
-    max-height: 300px;
-    max-width: 550px;
+    max-height: 350px;
+    width: 550px;
 }
 
 .greeting > div {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: stretch;
+    align-items: center;
+    justify-content: center;
     margin: 30px;
-    max-width: 550px;
-    max-height: 300px;
+    width: 550px;
+    height: 350px;
 }
 
 .louder {
-    font-size: 40px;
+    font-size: 45px;
     font-weight: bold;
 }
 
 .loud {
-    font-size: 18px;
+    font-size: 20px;
 }
