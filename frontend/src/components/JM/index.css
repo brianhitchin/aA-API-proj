@@ -1,7 +1,18 @@
 .JMholder {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 80px;
+}
+
+.jmbutton {
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: teal;
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
 }
