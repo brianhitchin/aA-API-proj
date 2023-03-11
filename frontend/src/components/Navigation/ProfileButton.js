@@ -21,16 +21,23 @@ function ProfileButton({ user }) {
   useEffect(() => {
     if (!showMenu) return;
 
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
+    if (user) {
+      const closeMenu = (e) => {
+        if (!ulRef.current.contains(e.target)) {
+          setShowMenu(false);
+        }
+      };
+      document.addEventListener('click', closeMenu);
+      return () => document.removeEventListener("click", closeMenu);
+    }
 
-    document.addEventListener('click', closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+  useEffect(() => {
+    if (!user) {
+      setShowMenu(true)
+    }
+  }, [])
 
   const closeMenu = () => setShowMenu(false);
 
@@ -49,7 +56,12 @@ function ProfileButton({ user }) {
           <>
             <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
             <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
-            <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>  
+            <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
+            <div className="ddbarbutton">
+              <button onClick={openMenu}>
+                <img src={showMenu ? userdownf : userupf} className='custombutton' />
+              </button>
+            </div>
           </>
         ) : (
           <>
@@ -66,11 +78,6 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-      <div className="ddbarbutton">
-        <button onClick={openMenu}>
-          <img src={showMenu ? userdownf : userupf} className='custombutton' />
-        </button>
-      </div>
     </div>
   );
 }

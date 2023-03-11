@@ -20,6 +20,7 @@ function LoginFormModal() {
       .catch(
         async (res) => {
           const data = await res.json();
+          console.log(data, data.errors)
           if (data && data.errors) setErrors(data.errors);
         }
       );
@@ -41,10 +42,8 @@ function LoginFormModal() {
     <div className="loginmain">
       <h1 className="loginloginlmao">Log In</h1>
       <form onSubmit={handleSubmit} className='loginform'>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
+        <ul className="loginerror">
+          {errors.length && <li>Please provide valid credentials.</li>}
         </ul>
         <label>
           <input

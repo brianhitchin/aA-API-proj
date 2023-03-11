@@ -73,6 +73,7 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
             required
             placeholder="Last Name"
+            className="signupinputs"
           />
         </label>
         <label>

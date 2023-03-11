@@ -49,9 +49,19 @@
     padding: 20px;
     margin-top: 15px;
     margin-bottom: 10px;
+    font-weight: bolder;
 }
 
 .loginbutton:hover {
     border: 3px solid black;
-    font-weight: bolder;
+}
+
+.loginbutton:disabled {
+    background-color: darkred;
+    border: 3px solid black;
+}
+
+.loginerror {
+    color: red;
+    font-size: 12px;
 }
