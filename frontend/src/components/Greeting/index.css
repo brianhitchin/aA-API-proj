@@ -3,7 +3,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
+    margin-top: 7px;
+    padding-top: 35px;
+    border-top: 2px outset gray;
 }
 
 .bannerImage {

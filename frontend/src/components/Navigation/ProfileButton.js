@@ -4,6 +4,8 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import userupf from './userupf.png'
+import userdownf from './userdownf.png'
 import './Navigation.css';
 
 function ProfileButton({ user }) {
@@ -45,12 +47,9 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <span className="ddbarspan"><i class="fa-solid fa-signature"></i> Welcome, {user.username}.</span>
-            <span className="ddbarspan"><i class="fa-solid fa-person"></i> {user.firstName} {user.lastName}</span>
-            <span className="ddbarspan"><i class="fa-regular fa-envelope"></i> {user.email}</span>
-            <span className="ddbarspan">
-              <button onClick={logout}>Log Out</button>
-            </span>
+            <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
+            <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
+            <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>  
           </>
         ) : (
           <>
@@ -69,7 +68,7 @@ function ProfileButton({ user }) {
       </ul>
       <div className="ddbarbutton">
         <button onClick={openMenu}>
-          <i className={user ? "fa-solid fa-circle-user": "fa-regular fa-circle-user"} />
+          <img src={showMenu ? userdownf : userupf} className='custombutton' />
         </button>
       </div>
     </div>
