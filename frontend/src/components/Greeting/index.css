@@ -1,0 +1,32 @@
+.greeting {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.bannerImage {
+    height: 50%;
+    width: 100%;
+    margin: 0px;
+}
+
+.greeting > div {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    margin: 30px;
+    max-width: 550px;
+    max-height: 300px;
+}
+
+.louder {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.loud {
+    font-size: 18px;
+}
