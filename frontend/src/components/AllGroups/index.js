@@ -16,10 +16,13 @@ const AllGroups = () => {
     return (
         <>
             <div className="egtop">
-                <NavLink to='/groups' activeClassName="eglinkactive" className="eglink">Groups</NavLink>
-                <NavLink to='/events' activeClassName="eglinkactive" className="eglink">Events</NavLink>
+                <div className="egsub">
+                    <NavLink to='/groups' activeClassName="eglinkactive" className="eglink">Groups</NavLink>
+                    <NavLink to='/events' activeClassName="eglinkactive" className="eglink">Events</NavLink>
+                </div>
             </div>
             <div className="groupsmaindiv">
+                <span className="egsubp">Groups on MeetPup</span>
                 {Object.values(groups).map((group) => {
                     return (
                         <div className='indivgroups' onClick={() => history.push(`/groups/${group.id}`)}>

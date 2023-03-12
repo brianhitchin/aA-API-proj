@@ -1,11 +1,13 @@
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import creategroup from './creategroup.png'
+import creategroupdisabled from './creategroupdisabled.png'
 import findevent from './findevent.png'
 import getgroup from './getgroup.png'
 import './index.css'
 
 const ThreeFunctions = () => {
-
+    const user = useSelector(state => state.session.user);
     const history = useHistory();
 
     const GGclickhandle = () => {
@@ -29,7 +31,7 @@ const ThreeFunctions = () => {
                 </span>
             </div>
             <div className="creategroup">
-                <img src={creategroup} alt="" className="tfimages"></img>
+                <img src={user ? creategroup : creategroupdisabled} alt="" className="tfimages"></img>
                 <h2 className='tbh3'>Start a new group</h2>
                 <span className='tbtext'>You don’t have to be an expert to gather 
                     people together and explore shared interests.</span>
