@@ -17,7 +17,7 @@
 .toptwo {
     width: 70%;
     padding-bottom: 10px;
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid gray;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,7 +30,7 @@
 .grouploc {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid gray;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,6 +48,38 @@
     margin-top: 10px;
 }
 
+.wb {
+    margin-top: 10px;
+}
+
+.textbox {
+    height: 270px;
+}
+
 ::placeholder {
     color: white;
+}
+
+.cgbutton {
+    display: flex;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: red;
+    color: white;
+    font-family: 'Tilt Neon', serif;
+    font-weight: bolder;
+    font-size: 18px;
+    box-shadow: 5px 5px black;
+}
+
+.signuperror {
+    color: red;
+    font-size: 12px;
+}
+
+.trycg {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
 }
