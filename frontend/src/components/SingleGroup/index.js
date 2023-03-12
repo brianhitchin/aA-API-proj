@@ -30,7 +30,7 @@ const SingleGroup = () => {
                         <h3 className="greyme">{`${group.city}, ${group.state}`}</h3>
                         <h3 className="greyme">{group.Organizer ? `Organizer: ${group.Organizer.firstName} ${group.Organizer.lastName}` : ``}</h3>
                         <h3 className="greyme">{group.private === true ? "Private" : "Public"}</h3>
-                        <button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button>
+                        <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button></div>
                     </div>
                 </div>
             </div>
