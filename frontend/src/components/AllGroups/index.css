@@ -54,6 +54,7 @@
     border-top: 3px inset gray;
     border-left: 3px inset gray;
     margin: 10px;
+    overflow: hidden;
 }
 
 .indivgroups:hover {
