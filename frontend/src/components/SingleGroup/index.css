@@ -40,24 +40,29 @@
 
 .groupov {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     padding: 10px;
-    margin-right: 10px;
-    min-height: 100%;
+    margin-right: 20px;
+    height: 100%;
 }
 
 .groupdt {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 10px;
+    justify-content: flex-start;
+    padding-left: 20px;
+    flex-shrink: 0;
+    min-height: 100%;
+    min-width: 30%;
+    border-top: 4px inset black
 }
 
 .greyme {
-    color: darkgray;
+    color: #524b4b;
 }
 
 .groupbutton {
+    display: flex;
     padding: 10px;
     border: 1px solid black;
     margin: 10px;
@@ -66,6 +71,9 @@
     font-family: 'Tilt Neon', serif;
     font-weight: bolder;
     font-size: 18px;
-    align-self: flex-end;
     box-shadow: 5px 5px black;
+}
+
+.gobot {
+    margin-top: auto;
 }
