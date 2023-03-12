@@ -1,12 +1,40 @@
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import * as groupsActions from "../../store/groups";
 import './index.css'
 
 const CreateGroup = () => {
     const [location, setLocation] = useState('')
     const [name, setName] = useState('')
     const [about, setAbout] = useState('')
+    const [url, setUrl] = useState('')
+    const [type, setType] = useState('')
+    const [priorpub, setPriorpub] = useState(true)
+    const [errors, setErrors] = useState([]);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        const [city, state] = location.split(', ')
+        window.moveTo(0, 0)
+        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state }))
+            .then((_res) => history.push('/groups/created'))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+    };
+
     return (
         <div className="formmaindiv">
+            <ul>
+                {Object.values(errors).map((error, idx) => <li key={idx} className="signuperror">{error}</li>)}
+            </ul>
             <div className="toptwo">
                 <span className="tealme toptwodes">BECOME AN ORGANIZER</span>
                 <span className="toptwodes">We'll walk you through a few steps to build your local community</span>
@@ -17,7 +45,7 @@ const CreateGroup = () => {
                 <span className="groupmsg">We'll connect you to pups in your area! And more follow!</span>
                 <label for="location">
                     <input type="text" id="location" placeholder="City, STATE" className="cginput"
-                    value={location} onChange={(e) => setLocation(e.target.value)}></input>
+                        value={location} onChange={(e) => setLocation(e.target.value)}></input>
                 </label>
             </div>
             <div className="grouploc">
@@ -26,7 +54,7 @@ const CreateGroup = () => {
                 <span className="groupmsg">With MeetPup Pro, you can change the group name for free once a year.</span>
                 <label for="groupname">
                     <input type="text" id="groupname" placeholder="What is your group name?" className="cginput"
-                    value={name} onChange={(e) => setName(e.target.value)}></input>
+                        value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
             </div>
             <div className="grouploc">
@@ -37,9 +65,34 @@ const CreateGroup = () => {
                 <span className="groupmsg">2. Who should join? </span>
                 <span className="groupmsg">3. Why do you like dogs?? </span>
                 <label for="groupabout">
-                    <textarea id="groupabout" placeholder="Be creative!" className="cginput"
-                    value={about} onChange={(e) => setAbout(e.target.value)}></textarea>
+                    <textarea id="groupabout" placeholder="Be creative!" className="cginput textbox"
+                        value={about} onChange={(e) => setAbout(e.target.value)}></textarea>
                 </label>
+            </div>
+            <div className="grouploc">
+                <span className="toptwodes">Final steps...</span>
+                <span className="groupmsg">Is this an in person or online group?</span>
+                <label for="grouptype"></label>
+                <select name="pets" id="grouptype" value={type} className="cginput" onChange={(e) => setType(e.target.value)}>
+                    <option value="" disabled>(select one)</option>
+                    <option value="In person">In person</option>
+                    <option value="Online">Online</option>
+                </select>
+                <span className="groupmsgwb">Is this group private or public?</span>
+                <label for="groupprivate"></label>
+                <select name="private" id="groupprivate" value={priorpub} className="cginput" onChange={(e) => setPriorpub(e.target.value)}>
+                    <option value="" disabled>(select one)</option>
+                    <option value="Private">Private</option>
+                    <option value="Public">Public</option>
+                </select>
+                <span className="groupmsg wb">1. What's the purpose of the group?</span>
+                <label for="groupurl">
+                    <input type="text" id="groupurl" placeholder="Image URL" className="cginput"
+                        value={url} onChange={(e) => setUrl(e.target.value)}></input>
+                </label>
+            </div>
+            <div className="trycg">
+                <button className="cgbutton" onClick={handleSubmit}>Create group</button>
             </div>
         </div>
     )

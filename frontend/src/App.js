@@ -11,6 +11,7 @@ import ErrorPage from "./components/ErrorPage";
 import AllGroups from "./components/AllGroups";
 import SingleGroup from "./components/SingleGroup";
 import CreateGroup from "./components/CreateGroup";
+import AllGroupsNew from "./components/AllGroupsNew";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route path='/groups/created' exact>
+          <Navigation isLoaded={isLoaded} />
+          <AllGroupsNew />
+        </Route>
         <Route path="/creategroup" exact>
           <Navigation isLoaded={isLoaded} />
           <CreateGroup />
@@ -42,7 +47,7 @@ function App() {
           <JM />
         </Route>
         <Route>
-          <Navigation isLoaded={isLoaded}/>
+          <Navigation isLoaded={isLoaded} />
           <ErrorPage />
         </Route>
       </Switch>
