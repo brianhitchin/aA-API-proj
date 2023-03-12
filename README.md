@@ -32,6 +32,7 @@ there is no validation for .env.
 Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...  
 <br>
 Sign up through the sign-up button on the top right. 
+<br>
 <img src='./step1.png' alt='step1'>  
 <br>
 One can also access the webpage with full functionality with the demo user under login.
