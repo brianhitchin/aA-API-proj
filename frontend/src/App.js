@@ -8,6 +8,7 @@ import HMW from "./components/HMW";
 import ThreeFunctions from "./components/ThreeButtons";
 import JM from "./components/JM";
 import ErrorPage from "./components/ErrorPage";
+import AllGroups from "./components/AllGroups";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route path="/groups" exact>
+          <Navigation isLoaded={isLoaded} />
+          <AllGroups />
+        </Route>
         <Route path="/" exact>
           <Navigation isLoaded={isLoaded} />
           <Greeting />
