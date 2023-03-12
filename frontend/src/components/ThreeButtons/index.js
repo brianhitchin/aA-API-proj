@@ -14,6 +14,10 @@ const ThreeFunctions = () => {
         history.push('/groups')
     }
 
+    const cghandle = () => {
+        return user ? history.push('/creategroup') : alert('Log in to create a group!')
+    }
+
     return (
         <div className="threebuttonsmain">
             <div className="getgroups" onClick={GGclickhandle}>
@@ -30,7 +34,7 @@ const ThreeFunctions = () => {
                 from online gaming and photography to yoga and hiking.
                 </span>
             </div>
-            <div className="creategroup">
+            <div className="creategroup" onClick={cghandle}>
                 <img src={user ? creategroup : creategroupdisabled} alt="" className="tfimages"></img>
                 <h2 className='tbh3'>Start a new group</h2>
                 <span className='tbtext'>You don’t have to be an expert to gather 

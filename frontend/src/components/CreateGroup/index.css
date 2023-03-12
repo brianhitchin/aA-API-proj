@@ -1,0 +1,23 @@
+.formmaindiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 9px;
+    padding-top: 33px;
+    width: 100%;
+    border-top: 2px outset gray;
+    padding-left: 20px
+}
+
+.tealme {
+    color: teal;
+}
+
+.toptwo {
+    width: 70%;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

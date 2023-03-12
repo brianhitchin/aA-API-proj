@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -12,6 +13,7 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(true);
   const ulRef = useRef();
+  const history = useHistory();
 
   const openMenu = () => {
     if (showMenu) return;
@@ -41,6 +43,10 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+  const caghandler = () => {
+    history.push('/creategroup')
+  };
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const buttonClassName = "ddbarbutton"
   const hidebutton = "custombutton"
@@ -48,11 +54,14 @@ function ProfileButton({ user }) {
   return (
     <div className="ddbar">
         {user ? (
-          <ul className={ulClassName} ref={ulRef}>
-            <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
-            <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
-            <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
-          </ul>
+          <div className="interholder">
+            <div className={showMenu ? "ddbagcag2" : "ddbagcag"} onClick={caghandler}>Create a group</div>
+            <ul className={ulClassName} ref={ulRef}>
+              <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
+              <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
+              <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
+            </ul>
+          </div>
         ) : (
           <ul className="profile-dropdown">
             <OpenModalMenuItem
