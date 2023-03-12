@@ -51,7 +51,7 @@ const JM = () => {
                         onItemClick={closeMenu}
                         modalComponent={<SignupFormModal />}
                     />
-                    <button onClick={handleDemoClick} class='jmbutton'>Log in as Demo</button>
+                    <button onClick={handleDemoClick} className='jmbutton'>Log in as Demo</button>
                 </div>)
                 : (<></>)
             }

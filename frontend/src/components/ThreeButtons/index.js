@@ -1,12 +1,20 @@
+import { useHistory } from 'react-router-dom'
 import creategroup from './creategroup.png'
 import findevent from './findevent.png'
 import getgroup from './getgroup.png'
 import './index.css'
 
 const ThreeFunctions = () => {
+
+    const history = useHistory();
+
+    const GGclickhandle = () => {
+        history.push('/groups')
+    }
+
     return (
         <div className="threebuttonsmain">
-            <div className="getgroups">
+            <div className="getgroups" onClick={GGclickhandle}>
                 <img src={getgroup} alt="" className="tfimages"></img>
                 <h2 className='tbh3'>See all groups</h2>
                 <span className='tbtext'>Do what you love, meet others who love it, find your community. 

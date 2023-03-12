@@ -13,7 +13,7 @@ module.exports = {
       {
         organizerId: 1,
         name: 'Group1',
-        about: 'Group1about',
+        about: 'Group1about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur eu urna ac tincidunt.',
         type: 'Outdoor',
         private: true,
         city: 'SF',
@@ -22,7 +22,7 @@ module.exports = {
       {
         organizerId: 2,
         name: 'Group2',
-        about: 'Group2about',
+        about: 'Group2about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur eu urna ac tincidunt.',
         type: 'Indoor',
         private: false,
         city: 'NYC',
@@ -31,7 +31,7 @@ module.exports = {
       {
         organizerId: 3,
         name: 'Group3',
-        about: 'Group3about',
+        about: 'Group3about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur eu urna ac tincidunt.',
         type: 'Social',
         private: true,
         city: 'Chicago',
