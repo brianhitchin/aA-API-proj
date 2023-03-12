@@ -18,14 +18,18 @@
 
 ## How to get started
 1. From the root, run:
+
     npm run install
+
 which will install both frontend and backend dependencies.
-2. In the backend, reference .env.example and configure appropriately. As of now,
-there is no validation for .env.
+2. In the backend, reference .env.example and configure appropriately.
 3. Run the appropriate migrations and seeders in the backend directory:
+
     npx dotenv sequelize db:migrate:all
     npx dotenv sequelize db:seed:all
+
 4. Start both frontend and backend servers (on development, separately) with:
+
     npm run
 
 ## How to use MeetPup

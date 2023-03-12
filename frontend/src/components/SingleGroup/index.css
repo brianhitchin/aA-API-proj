@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
 }
 
 .imgholder {
@@ -48,13 +49,17 @@
 
 .groupdt {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     padding-left: 20px;
     flex-shrink: 0;
     min-height: 100%;
-    min-width: 30%;
-    border-top: 4px inset black
+    width: 30%;
+    border-top: 2px inset black;
+    border-right: 2px solid black;
+    border-bottom: 2px outset black;
+    background-color: white;
 }
 
 .greyme {
@@ -76,4 +81,5 @@
 
 .gobot {
     margin-top: auto;
+    margin-bottom: 20px;
 }

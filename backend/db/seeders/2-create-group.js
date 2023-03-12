@@ -12,7 +12,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: 'Group1',
+        name: 'Group1Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         about: 'Group1about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac.',
         type: 'Outdoor',
         private: true,
@@ -44,7 +44,7 @@ module.exports = {
     options.tableName = 'Groups';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Group1', 'Group2', 'Group3'] }
+      name: { [Op.in]: ['Group1Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua', 'Group2', 'Group3'] }
     }, {});
   }
 };
