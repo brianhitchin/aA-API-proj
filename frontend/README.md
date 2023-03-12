@@ -19,14 +19,18 @@
 ## How to get started
 1. From the root, run install which will install both frontend and backend dependencies.
 
+
         npm run install
+
 
 2. In the backend, reference .env.example and configure appropriately. As of now,
 there is no validation for .env.
 3. Run the appropriate migrations and seeders in the backend directory:
 
+
         npx dotenv sequelize db:migrate:all
         npx dotenv sequelize db:seed:all
+
 
 4. Start both frontend and backend servers (on development, separately) with:
     npm run
@@ -34,12 +38,17 @@ there is no validation for .env.
 ## How to use MeetPup
 Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...
 
+
 Sign up through the sign-up button on the top right. 
+
 
 ![step1](https://user-images.githubusercontent.com/63670745/224509441-1a724a44-f437-42c2-9ccf-c2218d597183.png)
 
+
 One can also access the webpage with full available functionalites with the demo user under login.
 
+
 ![step2](https://user-images.githubusercontent.com/63670745/224509446-05e93f25-5775-4156-b2f5-b673ed4bb2db.png)
+
 
 Enjoy!

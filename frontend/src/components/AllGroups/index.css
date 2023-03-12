@@ -4,11 +4,19 @@
     padding-top: 33px;
     width: 100%;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     border-top: 2px outset gray;
     font-size: 30px;
     margin-bottom: 10px;
 }
+
+.egsub {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
 
 .eglinkactive {
     color: teal;
@@ -27,8 +35,17 @@
     flex-direction: column;
 }
 
+.egsubp {
+    color: darkgray;
+    font-size: 20px;
+    width: 50%;
+    align-items: center;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
 .indivgroups {
-    max-width: 70%;
+    max-width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
