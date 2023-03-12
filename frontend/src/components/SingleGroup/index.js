@@ -31,7 +31,7 @@ const SingleGroup = () => {
                     <div className="groupdt">
                         <h1>{group.name}</h1>
                         <h3 className="greyme">{`${group.city}, ${group.state}`}</h3>
-                        
+                        <h3 className="greyme">{`Organizer: ${organizer.firstName} ${organizer.lastName}`}</h3>
                         <h3 className="greyme">{group.private === true ? "Private" : "Public"}</h3>
                         <button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button>
                     </div>
