@@ -1,6 +1,6 @@
 # Welcome to MeetPup!
-<img src="/welcome.png" width="300" height="120" alt='welcome'>
-*(ReadMe v1.1, updated 3/11/2013)*
+<img src="/welcome.png" alt='welcome'>
+*(ReadMe v1.2, updated 3/12/2013)*
 
 ### What is MeetPup?
 - A project to emulate [Meetup](https://www.meetup.com/).
@@ -29,11 +29,17 @@ there is no validation for .env.
     npm run
 
 ## How to use MeetPup
-Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...
+Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...  
+<br>
 Sign up through the sign-up button on the top right. 
-<img src='./step1.png' alt='step1'>
+<img src='./step1.png' alt='step1'>  
+<br>
 One can also access the webpage with full functionality with the demo user under login.
-<img src='./step2.png' alt='step2'>
+<img src='./step2.png' alt='step2'>  
+<br>
+Alternatively, you may also click on the *Log In as Demo* button on the bottom of the page!
+<img src='./step3.png' alt='step3'>  
+<br>
 Enjoy!
 
 

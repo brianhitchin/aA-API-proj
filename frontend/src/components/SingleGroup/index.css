@@ -1,0 +1,71 @@
+.singlegroupmain {
+    display: flex;
+    margin-top: 9px;
+    padding-top: 33px;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-top: 2px outset gray;
+    margin-bottom: 10px;
+}
+
+.groupnav {
+    font-size: 16px;
+    color: teal;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+.groupsum {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imgholder {
+    border: 4px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.imgholder img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.groupov {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-right: 10px;
+    min-height: 100%;
+}
+
+.groupdt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.greyme {
+    color: darkgray;
+}
+
+.groupbutton {
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: red;
+    color: white;
+    font-family: 'Tilt Neon', serif;
+    font-weight: bolder;
+    font-size: 18px;
+    align-self: flex-end;
+    box-shadow: 5px 5px black;
+}

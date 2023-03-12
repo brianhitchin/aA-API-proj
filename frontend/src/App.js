@@ -9,6 +9,7 @@ import ThreeFunctions from "./components/ThreeButtons";
 import JM from "./components/JM";
 import ErrorPage from "./components/ErrorPage";
 import AllGroups from "./components/AllGroups";
+import SingleGroup from "./components/SingleGroup";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ function App() {
         <Route path="/groups" exact>
           <Navigation isLoaded={isLoaded} />
           <AllGroups />
+        </Route>
+        <Route path="/groups/:groupId">
+          <Navigation isLoaded={isLoaded} />
+          <SingleGroup />
         </Route>
         <Route path="/" exact>
           <Navigation isLoaded={isLoaded} />

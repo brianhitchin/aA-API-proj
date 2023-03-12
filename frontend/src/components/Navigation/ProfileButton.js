@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -9,7 +9,6 @@ import userdownf from './userdownf.png'
 import './Navigation.css';
 
 function ProfileButton({ user }) {
-  const thisUser = useSelector(state => state.session.user)
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(true);
   const ulRef = useRef();
