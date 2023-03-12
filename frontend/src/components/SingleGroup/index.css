@@ -42,6 +42,7 @@
 .groupov {
     display: flex;
     align-items: stretch;
+    justify-content: center;
     padding: 10px;
     margin-right: 20px;
     height: 100%;
@@ -82,4 +83,37 @@
 .gobot {
     margin-top: auto;
     margin-bottom: 20px;
+}
+
+.graysection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid black;
+    border-right: 2px solid black;
+    overflow: hidden;
+}
+
+.grayintro {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.greymeintro {
+    color: #524b4b;
+    padding-bottom: 20px;
+}
+
+.grayabout {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 80%;
+    padding-right: 20px;
 }

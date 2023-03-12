@@ -77,3 +77,23 @@
     border-radius: 30px;
     border-collapse: separate; 
 }
+
+.ddbagcag {
+    color: teal;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ddbagcag2 {
+    color: teal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.interholder {
+    display: flex;
+    align-items: center;
+}

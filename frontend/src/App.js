@@ -10,6 +10,7 @@ import JM from "./components/JM";
 import ErrorPage from "./components/ErrorPage";
 import AllGroups from "./components/AllGroups";
 import SingleGroup from "./components/SingleGroup";
+import CreateGroup from "./components/CreateGroup";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route path="/creategroup" exact>
+          <Navigation isLoaded={isLoaded} />
+          <CreateGroup />
+        </Route>
         <Route path="/groups" exact>
           <Navigation isLoaded={isLoaded} />
           <AllGroups />
