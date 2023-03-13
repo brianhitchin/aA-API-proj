@@ -6,6 +6,14 @@ const POPULATE_PAGE = 'group/start'
 const GET_ONE_GROUP = 'group/getone'
 const ADD_GROUP = 'group/add'
 const ADD_GROUP_IMAGE = 'group/addimage'
+const DELETE_GROUP = 'group/delete'
+
+export const deleteaGroup = (id) => {
+    return {
+        type: DELETE_GROUP,
+        id
+    }
+}
 
 export const addGroupImage = (payload) => {
     return {
@@ -32,6 +40,19 @@ export const addGroup = (payload) => {
     return {
         type: ADD_GROUP,
         payload
+    }
+}
+
+export const deleteGroup = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${id}`, {
+        method: 'DELETE', 
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        dispatch(deleteaGroup(id))
     }
 }
 
@@ -95,6 +116,10 @@ const groupsReducer = (state = initialState, action) => {
         case ADD_GROUP_IMAGE:
             newState = { ...state, groups: { ...state.groups } }
             newState.groups[action.payload.id].previewImage = action.payload.url
+            return newState
+        case DELETE_GROUP:
+            newState = { ...state, groups: { ...state.groups } }
+            delete newState.groups[action.id]
             return newState
         default:
             return state;

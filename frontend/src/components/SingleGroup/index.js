@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import { oneGroup } from '../../store/groups';
+import { oneGroup, deleteGroup } from '../../store/groups';
 import './index.css'
 
 const SingleGroup = () => {
     const { groupId } = useParams();
     const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
     const [currGroup, setCurrGroup] = useState(false)
+    const [confirm, setConfirm] = useState(false)
     const [oner, setOner] = useState(null)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
     const curruser = useSelector(state => state.session)
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(oneGroup(groupId))
@@ -31,6 +33,17 @@ const SingleGroup = () => {
             setCurrGroup(false)
         }
     }, [currGroup, group])
+
+    const deletehandler = (e) => {
+        e.preventDefault();
+        setConfirm(!confirm)
+    }
+
+    const realdeletehandler = (e) => {
+        e.preventDefault();
+        dispatch(deleteGroup(groupId))
+        history.push('/deletedgroup')
+    }
 
     return (
         <div className="singlegroupmain">
@@ -53,7 +66,8 @@ const SingleGroup = () => {
                             <div className='gobot2'>
                                 <button className="sgowneropt">Create event</button>
                                 <button className="sgowneropt">Update</button>
-                                <button className="sgowneropt">Delete</button>
+                                <button className="sgowneropt" onClick={deletehandler}>Delete</button>
+                                {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
                             </div> :
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
                                 Join this group</button></div>}

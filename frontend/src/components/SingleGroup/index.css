@@ -107,6 +107,24 @@
     box-shadow: 3px 3px black;
 }
 
+.sgowneroptc {
+    display: flex;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 8px;
+    background-color: red;
+    color: white;
+    font-family: 'Tilt Neon', serif;
+    font-weight: bolder;
+    font-size: 14px;
+    box-shadow: 3px 3px black;
+}
+
+.sgowneroptc:hover {
+    background-color: white;
+    color: black;
+}
+
 .sgowneropt:hover {
     background-color: white;
     color: black;
