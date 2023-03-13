@@ -82,8 +82,7 @@ const SingleGroup = () => {
                 </div>
                 <div className="graysection">
                     <div className="grayinner">
-                        <h1>Organizer</h1>
-                        <h3 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
+                        <h1 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h1>
                         <h1>What we're about</h1>
                         <p className="grayabout">{currGroup.about}</p>
                     </div>

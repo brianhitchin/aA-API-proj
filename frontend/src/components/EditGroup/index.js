@@ -43,7 +43,8 @@ const EditGroup = ({ group: { name, about, type, city, state}, privacy }) => {
                     <option value="In person">In person</option>
                     <option value="Online">Online</option>
                 </select>
-                <label for="grouptype">Do you want your group to be private?</label>
+                <span className="toptwodes2">Do you want your group to be private?</span>
+                <label for="groupprivate"></label>
                 <select id="groupprivate" value={newPrivate} className="cginput2" onChange={(e) => setNewPrivate(e.target.value)}>
                     <option value="" disabled>(select one)</option>
                     <option value={true}>Yes</option>
