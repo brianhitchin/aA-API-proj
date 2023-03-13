@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as groupsActions from "../../store/groups";
 import './index.css'
 
-const EditGroup = ({ group: { name, about, type, city, state}, privacy }) => {
+const EditGroup = ({ group: { name, about, type, city, state}, privacy, id }) => {
     const [newName, setNewName] = useState(name)
     const [newAbout, setNewAbout] = useState(about)
     const [newType, setNewType] = useState(type)
@@ -10,11 +12,22 @@ const EditGroup = ({ group: { name, about, type, city, state}, privacy }) => {
     const [newState, setNewState] = useState(state)
     const [newPrivate, setNewPrivate] = useState(privacy)
     const [errors, setErrors] = useState([]);
-    
+    const dispatch = useDispatch();    
+    const history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        alert('clicked')
+        window.scrollTo(0, 0)
+        return dispatch(groupsActions.editGroup(id, { name: newName, about: newAbout, type: newType, private: newPrivate, city: newCity, state: newState }))
+            .then((_res) => history.push(`/groups`))
+            .then((_res) => alert('Group successfully edited! Placeholder.'))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
     };
 
     return (
@@ -43,7 +56,8 @@ const EditGroup = ({ group: { name, about, type, city, state}, privacy }) => {
                     <option value="In person">In person</option>
                     <option value="Online">Online</option>
                 </select>
-                <label for="grouptype">Do you want your group to be private?</label>
+                <span className="toptwodes2">Do you want your group to be private?</span>
+                <label for="groupprivate"></label>
                 <select id="groupprivate" value={newPrivate} className="cginput2" onChange={(e) => setNewPrivate(e.target.value)}>
                     <option value="" disabled>(select one)</option>
                     <option value={true}>Yes</option>

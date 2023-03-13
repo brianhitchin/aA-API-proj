@@ -23,9 +23,8 @@ const SingleGroup = () => {
     }, [groupId, dispatch])
 
     useEffect(() => {
-        if (Object.entries(group)[0][0] === 'id') {
-            setCurrGroup(group)
-        }
+        setCurrGroup(group)
+        setShowEdit(false)
     }, [group, setOner])
 
     useEffect(() => {
@@ -33,9 +32,9 @@ const SingleGroup = () => {
             setImgurl(group.GroupImages[0].url)
             setOner(group.organizerId)
         } catch (e) {
-            setCurrGroup(false)
+            console.log('idk what else to do')
         }
-    }, [currGroup, group])
+    }, [currGroup])
 
     const deletehandler = (e) => {
         e.preventDefault();
@@ -55,7 +54,7 @@ const SingleGroup = () => {
                     <NavLink to={'/groups'}>Groups</NavLink>
                 </div>
                 {showEdit && <div className="formholder">
-                    <EditGroup group={group} privacy={currGroup.private} />
+                    <EditGroup group={group} privacy={currGroup.private} id={groupId} />
                     <button onClick={() => setShowEdit(false)} className="groupbuttonns">X</button>
                     </div>}
                 <div className="groupov">
@@ -82,8 +81,7 @@ const SingleGroup = () => {
                 </div>
                 <div className="graysection">
                     <div className="grayinner">
-                        <h1>Organizer</h1>
-                        <h3 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
+                        <h1 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h1>
                         <h1>What we're about</h1>
                         <p className="grayabout">{currGroup.about}</p>
                     </div>

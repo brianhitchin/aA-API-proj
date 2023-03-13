@@ -25,6 +25,7 @@
 
 .toptwodes2 {
     font-size: 25px;
+    padding: 10px;
 }
 
 .trycg2 {
@@ -65,3 +66,7 @@
     box-shadow: 5px 5px black;
 }
 
+.updateerror {
+    color: red;
+    font-size: 12px;
+}
