@@ -15,12 +15,15 @@
     color: teal;
     text-decoration: underline;
     padding: 10px;
+    display: flex;
+    align-self: start;
 }
 
 .groupsum {
     width: 70%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     overflow: hidden;
 }
@@ -30,7 +33,8 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 60%;
+    min-width: 60%;
+    max-width: 60%;
 }
 
 .imgholder img {
@@ -43,6 +47,7 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
+    width: 99%;
     max-height: 500px;
     border: 4px solid black;
 }
@@ -55,7 +60,8 @@
     padding-left: 20px;
     flex-shrink: 0;
     min-height: 100%;
-    width: 40%;
+    min-width: 40%;
+    max-width: 40%;
     background-color: white;
 }
 
@@ -82,21 +88,28 @@
 }
 
 .graysection {
-    width: 100%;
+    width: 99%;
+    background-color: white;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px solid black;
+    overflow: hidden;
+}
+
+.grayinner {
+    width: 80%;
+    height: 80%;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: white;
-    margin-top: 30px;
-    padding: 20px;
-    border: 2px solid black;
-    border-right: 2px solid black;
-    overflow: hidden;
 }
 
 .grayintro {
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,6 +123,6 @@
 .grayabout {
     display: flex;
     flex-wrap: wrap;
-    max-width: 80%;
+    width: 100%;
     padding-right: 20px;
 }

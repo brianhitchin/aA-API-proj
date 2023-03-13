@@ -36,10 +36,12 @@ const SingleGroup = () => {
                     </div>
                 </div>
                 <div className="graysection">
-                    <h1>Organizer</h1>
-                    <h3 className="greymeintro">{group.Organizer ? `Organizer: ${group.Organizer.firstName} ${group.Organizer.lastName}` : ``}</h3>
-                    <h1>What we're about</h1>
-                    <p className="grayabout">{group.about}</p>
+                    <div className="grayinner">
+                        <h1>Organizer</h1>
+                        <h3 className="greymeintro">{group.Organizer ? `Organizer: ${group.Organizer.firstName} ${group.Organizer.lastName}` : ``}</h3>
+                        <h1>What we're about</h1>
+                        <p className="grayabout">{group.about}</p>
+                    </div>
                 </div>
             </div>
         </div>
