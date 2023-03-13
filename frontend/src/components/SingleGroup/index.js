@@ -27,7 +27,7 @@ const SingleGroup = () => {
         try {
             setImgurl(group.GroupImages[0].url)
             setOner(group.organizerId)
-        } catch(e) {
+        } catch (e) {
             setCurrGroup(false)
         }
     }, [currGroup, group])
@@ -40,8 +40,8 @@ const SingleGroup = () => {
                 </div>
                 <div className="groupov">
                     <div className="imgholder">
-                        <img src={imgurl} 
-                        className="groupovimg" alt=""> 
+                        <img src={imgurl}
+                            className="groupovimg" alt="">
                         </img>
                     </div>
                     <div className="groupdt">
@@ -49,9 +49,14 @@ const SingleGroup = () => {
                         <h3 className="greyme">{`${currGroup.city}, ${currGroup.state}`}</h3>
                         <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
                         <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
-                        {oner && oner === curruser.user.id ? 
-                        <div className='gobot'><span>Create event</span><span>Update</span><span>Delete</span></div> : 
-                        <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button></div>}
+                        {curruser.user && oner && oner === curruser.user.id ?
+                            <div className='gobot2'>
+                                <button className="sgowneropt">Create event</button>
+                                <button className="sgowneropt">Update</button>
+                                <button className="sgowneropt">Delete</button>
+                            </div> :
+                            <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
+                                Join this group</button></div>}
                     </div>
                 </div>
                 <div className="graysection">
