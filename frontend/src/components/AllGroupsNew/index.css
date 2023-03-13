@@ -1,7 +1,7 @@
 .success {
     margin-top: 9px;
     margin-bottom: 9px;
-    border-top: 2px outset gray;
+    border: 2px solid black;
     width: 100%;
     background-color: darkgreen;
     color: white;

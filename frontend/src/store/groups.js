@@ -5,6 +5,14 @@ const initialState = {}
 const POPULATE_PAGE = 'group/start'
 const GET_ONE_GROUP = 'group/getone'
 const ADD_GROUP = 'group/add'
+const ADD_GROUP_IMAGE = 'group/addimage'
+
+export const addGroupImage = (payload) => {
+    return {
+        type: ADD_GROUP_IMAGE,
+        payload
+    }
+}
 
 export const startGroups = (payload) => {
     return {
@@ -28,7 +36,7 @@ export const addGroup = (payload) => {
 }
 
 export const create = (value) => async dispatch => {
-    const response = await csrfFetch('api/groups', {
+    const response = await csrfFetch('/api/groups', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +46,18 @@ export const create = (value) => async dispatch => {
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(addGroup(data))
+        await dispatch(addGroup(data))
+        const response2 = await csrfFetch(`/api/groups/${data.id}/images`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: value.url, preview: true})
+        })
+
+        if (response2.ok) {
+            dispatch(addGroupImage({ id: data.id, url: value.url }))
+        }
     }
 }
 
@@ -48,7 +67,7 @@ export const oneGroup = (groupId) => async dispatch => {
         const data = await response.json();
         dispatch(getGroup(data));
     }
-} 
+}
 
 export const initialGroups = () => async dispatch => {
     const response = await csrfFetch('/api/groups');
@@ -70,9 +89,13 @@ const groupsReducer = (state = initialState, action) => {
             newState = action.payload;
             return newState;
         case ADD_GROUP:
-            newState = {...state}
+            newState = { ...state, groups: { ...state.groups } }
             newState.groups[action.payload.id] = action.payload
             return newState;
+        case ADD_GROUP_IMAGE:
+            newState = { ...state, groups: { ...state.groups } }
+            newState.groups[action.payload.id].previewImage = action.payload.url
+            return newState
         default:
             return state;
     }

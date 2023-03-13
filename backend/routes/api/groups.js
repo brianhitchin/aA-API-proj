@@ -199,10 +199,6 @@ router.post('/:groupId/images', requireAuth, orgCheck('Organizer'), async (req, 
             message: "Group couldn't be found",
             statusCode: 404
         })
-        const err = new Error();
-        err.message = "Group couldn't be found"
-        err.status = 404;
-        next(err);
     }
     const newImage = await GroupImage.create({
         groupId: req.params.groupId,
