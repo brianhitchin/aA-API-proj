@@ -9,6 +9,7 @@ const SingleGroup = () => {
     const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
     const [currGroup, setCurrGroup] = useState(false)
     const [confirm, setConfirm] = useState(false)
+    const [clicked, setClicked] = useState(false)
     const [oner, setOner] = useState(null)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
@@ -64,7 +65,7 @@ const SingleGroup = () => {
                         <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
                         {curruser.user && oner && oner === curruser.user.id ?
                             <div className='gobot2'>
-                                <button className="sgowneropt">Create event</button>
+                                <button className="sgowneropt" onClick={() => setClicked(!clicked)}>{clicked ? "Coming soon!" : "Create event"}</button>
                                 <button className="sgowneropt">Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>Delete</button>
                                 {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
