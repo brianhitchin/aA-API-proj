@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { oneGroup, deleteGroup } from '../../store/groups';
+import EditGroup from '../EditGroup';
 import './index.css'
 
 const SingleGroup = () => {
@@ -11,6 +12,7 @@ const SingleGroup = () => {
     const [confirm, setConfirm] = useState(false)
     const [clicked, setClicked] = useState(false)
     const [oner, setOner] = useState(null)
+    const [showEdit, setShowEdit] = useState(false)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
     const curruser = useSelector(state => state.session)
@@ -52,6 +54,10 @@ const SingleGroup = () => {
                 <div className="groupnav">
                     <NavLink to={'/groups'}>Groups</NavLink>
                 </div>
+                {showEdit && <div className="formholder">
+                    <EditGroup group={group} privacy={currGroup.private} />
+                    <button onClick={() => setShowEdit(false)} className="groupbuttonns">X</button>
+                    </div>}
                 <div className="groupov">
                     <div className="imgholder">
                         <img src={imgurl}
@@ -66,7 +72,7 @@ const SingleGroup = () => {
                         {curruser.user && oner && oner === curruser.user.id ?
                             <div className='gobot2'>
                                 <button className="sgowneropt" onClick={() => setClicked(!clicked)}>{clicked ? "Coming soon!" : "Create event"}</button>
-                                <button className="sgowneropt">Update</button>
+                                <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>Delete</button>
                                 {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
                             </div> :
