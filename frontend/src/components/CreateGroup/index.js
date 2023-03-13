@@ -22,7 +22,7 @@ const CreateGroup = () => {
         const [city, state] = location.split(', ')
         window.scrollTo(0, 0)
         return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
-            .then((_res) => history.push('/groups'))
+            .then((res) => history.push(`/groups/${res}`))
             .catch(
                 async (res) => {
                     console.log('error out')

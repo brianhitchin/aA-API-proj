@@ -57,6 +57,7 @@ export const create = (value) => async dispatch => {
 
         if (response2.ok) {
             dispatch(addGroupImage({ id: data.id, url: value.url }))
+            return data.id
         }
     }
 }
@@ -89,8 +90,7 @@ const groupsReducer = (state = initialState, action) => {
             newState = action.payload;
             return newState;
         case ADD_GROUP:
-            newState = { ...state, groups: { ...state.groups } }
-            newState.groups[action.payload.id] = action.payload
+            newState = { ...state, groups: {...state.groups, [action.payload.id]: action.payload}}
             return newState;
         case ADD_GROUP_IMAGE:
             newState = { ...state, groups: { ...state.groups } }

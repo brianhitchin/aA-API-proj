@@ -1,16 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { oneGroup } from '../../store/groups';
 import './index.css'
 
 const SingleGroup = () => {
     const { groupId } = useParams();
+    const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
 
     useEffect(() => {
         dispatch(oneGroup(groupId))
+        setImgurl(group[groupId - 1].previewImage)
     }, [groupId, dispatch])
 
     return (
@@ -21,7 +23,7 @@ const SingleGroup = () => {
                 </div>
                 <div className="groupov">
                     <div className="imgholder">
-                        <img src="http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg" 
+                        <img src={imgurl} 
                         className="groupovimg" alt=""> 
                         </img>
                     </div>
