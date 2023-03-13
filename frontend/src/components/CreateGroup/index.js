@@ -19,9 +19,9 @@ const CreateGroup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        console.log("url", url)
         const [city, state] = location.split(', ')
         window.scrollTo(0, 0)
+        if (url) {
         return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
             .then((res) => history.push(`/groups/${res}`))
             .catch(
@@ -30,6 +30,16 @@ const CreateGroup = () => {
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
+        } else {
+            return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url: "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" }))
+            .then((res) => history.push(`/groups/${res}`))
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+        }
     };
 
     return (
@@ -89,7 +99,7 @@ const CreateGroup = () => {
                 </select>
                 <span className="groupmsg wb">Please add an image url for your group below:</span>
                 <label for="groupurl">
-                    <input type="text" id="groupurl" placeholder="Image URL" className="cginput"
+                    <input type="text" id="groupurl" placeholder="Optional, leave blank if no suitable image." className="cginput"
                         value={url} onChange={(e) => setUrl(e.target.value)}></input>
                 </label>
             </div>
