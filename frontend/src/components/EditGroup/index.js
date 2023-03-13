@@ -20,7 +20,7 @@ const EditGroup = ({ group: { name, about, type, city, state}, privacy, id }) =>
         setErrors([]);
         window.scrollTo(0, 0)
         return dispatch(groupsActions.editGroup(id, { name: newName, about: newAbout, type: newType, private: newPrivate, city: newCity, state: newState }))
-            .then((_res) => history.push(`/groups/`))
+            .then((_res) => history.push(`/groups`))
             .then((_res) => alert('Group successfully edited! Placeholder.'))
             .catch(
                 async (res) => {
