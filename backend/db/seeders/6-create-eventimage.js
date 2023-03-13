@@ -11,17 +11,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'EventImages1 url t',
+        url: 'https://cdn.maikoapp.com/3d4b/4r2dg/180h.jpg',
         preview: true
       },
       {
         eventId: 2,
-        url: 'EventImages2 url t',
+        url: 'https://cdn.maikoapp.com/3d4b/4qy9k/180w.jpg',
         preview: true
       },
       {
         eventId: 3,
-        url: 'EventImages3 url t',
+        url: 'https://cdn.maikoapp.com/3d4b/4qwzz/180w.png',
         preview: true
       },
       {
