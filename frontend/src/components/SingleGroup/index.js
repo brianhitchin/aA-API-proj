@@ -1,17 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import { oneGroup } from '../../store/groups';
+import { oneGroup, deleteGroup } from '../../store/groups';
+import EditGroup from '../EditGroup';
 import './index.css'
 
 const SingleGroup = () => {
     const { groupId } = useParams();
     const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
     const [currGroup, setCurrGroup] = useState(false)
+    const [confirm, setConfirm] = useState(false)
+    const [clicked, setClicked] = useState(false)
     const [oner, setOner] = useState(null)
+    const [showEdit, setShowEdit] = useState(false)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
     const curruser = useSelector(state => state.session)
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(oneGroup(groupId))
@@ -27,10 +32,21 @@ const SingleGroup = () => {
         try {
             setImgurl(group.GroupImages[0].url)
             setOner(group.organizerId)
-        } catch(e) {
+        } catch (e) {
             setCurrGroup(false)
         }
     }, [currGroup, group])
+
+    const deletehandler = (e) => {
+        e.preventDefault();
+        setConfirm(!confirm)
+    }
+
+    const realdeletehandler = (e) => {
+        e.preventDefault();
+        dispatch(deleteGroup(groupId))
+        history.push('/deletedgroup')
+    }
 
     return (
         <div className="singlegroupmain">
@@ -38,10 +54,14 @@ const SingleGroup = () => {
                 <div className="groupnav">
                     <NavLink to={'/groups'}>Groups</NavLink>
                 </div>
+                {showEdit && <div className="formholder">
+                    <EditGroup group={group} privacy={currGroup.private} />
+                    <button onClick={() => setShowEdit(false)} className="groupbuttonns">X</button>
+                    </div>}
                 <div className="groupov">
                     <div className="imgholder">
-                        <img src={imgurl} 
-                        className="groupovimg" alt=""> 
+                        <img src={imgurl}
+                            className="groupovimg" alt="">
                         </img>
                     </div>
                     <div className="groupdt">
@@ -49,9 +69,15 @@ const SingleGroup = () => {
                         <h3 className="greyme">{`${currGroup.city}, ${currGroup.state}`}</h3>
                         <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
                         <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
-                        {oner && oner === curruser.user.id ? 
-                        <div className='gobot'><span>Create event</span><span>Update</span><span>Delete</span></div> : 
-                        <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button></div>}
+                        {curruser.user && oner && oner === curruser.user.id ?
+                            <div className='gobot2'>
+                                <button className="sgowneropt" onClick={() => setClicked(!clicked)}>{clicked ? "Coming soon!" : "Create event"}</button>
+                                <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
+                                <button className="sgowneropt" onClick={deletehandler}>Delete</button>
+                                {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
+                            </div> :
+                            <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
+                                Join this group</button></div>}
                     </div>
                 </div>
                 <div className="graysection">

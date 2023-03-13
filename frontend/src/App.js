@@ -11,6 +11,7 @@ import ErrorPage from "./components/ErrorPage";
 import AllGroups from "./components/AllGroups";
 import SingleGroup from "./components/SingleGroup";
 import CreateGroup from "./components/CreateGroup";
+import DGPage from "./components/DeleteGroupPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ function App() {
         <Route path="/creategroup" exact>
           <Navigation isLoaded={isLoaded} />
           <CreateGroup />
+        </Route>
+        <Route path="/deletedgroup" exact>
+          <Navigation isLoaded={isLoaded} />
+          <DGPage />
         </Route>
         <Route path="/groups/:groupId" exact>
           <Navigation isLoaded={isLoaded} />
