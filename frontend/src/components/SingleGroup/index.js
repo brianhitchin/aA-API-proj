@@ -7,13 +7,28 @@ import './index.css'
 const SingleGroup = () => {
     const { groupId } = useParams();
     const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
+    const [currGroup, setCurrGroup] = useState(false)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
+    //const curruser = useSelector(state => state.session)
 
     useEffect(() => {
         dispatch(oneGroup(groupId))
-        setImgurl(group[groupId - 1].previewImage)
     }, [groupId, dispatch])
+
+    useEffect(() => {
+        if (Object.entries(group)[0][0] === 'id') {
+            setCurrGroup(group)
+        }
+    }, [group])
+
+    useEffect(() => {
+        try {
+            setImgurl(group.GroupImages[0].url)
+        } catch(e) {
+            setCurrGroup(false)
+        }
+    }, [currGroup])
 
     return (
         <div className="singlegroupmain">
@@ -28,19 +43,19 @@ const SingleGroup = () => {
                         </img>
                     </div>
                     <div className="groupdt">
-                        <h1>{group.name}</h1>
-                        <h3 className="greyme">{`${group.city}, ${group.state}`}</h3>
-                        <h3 className="greyme">{group.Organizer ? `Organizer: ${group.Organizer.firstName} ${group.Organizer.lastName}` : ``}</h3>
-                        <h3 className="greyme">{group.private === true ? "Private" : "Public"}</h3>
+                        <h1>{currGroup.name}</h1>
+                        <h3 className="greyme">{`${currGroup.city}, ${currGroup.state}`}</h3>
+                        <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
+                        <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
                         <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>Join this group</button></div>
                     </div>
                 </div>
                 <div className="graysection">
                     <div className="grayinner">
                         <h1>Organizer</h1>
-                        <h3 className="greymeintro">{group.Organizer ? `Organizer: ${group.Organizer.firstName} ${group.Organizer.lastName}` : ``}</h3>
+                        <h3 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
                         <h1>What we're about</h1>
-                        <p className="grayabout">{group.about}</p>
+                        <p className="grayabout">{currGroup.about}</p>
                     </div>
                 </div>
             </div>
