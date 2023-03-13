@@ -7,6 +7,7 @@ const GET_ONE_GROUP = 'group/getone'
 const ADD_GROUP = 'group/add'
 const ADD_GROUP_IMAGE = 'group/addimage'
 const DELETE_GROUP = 'group/delete'
+const EDIT_GROUP = 'group/edit'
 
 export const deleteaGroup = (id) => {
     return {
@@ -40,6 +41,28 @@ export const addGroup = (payload) => {
     return {
         type: ADD_GROUP,
         payload
+    }
+}
+
+export const editaGroup = (payload) => {
+    return {
+        type: EDIT_GROUP,
+        payload
+    }
+}
+
+export const editGroup = (id, body) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${id}`, {
+        method: 'PUT', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editaGroup(data))
     }
 }
 
@@ -120,6 +143,9 @@ const groupsReducer = (state = initialState, action) => {
         case DELETE_GROUP:
             newState = { ...state, groups: { ...state.groups } }
             delete newState.groups[action.id]
+            return newState
+        case EDIT_GROUP:
+            newState = { ...state, groups: { [action.payload.id]: { ...action.payload } }}
             return newState
         default:
             return state;

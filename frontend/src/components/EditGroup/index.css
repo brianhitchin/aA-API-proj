@@ -66,3 +66,7 @@
     box-shadow: 5px 5px black;
 }
 
+.updateerror {
+    color: red;
+    font-size: 12px;
+}
