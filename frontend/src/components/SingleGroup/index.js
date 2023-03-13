@@ -7,7 +7,7 @@ import './index.css'
 
 const SingleGroup = () => {
 
-    const sorry = "https://cdn.maikoapp.com/3d4b/4qs2p/200.png"
+    const sorry = "../../sorry.png"
     const { groupId } = useParams();
     const [imgurl, setImgurl] = useState(sorry)
     const [currGroup, setCurrGroup] = useState(false)

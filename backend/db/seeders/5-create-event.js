@@ -16,7 +16,7 @@ module.exports = {
       {
         venueId: 1,
         groupId: 1,
-        name: 'JF event',
+        name: 'Event 1 name',
         description: 'Event1 description',
         type: 'In Person',
         capacity: 50,
@@ -27,7 +27,7 @@ module.exports = {
       {
         venueId: 2,
         groupId: 2,
-        name: 'RC event',
+        name: 'Event 2 name',
         description: 'Event2 description',
         type: 'Online',
         capacity: 20,
@@ -38,7 +38,7 @@ module.exports = {
       {
         venueId: 3,
         groupId: 3,
-        name: 'BH event',
+        name: 'Event 3 name',
         description: 'Event3 description',
         type: 'In Person',
         capacity: 1000,

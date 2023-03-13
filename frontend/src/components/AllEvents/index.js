@@ -9,13 +9,17 @@ const AllEvents = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const sorry = "https://cdn.maikoapp.com/3d4b/4qs2p/200.png"
+    const sorry = "../../sorry.png"
 
     useEffect(() => {
         dispatch(initialEvents())
     }, [dispatch])
 
     ///event.startDate, name, .Venue ? .city, .state : null, .previewImage, hosted by: groupid (maybe navigate there)
+
+    const formatter = (date) => {
+        return new Date(date).toDateString();
+    }
 
     return (
         <>
@@ -31,11 +35,11 @@ const AllEvents = () => {
                     return (
                         <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventimg'>
-                                <img src={(event.previewImage && event.previewImage.includes('/')) ? event.previewImage : { sorry }} alt="" height={"300px"} width={"300px"}></img>
+                                <img src={(event.previewImage && event.previewImage.includes('/')) ? event.previewImage : sorry} alt="" height={"300px"} width={"300px"}></img>
                             </div>
                             <div className='indiveventdetail'>
                                 <span className='indiveventname'>{event.name}</span>
-                                <span className='indiveventtime tealme'>{event.startDate}<i class="fa-regular fa-clock"></i></span>
+                                <span className='indiveventtime tealme'>{formatter(event.startDate)} <i class="fa-regular fa-clock"></i></span>
                                 <span className='indiveventloc'>{event.Venue !== 'null' ? `Location: ${event.Venue.city}, ${event.Venue.state}` : "Location not set yet!"}</span>
                                 <span className='indiveventhost'>Hosted by: {<Link to={`/groups/${event.groupId}`}>{event.Group.name}</Link>}</span>
                             </div>

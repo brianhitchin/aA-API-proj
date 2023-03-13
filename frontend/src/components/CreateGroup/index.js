@@ -19,6 +19,7 @@ const CreateGroup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+        console.log("url", url)
         const [city, state] = location.split(', ')
         window.scrollTo(0, 0)
         return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
