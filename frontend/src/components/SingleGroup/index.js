@@ -6,8 +6,10 @@ import EditGroup from '../EditGroup';
 import './index.css'
 
 const SingleGroup = () => {
+
+    const sorry = "https://cdn.maikoapp.com/3d4b/4qs2p/200.png"
     const { groupId } = useParams();
-    const [imgurl, setImgurl] = useState("http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back05.jpg")
+    const [imgurl, setImgurl] = useState(sorry)
     const [currGroup, setCurrGroup] = useState(false)
     const [confirm, setConfirm] = useState(false)
     const [clicked, setClicked] = useState(false)
@@ -17,7 +19,7 @@ const SingleGroup = () => {
     const group = useSelector(state => state.groups)
     const curruser = useSelector(state => state.session)
     const history = useHistory();
-
+    
     useEffect(() => {
         dispatch(oneGroup(groupId))
     }, [groupId, dispatch])
@@ -32,7 +34,7 @@ const SingleGroup = () => {
             setImgurl(group.GroupImages[0].url)
             setOner(group.organizerId)
         } catch (e) {
-            console.log('idk what else to do')
+            setImgurl(sorry)
         }
     }, [currGroup])
 

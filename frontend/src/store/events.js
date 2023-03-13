@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 const initialState = {}
 
 const POPULATE_EPAGE = 'events/start'

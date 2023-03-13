@@ -26,7 +26,7 @@ const ThreeFunctions = () => {
                 <span className='tbtext'>Do what you love, meet others who love it, find your community. 
                     The rest is history! You can meet some pups!</span>
             </div>
-            <div className="findevents">
+            <div className="findevents" onClick={() => history.push('/events')}>
                 <img src={findevent} alt="" className="tfimages"></img>
                 <h2 className='tbh3'>Find an event</h2>
                 <span className='tbtext'>
