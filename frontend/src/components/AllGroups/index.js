@@ -8,7 +8,7 @@ const AllGroups = () => {
     const groups = useSelector(state => state.groups)
     const dispatch = useDispatch();
     const history = useHistory();
-    const sorry = "../../sorry.png"
+    const sorry = "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg"
 
     useEffect(() => {
         dispatch(initialGroups())
