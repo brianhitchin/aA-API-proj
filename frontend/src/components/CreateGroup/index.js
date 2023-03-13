@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as groupsActions from "../../store/groups";
 import './index.css'
 
 const CreateGroup = () => {
+    const groups = useSelector(state => state.groups)
     const [location, setLocation] = useState('')
     const [name, setName] = useState('')
     const [about, setAbout] = useState('')
@@ -19,11 +20,12 @@ const CreateGroup = () => {
         e.preventDefault();
         setErrors([]);
         const [city, state] = location.split(', ')
-        window.moveTo(0, 0)
-        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state }))
-            .then((_res) => history.push('/groups/created'))
+        window.scrollTo(0, 0)
+        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
+            .then((_res) => history.push('/groups'))
             .catch(
                 async (res) => {
+                    console.log('error out')
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 }
@@ -42,7 +44,7 @@ const CreateGroup = () => {
             <div className="grouploc">
                 <span className="toptwodes">First, set your group's location.</span>
                 <span className="groupmsg">MeetPup groupos meet locally, in person and online.</span>
-                <span className="groupmsg">We'll connect you to pups in your area! And more follow!</span>
+                <span className="groupmsg">We'll connect you to pups in your area! And more to follow!</span>
                 <label for="location">
                     <input type="text" id="location" placeholder="City, STATE" className="cginput"
                         value={location} onChange={(e) => setLocation(e.target.value)}></input>
@@ -82,10 +84,10 @@ const CreateGroup = () => {
                 <label for="groupprivate"></label>
                 <select name="private" id="groupprivate" value={priorpub} className="cginput" onChange={(e) => setPriorpub(e.target.value)}>
                     <option value="" disabled>(select one)</option>
-                    <option value="Private">Private</option>
-                    <option value="Public">Public</option>
+                    <option value={true}>Private</option>
+                    <option value={false}>Public</option>
                 </select>
-                <span className="groupmsg wb">1. What's the purpose of the group?</span>
+                <span className="groupmsg wb">Please add an image url for your group below:</span>
                 <label for="groupurl">
                     <input type="text" id="groupurl" placeholder="Image URL" className="cginput"
                         value={url} onChange={(e) => setUrl(e.target.value)}></input>

@@ -1,3 +1,7 @@
+div {
+    overflow: hidden;
+}
+
 .formmaindiv {
     display: flex;
     flex-direction: column;

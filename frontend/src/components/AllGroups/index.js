@@ -27,7 +27,7 @@ const AllGroups = () => {
                     return (
                         <div className='indivgroups' onClick={() => history.push(`/groups/${group.id}`)}>
                             <div className='indivgroupimg'>
-                                <img src="https://cdn.tutsplus.com/gamedev/uploads/legacy/043_freeShmupSprites/Free_Shmup_Sprites_Boss_Battle.jpg" alt="" height={"300px"} width={"300px"}></img>
+                                <img src={(group.previewImage && group.previewImage.includes('/')) ? group.previewImage : "https://cdn.tutsplus.com/gamedev/uploads/legacy/043_freeShmupSprites/Free_Shmup_Sprites_Boss_Battle.jpg"} alt="" height={"300px"} width={"300px"}></img>
                             </div>
                             <div className='indivgroupdetail'>
                                 <span className='indivgroupname'>{group.name}</span>
