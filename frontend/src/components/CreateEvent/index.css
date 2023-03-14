@@ -50,11 +50,13 @@ div {
     width: 450px;
     background-color: rgb(198, 198, 243);
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .bb {
-    padding: 10px;
-    border-bottom: 1px solid darkgray;
+    padding-bottom: 10px;
+    border-bottom: 2px solid darkgray;
+    margin: 10px;
 }
 
 .wb {
@@ -92,3 +94,4 @@ div {
     display: flex;
     flex-direction: column;
 }
+

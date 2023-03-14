@@ -72,7 +72,7 @@ const SingleGroup = () => {
                         <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
                         {curruser.user && oner && oner === curruser.user.id ?
                             <div className='gobot2'>
-                                <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>"Create event"</button>
+                                <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
                                 <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
                                 {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
