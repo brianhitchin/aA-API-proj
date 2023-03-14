@@ -1,11 +1,12 @@
 import { NavLink, useHistory, Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialEvents } from '../../store/events'
 import './index.css'
 
 const AllEvents = () => {
     const events = useSelector(state => state.events)
+    const [eventlist, setEventlist] = useState({})
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -15,7 +16,13 @@ const AllEvents = () => {
         dispatch(initialEvents())
     }, [dispatch])
 
-    ///event.startDate, name, .Venue ? .city, .state : null, .previewImage, hosted by: groupid (maybe navigate there)
+    useEffect(() => {
+        try {
+            setEventlist(events)
+        } catch(e) {
+            setEventlist({})
+        }
+    }, [events])
 
     const formatter = (date) => {
         return new Date(date).toDateString();
@@ -31,7 +38,7 @@ const AllEvents = () => {
             </div>
             <div className="eventsmaindiv">
                 <span className="egsubp">Events on MeetPup</span>
-                {Object.values(events).map((event) => {
+                {Array.isArray(eventlist) && eventlist.map((event) => {
                     return (
                         <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventimg'>
@@ -40,8 +47,8 @@ const AllEvents = () => {
                             <div className='indiveventdetail'>
                                 <span className='indiveventname'>{event.name}</span>
                                 <span className='indiveventtime tealme'>{formatter(event.startDate)} <i class="fa-regular fa-clock"></i></span>
-                                <span className='indiveventloc'>{event.Venue !== 'null' ? `Location: ${event.Venue.city}, ${event.Venue.state}` : "Location not set yet!"}</span>
-                                <span className='indiveventhost'>Hosted by: {<Link to={`/groups/${event.groupId}`}>{event.Group.name}</Link>}</span>
+                                <span className='indiveventloc'>{`Location: ${event.Venue?.city}, ${event.Venue?.state}`}</span>
+                                <span className='indiveventhost'>Hosted by: {event.Group.name}</span>
                             </div>
                         </div>
                     )

@@ -55,10 +55,9 @@ const CreateGroup = () => {
                 <span className="toptwodes">First, set your group's location.</span>
                 <span className="groupmsg">MeetPup groupos meet locally, in person and online.</span>
                 <span className="groupmsg">We'll connect you to pups in your area! And more to follow!</span>
-                <label for="location">
-                    <input type="text" id="location" placeholder="City, STATE" className="cginput"
-                        value={location} onChange={(e) => setLocation(e.target.value)}></input>
-                </label>
+                <label for="location"></label>
+                <input type="text" id="location" placeholder="City, STATE" className="cginput"
+                    value={location} onChange={(e) => setLocation(e.target.value)}></input>
             </div>
             <div className="grouploc">
                 <span className="toptwodes">What will your group's name be?</span>

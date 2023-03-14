@@ -27,7 +27,7 @@ const SingleGroup = () => {
     useEffect(() => {
         setCurrGroup(group)
         setShowEdit(false)
-    }, [group, setOner])
+    }, [group])
 
     useEffect(() => {
         try {
@@ -53,7 +53,7 @@ const SingleGroup = () => {
         <div className="singlegroupmain">
             <div className='groupsum'>
                 <div className="groupnav">
-                    <NavLink to={'/groups'}>Groups</NavLink>
+                    <NavLink to={'/groups'}>{"< Groups"}</NavLink>
                 </div>
                 {showEdit && <div className="formholder">
                     <EditGroup group={group} privacy={currGroup.private} id={groupId} />
@@ -74,7 +74,7 @@ const SingleGroup = () => {
                             <div className='gobot2'>
                                 <button className="sgowneropt" onClick={() => setClicked(!clicked)}>{clicked ? "Coming soon!" : "Create event"}</button>
                                 <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
-                                <button className="sgowneropt" onClick={deletehandler}>Delete</button>
+                                <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
                                 {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
                             </div> :
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>

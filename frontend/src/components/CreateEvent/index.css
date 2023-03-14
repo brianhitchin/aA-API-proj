@@ -1,0 +1,94 @@
+div {
+    overflow: hidden;
+}
+
+.formmaindiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    padding-top: 33px;
+    width: 100%;
+    border-top: 2px outset gray;
+    padding-left: 20px
+}
+
+.tealme {
+    color: teal;
+}
+
+.toptwo {
+    width: 70%;
+    padding-bottom: 10px;
+    border-bottom: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.toptwodes {
+    font-size: 25px;
+}
+
+.grouploc {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+}
+
+.cginput {
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    width: 450px;
+    background-color: rgb(198, 198, 243);
+    margin-top: 10px;
+}
+
+.bb {
+    padding: 10px;
+    border-bottom: 1px solid darkgray;
+}
+
+.wb {
+    margin-top: 10px;
+}
+
+.textbox {
+    height: 270px;
+}
+
+::placeholder {
+    color: white;
+}
+
+.cgbutton {
+    display: flex;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: red;
+    color: white;
+    font-family: 'Tilt Neon', serif;
+    font-weight: bolder;
+    font-size: 18px;
+    box-shadow: 5px 5px black;
+}
+
+.signuperror {
+    color: red;
+    font-size: 12px;
+}
+
+.trycg {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
