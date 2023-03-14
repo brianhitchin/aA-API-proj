@@ -5,7 +5,7 @@ import * as groupsActions from "../../store/groups";
 import './index.css'
 
 const CreateGroup = () => {
-    const groups = useSelector(state => state.groups)
+
     const [location, setLocation] = useState('')
     const [name, setName] = useState('')
     const [about, setAbout] = useState('')
