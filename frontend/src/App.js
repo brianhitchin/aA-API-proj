@@ -14,6 +14,7 @@ import CreateGroup from "./components/CreateGroup";
 import DGPage from "./components/DeleteGroupPage";
 import AllEvents from "./components/AllEvents";
 import SingleEvent from "./components/SingleEvent";
+import CreateEvent from "./components/CreateEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route path="/groups/:groupId/events/new" exact>
+          <Navigation isLoaded={isLoaded} />
+          <CreateEvent />
+        </Route>
         <Route path="/creategroup" exact>
           <Navigation isLoaded={isLoaded} />
           <CreateGroup />

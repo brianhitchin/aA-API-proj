@@ -421,8 +421,15 @@ router.get('/:groupId/events', async (req, res, next) => {
 
 router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, res, next) => {
     let { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
-    startDate = new Date(startDate.toString().slice(0, 10))
-    endDate = new Date(endDate.toString().slice(0, 10))
+    //startDate = new Date(startDate.toString().slice(0, 10))
+    //endDate = new Date(endDate.toString().slice(0, 10))
+    
+    venueId = parseFloat(venueId)
+    capacity = parseFloat(capacity)
+    startDate = new Date(startDate)
+    endDate = new Date(endDate)
+    console.log(req.body, price)
+
     const groupchk = await Group.findByPk(req.params.groupId)
     if (!groupchk) {
         return res.status(404).json({
@@ -448,7 +455,8 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 name: name
             }
         })
-        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || newEventChk.startDate > newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
+        // || newEventChk.startDate > newEventChk.endDate 
+        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
             || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description) {
             await Event.destroy({
                 where: {
@@ -481,7 +489,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
         res.json(newEventChk)
     } catch (error) {
         return res.status(400).json({
-            message: "Validation error",
+            message: "Validation error Attendance",
             statusCode: 400,
             errors: {
                 "venueId": "Venue does not exist",
