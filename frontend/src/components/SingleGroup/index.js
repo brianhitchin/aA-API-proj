@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { oneGroup, deleteGroup } from '../../store/groups';
 import EditGroup from '../EditGroup';
+import DeleteGroupModal from '../DeleteModalG';
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './index.css'
 
 const SingleGroup = () => {
@@ -19,6 +21,8 @@ const SingleGroup = () => {
     const group = useSelector(state => state.groups)
     const curruser = useSelector(state => state.session)
     const history = useHistory();
+    const ulRef = useRef();
+    const [showMenu, setShowMenu] = useState(false);
     
     useEffect(() => {
         dispatch(oneGroup(groupId))
@@ -46,12 +50,23 @@ const SingleGroup = () => {
         e.preventDefault();
         setConfirm(!confirm)
     }
+    
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    };
 
-    const realdeletehandler = (e) => {
-        e.preventDefault();
-        dispatch(deleteGroup(groupId))
-        history.push('/deletedgroup')
-    }
+    const closeMenu = (e) => {
+        if (!showMenu) return;
+        if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+    }, [closeMenu]);
 
     return (
         <div className="singlegroupmain">
@@ -79,7 +94,10 @@ const SingleGroup = () => {
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
                                 <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
-                                {confirm && <button className="sgowneroptc" onClick={realdeletehandler}>Are you sure?</button>}
+                                {confirm && <OpenModalMenuItem
+                                                itemText="Delete Group"
+                                                onItemClick={closeMenu}
+                                                modalComponent={<DeleteGroupModal />}></OpenModalMenuItem>}
                             </div> :
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
                                 Join this group</button></div>}

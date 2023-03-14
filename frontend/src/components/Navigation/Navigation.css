@@ -16,6 +16,16 @@
     padding-top: 2px;
 }
 
+.deletesignup {
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    background-color: rgb(55, 51, 51);
+    border: 2px solid black;
+    padding: 10px;
+    font-weight: bold;
+}
+
 .alonesignup {
     padding: 10px;
     border: 1px solid black;
@@ -74,8 +84,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
+    border-radius: 10px;
     border-collapse: separate; 
+    border: 3px solid black;
 }
 
 .ddbagcag {
