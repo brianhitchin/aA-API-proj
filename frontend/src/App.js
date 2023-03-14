@@ -13,6 +13,7 @@ import SingleGroup from "./components/SingleGroup";
 import CreateGroup from "./components/CreateGroup";
 import DGPage from "./components/DeleteGroupPage";
 import AllEvents from "./components/AllEvents";
+import SingleEvent from "./components/SingleEvent";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ function App() {
         <Route path="/groups/:groupId" exact>
           <Navigation isLoaded={isLoaded} />
           <SingleGroup />
+        </Route>
+        <Route path="/events/:eventId" exact>
+          <Navigation isLoaded={isLoaded} />
+          <SingleEvent />
         </Route>
         <Route path="/events" exact>
           <Navigation isLoaded={isLoaded} />

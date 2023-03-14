@@ -1,0 +1,133 @@
+.singleeventmain {
+    display: flex;
+    margin-top: 9px;
+    padding-top: 33px;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-top: 2px outset gray;
+    margin-bottom: 10px;
+}
+
+.eventnav {
+    font-size: 16px;
+    color: teal;
+    text-decoration: underline;
+    padding: 10px;
+    display: flex;
+    align-self: start;
+}
+
+.eventsum {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.imgholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-width: 59%;
+    max-width: 59%;
+    min-height: 100%;
+    border: 4px solid black;
+}
+
+.imgholder img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.eventov {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 99%;
+    max-height: 500px;
+}
+
+.eventright {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    height: 100%;
+    min-width: 39%;
+    max-width: 39%;
+}
+
+.greyme {
+    color: #524b4b;
+}
+
+.eventtoptop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%
+}
+
+.eventtoptopleft {
+    border: 1px solid black;
+    width: 34%;
+    min-width: 34%;
+    max-width: 34%;
+}
+
+.eventtoptopleftimage {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.eventtoptopright {
+    width: 64%;
+    min-width: 64%;
+    max-width: 64%;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.eventtopbottom {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.timeholder {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.timeholderinnerL {
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+    padding: 10px;
+}
+
+.timeholderinnerR {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.wtfgray {
+    color: rgb(82, 78, 78)
+}
