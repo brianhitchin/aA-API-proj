@@ -423,6 +423,12 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
     let { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
     //startDate = new Date(startDate.toString().slice(0, 10))
     //endDate = new Date(endDate.toString().slice(0, 10))
+    
+    venueId = parseFloat(venueId)
+    capacity = parseFloat(capacity)
+    startDate = new Date(startDate)
+    endDate = new Date(endDate)
+
     const groupchk = await Group.findByPk(req.params.groupId)
     if (!groupchk) {
         return res.status(404).json({
@@ -448,7 +454,8 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 name: name
             }
         })
-        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || newEventChk.startDate > newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
+        // || newEventChk.startDate > newEventChk.endDate 
+        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
             || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description) {
             await Event.destroy({
                 where: {

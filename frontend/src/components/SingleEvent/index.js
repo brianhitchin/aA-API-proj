@@ -9,7 +9,7 @@ const SingleEvent = () => {
 
     const { eventId } = useParams();
     const [imgurl, setImgurl] = useState("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
-    const [currEvent, setCurrEvent] = useState({})
+    const [currEvent, setCurrEvent] = useState(null)
     const [currGroup, setCurrGroup] = useState({})
     const [name, setName] = useState("")
     const [ownerId, setOwnerId] = useState(0)
@@ -17,7 +17,8 @@ const SingleEvent = () => {
     const dispatch = useDispatch();
     const events = useSelector(state => state.events)
     const groups = useSelector(state => state.groups)
-    const curruser = useSelector(state => state.session)
+    const curruserid = useSelector(state => state.session.user.id)
+    const [curruseridstate, setCurruseridstate] = useState(curruserid ? curruserid : 1000000)
     const history = useHistory();
 
     const showEdit = false
@@ -50,21 +51,22 @@ const SingleEvent = () => {
             setName(fullName)
             setOwnerId(currGroup.Organizer.id)
             setGroupPrev(currGroup.GroupImages[0].url)
+            setCurruseridstate(curruserid)
         } catch {
             setName('')
             setOwnerId(0)
         }
     }, [currGroup])
 
-    console.log('cuser, owner', curruser, ownerId)
+    console.log('cuser, owner', curruseridstate, ownerId, curruseridstate === ownerId)
 
-    return (
+        return (
         <div className="singleeventmain">
             <div className='eventsum'>
                 <div className="eventsnav">
                     <NavLink to={'/events'}>{"< Events"}</NavLink>
-                    <h1>{currEvent.name}</h1>
-                    <h3 className="greyme">{currEvent.Group ? `Hosted by ${name}` : ``}</h3>
+                    <h1>{currEvent && currEvent.name}</h1>
+                    <h3 className="greyme">{currEvent && currEvent.Group ? `Hosted by ${name}` : ``}</h3>
                 </div>
                 <div className="eventov">
                     <div className="imgholder">
@@ -76,8 +78,8 @@ const SingleEvent = () => {
                                 <img src={groupPrev} className='eventtoptopleftimage' alt=""></img>
                             </div>
                             <div className='eventtoptopright'>
-                                <h4>{currGroup.name}</h4>
-                                <span>{currGroup.private ? "Private" : "Public"}</span>
+                                <h4>{currEvent && currGroup.name}</h4>
+                                <span>{currEvent && currGroup.private ? "Private" : "Public"}</span>
                             </div>
                         </div>
                         <div className="eventtopbottom">
@@ -98,9 +100,11 @@ const SingleEvent = () => {
                                 <div className="timeholderinnerL">
                                     <i class="fa-solid fa-money-bill"></i>
                                 </div>
-                                <div className='timeholderinnerR toomuchcss wtfgray'>
-                                    {(currEvent.price !== undefined) && (currEvent.price === 0) ? 'FREE' : `$${currEvent.price}`}
-                                </div>
+                                {currEvent && 
+                                    <div className='timeholderinnerR toomuchcss wtfgray'>
+                                        {(currEvent?.price === 0) ? 'FREE' : `$${currEvent.price}`}
+                                    </div>
+                                }
                             </div>
                             <div className="timeholder">
                                 <div className="timeholderinnerL">
@@ -114,8 +118,8 @@ const SingleEvent = () => {
                     </div>
                 </div>
                 <h1>Details</h1>
-                {curruser && curruser.id === ownerId && <div>Plz</div>}
-                <p>{currEvent.description}</p>
+                {curruseridstate && curruseridstate === ownerId && <div>Plz</div>}
+                {currEvent && <p>{currEvent.description}</p>}
             </div>
         </div >
     )
