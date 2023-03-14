@@ -58,9 +58,7 @@ const SingleEvent = () => {
         }
     }, [currGroup])
 
-    console.log('cuser, owner', curruseridstate, ownerId, curruseridstate === ownerId)
-
-        return (
+    return (
         <div className="singleeventmain">
             <div className='eventsum'>
                 <div className="eventsnav">
@@ -100,7 +98,7 @@ const SingleEvent = () => {
                                 <div className="timeholderinnerL">
                                     <i class="fa-solid fa-money-bill"></i>
                                 </div>
-                                {currEvent && 
+                                {currEvent &&
                                     <div className='timeholderinnerR toomuchcss wtfgray'>
                                         {(currEvent?.price === 0) ? 'FREE' : `$${currEvent.price}`}
                                     </div>

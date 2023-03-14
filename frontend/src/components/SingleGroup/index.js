@@ -25,8 +25,12 @@ const SingleGroup = () => {
     }, [groupId, dispatch])
 
     useEffect(() => {
-        setCurrGroup(group)
-        setShowEdit(false)
+        try {
+            setCurrGroup(group)
+            setShowEdit(false)
+        } catch (e) {
+            setImgurl(sorry)
+        }
     }, [group])
 
     useEffect(() => {

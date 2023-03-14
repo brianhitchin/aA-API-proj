@@ -428,6 +428,7 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
     capacity = parseFloat(capacity)
     startDate = new Date(startDate)
     endDate = new Date(endDate)
+    console.log(req.body, price)
 
     const groupchk = await Group.findByPk(req.params.groupId)
     if (!groupchk) {

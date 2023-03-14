@@ -28,12 +28,12 @@ export const startEvents = (payload) => {
 }
 
 export const create = (groupId, value) => async dispatch => {
-    const response = await csrfFetch(`http://localhost:8000/api/groups/${groupId}/events`, {
-        method: "POST", 
+    const response = await csrfFetch(`/api/groups/${groupId}/events`, {
+        method: 'POST', 
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({value})
+        body: JSON.stringify(value)
     })
 
     if (response.ok) {
