@@ -20,7 +20,7 @@ export const startEvents = (payload) => {
 }
 
 export const oneEvent = (eventId) => async dispatch => {
-    const response = await csrfFetch(`/api/groups/${eventId}`)
+    const response = await csrfFetch(`/api/events/${eventId}`)
     if (response.ok) {
         const data = await response.json();
         dispatch(getEvent(data));
@@ -43,7 +43,7 @@ const eventsReducer = (state = initialState, action) => {
             newState = action.payload;
             return newState;
         case GET_ONE_EVENT:
-            newState = { ...state, events: { ...action.payload } };
+            newState = { ...action.payload };
             return newState;
         default:
             return state;
