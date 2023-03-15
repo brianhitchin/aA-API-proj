@@ -8,7 +8,6 @@ const ADD_GROUP = 'group/add'
 const ADD_GROUP_IMAGE = 'group/addimage'
 const DELETE_GROUP = 'group/delete'
 const EDIT_GROUP = 'group/edit'
-const GET_ONE_GROUP_EVENTS = 'group/getoneevents'
 
 export const deleteaGroup = (id) => {
     return {
@@ -38,13 +37,6 @@ export const getGroup = (payload) => {
     }
 }
 
-export const getOneGroupEvents = (payload) => {
-    return {
-        type: GET_ONE_GROUP_EVENTS,
-        payload
-    }
-}
-
 export const addGroup = (payload) => {
     return {
         type: ADD_GROUP,
@@ -61,7 +53,7 @@ export const editaGroup = (payload) => {
 
 export const editGroup = (id, body) => async dispatch => {
     const response = await csrfFetch(`/api/groups/${id}`, {
-        method: 'PUT', 
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -76,7 +68,7 @@ export const editGroup = (id, body) => async dispatch => {
 
 export const deleteGroup = (id) => async dispatch => {
     const response = await csrfFetch(`/api/groups/${id}`, {
-        method: 'DELETE', 
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -100,11 +92,11 @@ export const create = (value) => async dispatch => {
         const data = await response.json()
         await dispatch(addGroup(data))
         const response2 = await csrfFetch(`/api/groups/${data.id}/images`, {
-            method: 'POST', 
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ url: value.url, preview: true})
+            body: JSON.stringify({ url: value.url, preview: true })
         })
 
         if (response2.ok) {
@@ -116,6 +108,7 @@ export const create = (value) => async dispatch => {
 
 export const oneGroup = (groupId) => async dispatch => {
     const response = await csrfFetch(`/api/groups/${groupId}`)
+
     if (response.ok) {
         const data = await response.json();
         dispatch(getGroup(data));
@@ -142,7 +135,7 @@ const groupsReducer = (state = initialState, action) => {
             newState = action.payload;
             return newState;
         case ADD_GROUP:
-            newState = { ...state, groups: {...state.groups, [action.payload.id]: action.payload}}
+            newState = { ...state, groups: { ...state.groups, [action.payload.id]: action.payload } }
             return newState;
         case ADD_GROUP_IMAGE:
             newState = { ...state, groups: { ...state.groups } }
@@ -153,7 +146,7 @@ const groupsReducer = (state = initialState, action) => {
             delete newState.groups[action.id]
             return newState
         case EDIT_GROUP:
-            newState = Object.assign({groups: action.payload}, state)
+            newState = Object.assign({ groups: action.payload }, state)
             return newState
         default:
             return state;

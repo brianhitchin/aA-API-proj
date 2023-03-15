@@ -35,6 +35,23 @@ export const startEvents = (payload) => {
     }
 }
 
+const HELP_SINGLEGROUP = 'events/helpgroup'
+
+export const getOneGroupEvent = (payload) => {
+    return {
+        type: HELP_SINGLEGROUP,
+        payload
+    }
+}
+
+export const oneGroupEvent = (groupId) => async dispatch => {
+    const response = await csrfFetch(`/api/groups/${groupId}/events`)
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getOneGroupEvent(data));
+    }
+}
+
 export const deleteEvent = (id) => async dispatch => {
     const response = await csrfFetch(`/api/events/${id}`, {
         method: 'DELETE',
@@ -97,6 +114,9 @@ const eventsReducer = (state = initialState, action) => {
         case DELETE_EVENT:
             newState = { ...state, events: { ...state.events } }
             delete newState.events[action.id]
+            return newState
+        case HELP_SINGLEGROUP:
+            newState = { ...action.payload.Events };
             return newState
         default:
             return state;
