@@ -210,3 +210,109 @@
     max-width: 99%;
     justify-content: flex-start;
 }
+
+.eventholder {
+    display: flex;
+    width: 50%;
+    max-width: 50%;
+    border-radius: 10px;
+    background-color: rgb(184, 180, 180);
+    border: 2px solid black;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.indiveventholder {
+    width: 90%;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.indiveventtop {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+    height: 48%;
+    min-height: 48%;
+    max-height: 48%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.indiveventtoprest {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    height: 99%;
+    max-height: 99%;
+    min-height: 99%;
+    padding-left: 10px;
+    width: 59%;
+    max-width: 59%;
+    min-width: 59%;
+}
+
+.indiveventtopimgholder {
+    height: 99%;
+    max-height: 99%;
+    min-height: 99%;
+    border: 2px solid black;
+    width: 41%;
+    max-width: 41%;
+    min-width: 41%;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.indiveventtopimgholder img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.indiveventholder {
+    height: 99%;
+    max-height: 99%;
+    min-height: 99%;
+    padding: 10px;
+}
+
+.indiveventholder:hover {
+    background-color: white;
+    border: 3px solid black;
+    cursor: grab;
+}
+
+.topresttitle {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    max-height: 40%;
+}
+
+.indiveventbot {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+    font-weight: bold;
+    height: 48%;
+    min-height: 48%;
+    max-height: 48%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.megabold {
+    font-weight: bolder;
+}

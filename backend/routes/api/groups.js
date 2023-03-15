@@ -160,16 +160,16 @@ router.post('/', requireAuth, async (req, res, next) => {
             city,
             state
         })
+        const newMembership = await Membership.create({
+            userId: req.user.id,
+            groupId: newGroup.id,
+            status: 'Organizer'
+        })
         const checker = await Group.findOne({ 
             where: { name: name }, 
             order: [['createdAt', 'DESC']], 
             limit: 1 
         })
-        const newMembership = await Membership.create({
-            userId: req.user.id,
-            groupId: newGroup.id,
-            status: 'Organizer'
-          })
         res.json(checker)
     } catch (err) {
         return res.status(400).json({
