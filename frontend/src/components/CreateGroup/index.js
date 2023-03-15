@@ -11,12 +11,12 @@ const CreateGroup = () => {
         document.title = 'Start a New Group';
     }, []);
 
-    const [location, setLocation] = useState('')
-    const [name, setName] = useState('')
-    const [about, setAbout] = useState('')
-    const [url, setUrl] = useState('')
-    const [type, setType] = useState('')
-    const [priorpub, setPriorpub] = useState(true)
+    const [location, setLocation] = useState(null)
+    const [name, setName] = useState(null)
+    const [about, setAbout] = useState(null)
+    const [url, setUrl] = useState(null)
+    const [type, setType] = useState(null)
+    const [priorpub, setPriorpub] = useState(null)
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -24,27 +24,47 @@ const CreateGroup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        const [city, state] = location.split(', ')
-        if (state.startsWith(' ')) {state.slice(1)}
         window.scrollTo(0, 0)
-        if (url) {
-            return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
-                .then((res) => history.push(`/groups/${res}`))
-                .catch(
-                    async (res) => {
-                        const data = await res.json();
-                        if (data && data.errors) setErrors(data.errors);
+        if (location && name && about && type && priorpub && about?.length >= 30) {
+            try {
+                const [city, state] = location.split(', ')
+                if (state.startsWith(' ')) { state.slice(1) }
+                if (city && state) {
+                    if (url) {
+                        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
+                            .then((res) => history.push(`/groups/${res}`))
+                            .catch(
+                                async (res) => {
+                                    const data = await res.json();
+                                    if (data && data.errors) setErrors(data.errors);
+                                }
+                            );
+                    } else {
+                        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url: "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" }))
+                            .then((res) => history.push(`/groups/${res}`))
+                            .catch(
+                                async (res) => {
+                                    const data = await res.json();
+                                    if (data && data.errors) setErrors(data.errors);
+                                }
+                            );
                     }
-                );
+                }
+            } catch (e) {
+                setErrors([])
+                setErrors(["There needs to be a comma in location."])
+                window.scrollTo(0, 0)
+            }
         } else {
-            return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url: "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" }))
-                .then((res) => history.push(`/groups/${res}`))
-                .catch(
-                    async (res) => {
-                        const data = await res.json();
-                        if (data && data.errors) setErrors(data.errors);
-                    }
-                );
+            if (about?.length < 30) {
+                setErrors([])
+                setErrors(["Description needs to be more than 30 characters."])
+                window.scrollTo(0, 0)
+            } else {
+                setErrors([])
+                setErrors(["There cannot be an empty field."])
+                window.scrollTo(0, 0)
+            }
         }
     };
 
@@ -92,14 +112,14 @@ const CreateGroup = () => {
                 <span className="groupmsg">Is this an in person or online group?</span>
                 <label for="grouptype"></label>
                 <select name="pets" id="grouptype" value={type} className="cginput" onChange={(e) => setType(e.target.value)}>
-                    <option value="" disabled>(select one)</option>
+                    <option value="" disabled selected>(select one)</option>
                     <option value="In person">In person</option>
                     <option value="Online">Online</option>
                 </select>
                 <span className="groupmsgwb">Is this group private or public?</span>
                 <label for="groupprivate"></label>
                 <select name="private" id="groupprivate" value={priorpub} className="cginput" onChange={(e) => setPriorpub(e.target.value)}>
-                    <option value="" disabled>(select one)</option>
+                    <option value="" disabled selected>(select one)</option>
                     <option value={true}>Private</option>
                     <option value={false}>Public</option>
                 </select>

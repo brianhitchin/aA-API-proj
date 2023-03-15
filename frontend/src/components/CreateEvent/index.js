@@ -7,12 +7,12 @@ import './index.css'
 const CreateEvent = () => {
 
     const thisgroup = useSelector(state => state.groups)
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [startDate, setStartdate] = useState('')
-    const [endDate, setEnddate] = useState('')
-    const [type, setType] = useState('')
-    const [price, setPrice] = useState('0')
+    const [name, setName] = useState(null)
+    const [description, setDescription] = useState(null)
+    const [startDate, setStartdate] = useState(null)
+    const [endDate, setEnddate] = useState(null)
+    const [type, setType] = useState(null)
+    const [price, setPrice] = useState(null)
     const [imgUrl, setImgUrl] = useState("")
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
@@ -22,21 +22,40 @@ const CreateEvent = () => {
         e.preventDefault();
         setErrors([]);
         window.scrollTo(0, 0)
-        //console.log({ venueId: 1, capacity: 20, name, description, type, price: price, startDate: new Date(startDate), endDate: new Date(endDate)})
-        return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: price.startsWith('0') ? parseInt(price.slice(1)) : parseInt(price), startDate: new Date(startDate), endDate: new Date(endDate)}))
-            .then((res) => history.push(`/events/${res}`))
-            .catch(
-                async (res) => {
-                    alert('error!')
-                    console.log(res)
+        if (name && description && type && price && startDate && endDate) {
+            const newstartDate = new Date(startDate)
+            const newendDate = new Date(endDate)
+            if (newstartDate <= newendDate && description.length >= 30) {
+                return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: price.startsWith('0') ? parseInt(price.slice(1)) : parseInt(price), startDate: new Date(startDate), endDate: new Date(endDate) }))
+                    .then((res) => history.push(`/events/${res}`))
+                    .catch(
+                        async (res) => {
+                            alert('error!')
+                            console.log(res)
+                        }
+                    );
+            } else {
+                if (newstartDate > newendDate) {
+                    setErrors([]);
+                    setErrors(['Start date cannot be after the end date.'])
+                    window.scrollTo(0, 0)
+                } else {
+                    setErrors([]);
+                    setErrors(['Description has to be longer than 30 characters.'])
+                    window.scrollTo(0, 0)
                 }
-            );
+            }
+        } else {
+            setErrors([]);
+            setErrors(['There cannot be an empty field.'])
+            window.scrollTo(0, 0)
+        }
     }
 
     return (
         <div className="formmaindiv">
             <ul>
-                {Object.values(errors).map((error, idx) => <li key={idx} className="signuperror">{error}{idx}</li>)}
+                {Object.values(errors).map((error, idx) => <li key={idx} className="signuperror">{error}</li>)}
             </ul>
             <div className="grouploc">
                 <h2 className="groupmsg bb">{`Create an event for ${thisgroup.name}`}</h2>
@@ -47,7 +66,7 @@ const CreateEvent = () => {
                 <span className="groupmsg">Is this an in person or online event?</span>
                 <label for="type"></label>
                 <select id="type" value={type} className="cginput" onChange={(e) => setType(e.target.value)}>
-                    <option value="" disabled>(select one)</option>
+                    <option value="" disabled selected>(select one)</option>
                     <option value="In Person">In Person</option>
                     <option value="Online">Online</option>
                 </select>
