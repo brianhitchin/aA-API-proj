@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import * as eventsActions from "../../store/events";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./index.css";
 
 function DeleteEventModal() {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-    const { eventId } = useParams();
+    const eventId = useSelector(state => state.events.id)
     const [errors, setErrors] = useState([]);
-
+    const history = useHistory();
     const handleSubmitY = (e) => {
         e.preventDefault();
-        /* 
-        return dispatch(eventsActions.delete({ eventId }))
+
+        return dispatch(eventsActions.deleteEvent(eventId))
             .then(closeModal)
+            .then(history.push('/deletedevent'))
             .catch(
                 async (res) => {
                     const data = await res.json();
@@ -23,7 +24,7 @@ function DeleteEventModal() {
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
-        */
+
     };
 
     const handleSubmitN = (e) => {

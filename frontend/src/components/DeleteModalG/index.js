@@ -11,7 +11,7 @@ function DeleteGroupModal() {
     const groupId = useSelector(state => state.groups.id)
     const [errors, setErrors] = useState([]);
     const history = useHistory();
-    console.log('groupid', groupId)
+
     const handleSubmitY = (e) => {
         e.preventDefault();
         return dispatch(groupsActions.deleteGroup(groupId))

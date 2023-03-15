@@ -12,6 +12,7 @@ import AllGroups from "./components/AllGroups";
 import SingleGroup from "./components/SingleGroup";
 import CreateGroup from "./components/CreateGroup";
 import DGPage from "./components/DeleteGroupPage";
+import DEPage from "./components/DeleteEventPage";
 import AllEvents from "./components/AllEvents";
 import SingleEvent from "./components/SingleEvent";
 import CreateEvent from "./components/CreateEvent";
@@ -37,6 +38,10 @@ function App() {
         <Route path="/deletedgroup" exact>
           <Navigation isLoaded={isLoaded} />
           <DGPage />
+        </Route>
+        <Route path="/deletedevent" exact>
+          <Navigation isLoaded={isLoaded} />
+          <DEPage />
         </Route>
         <Route path="/groups/:groupId" exact>
           <Navigation isLoaded={isLoaded} />

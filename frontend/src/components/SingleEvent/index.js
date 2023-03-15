@@ -34,7 +34,6 @@ const SingleEvent = () => {
     useEffect(() => {
         try {
             setCurrEvent(events)
-            setImgurl(events.EventImages[0].url)
             dispatch(oneGroup(events.groupId))
         } catch (e) {
             setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
@@ -44,8 +43,9 @@ const SingleEvent = () => {
     useEffect(() => {
         try {
             setCurrGroup(groups)
+            (events.EventImages.length > 0) ? setImgurl(events.EventImages[0].url) : setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
         } catch (e) {
-            setCurrGroup({})
+            setCurrGroup(groups)
         }
     }, [groups])
 
@@ -56,7 +56,7 @@ const SingleEvent = () => {
             setOwnerId(currGroup.Organizer.id)
             setGroupPrev(currGroup.GroupImages[0].url)
             setCurruseridstate(curruserid)
-        } catch {
+        } catch(e) {
             setName('')
             setOwnerId(0)
         }

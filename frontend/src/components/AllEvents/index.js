@@ -10,8 +10,6 @@ const AllEvents = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const sorry = "../../sorry.png"
-
     useEffect(() => {
         dispatch(initialEvents())
     }, [dispatch])
@@ -42,7 +40,7 @@ const AllEvents = () => {
                     return (
                         <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventimg'>
-                                <img src={(event.previewImage && event.previewImage.includes('/')) ? event.previewImage : sorry} alt="" height={"300px"} width={"300px"}></img>
+                                <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : "../../sorry.png"} alt="" height={"300px"} width={"300px"}></img>
                             </div>
                             <div className='indiveventdetail'>
                                 <span className='indiveventname'>{event.name}</span>
