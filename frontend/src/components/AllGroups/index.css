@@ -56,6 +56,7 @@
     border-bottom: 3px inset gray;
     margin: 10px;
     overflow: hidden;
+    cursor: grab;
 }
 
 .indivgroups:hover {
@@ -76,8 +77,8 @@
 .indivgroupdetail {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 300px;
+    max-width: 64%;
+    height: 100%;
 }
 
 .indivgroupname {

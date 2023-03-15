@@ -138,6 +138,7 @@ const SingleEvent = () => {
                                     {`${currEvent?.type}`}
                                     {curruseridstate && curruseridstate === ownerId &&
                                         <div className="delbuttonholder">
+                                            <button className="deletesignup">Update</button>
                                             <OpenModalMenuItem
                                                 itemText="Delete"
                                                 onItemClick={closeMenu}
