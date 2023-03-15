@@ -115,6 +115,7 @@ const SingleGroup = () => {
                         <h2 className="greymeintro">{currGroup.Organizer ? `Organized by: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h2>
                         <h2>What we're about</h2>
                         <p className="grayabout">{currGroup.about}</p>
+                        <h2>{`Upcoming events (${Object.values(groupevents) ? Object.values(groupevents).length : '0'})`}</h2>
                     </div>
                 </div>
             </div>
