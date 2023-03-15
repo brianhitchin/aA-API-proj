@@ -96,7 +96,8 @@ function SignupFormModal() {
             className="signupinputs"
           />
         </label>
-        <button type="submit" className="signupbutton">Sign Up</button>
+        <button type="submit" className="signupbutton" disabled={!email || !username || !firstName || !lastName 
+        || !password || !confirmPassword || username.length < 4 || password.length < 6 || confirmPassword !== password}>Sign Up</button>
       </form>
     </div>
   );

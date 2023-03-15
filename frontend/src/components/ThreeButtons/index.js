@@ -34,9 +34,9 @@ const ThreeFunctions = () => {
                 from online gaming and photography to yoga and hiking.
                 </span>
             </div>
-            <div className="creategroup" onClick={cghandle}>
+            <div className="creategroup" onClick={cghandle} disabled={!user}>
                 <img src={user ? creategroup : creategroupdisabled} alt="" className="tfimages"></img>
-                <h2 className='tbh3'>Start a new group</h2>
+                <h2 className={user ? "tbh3" : "tbh3d"}>Start a new group</h2>
                 <span className='tbtext'>You don’t have to be an expert to gather 
                     people together and explore shared interests.</span>
             </div>

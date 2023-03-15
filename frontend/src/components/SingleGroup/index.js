@@ -14,12 +14,12 @@ const SingleGroup = () => {
     const [imgurl, setImgurl] = useState(sorry)
     const [currGroup, setCurrGroup] = useState(false)
     const [confirm, setConfirm] = useState(false)
-    const [clicked, setClicked] = useState(false)
+    const [loggedin, setLoggedin] = useState(false)
     const [oner, setOner] = useState(null)
     const [showEdit, setShowEdit] = useState(false)
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups)
-    const curruser = useSelector(state => state.session)
+    const curruser = useSelector(state => state.session.user)
     const history = useHistory();
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
@@ -45,6 +45,15 @@ const SingleGroup = () => {
             setImgurl(sorry)
         }
     }, [currGroup])
+
+    useEffect(() => {
+        try {
+            if (Object.values(curruser))
+                setLoggedin(true)
+        } catch(e) {
+            setLoggedin(false)
+        }
+    }, [curruser])
 
     const deletehandler = (e) => {
         e.preventDefault();
@@ -85,11 +94,11 @@ const SingleGroup = () => {
                         </img>
                     </div>
                     <div className="groupdt">
-                        <h1>{currGroup.name}</h1>
+                        <h2 className="groupname">{currGroup.name}</h2>
                         <h3 className="greyme">{`${currGroup.city}, ${currGroup.state}`}</h3>
                         <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
                         <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
-                        {curruser.user && oner && oner === curruser.user.id ?
+                        {loggedin && oner && oner === curruser.id &&
                             <div className='gobot2'>
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
                                 <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
@@ -98,15 +107,16 @@ const SingleGroup = () => {
                                                 itemText="Delete Group"
                                                 onItemClick={closeMenu}
                                                 modalComponent={<DeleteGroupModal />}></OpenModalMenuItem></div>}
-                            </div> :
+                            </div>} 
+                        {loggedin && oner && oner !== curruser.id &&
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
                                 Join this group</button></div>}
                     </div>
                 </div>
                 <div className="graysection">
                     <div className="grayinner">
-                        <h1 className="greymeintro">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h1>
-                        <h1>What we're about</h1>
+                        <h2 className="greymeintro">{currGroup.Organizer ? `Organized by: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h2>
+                        <h2>What we're about</h2>
                         <p className="grayabout">{currGroup.about}</p>
                     </div>
                 </div>
