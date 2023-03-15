@@ -1,10 +1,16 @@
 # Welcome to MeetPup!
-<img src="/welcome.png" alt='welcome'>
-*(ReadMe v1.2, updated 3/12/2013)*
+![welcome](https://user-images.githubusercontent.com/63670745/224509427-420412cb-df23-4725-b5d9-8f0f8150f530.png)
+*(ReadMe v1.2, updated 3/15/2013)*
+
+### Credits
+This is made by Brian!
+[github](https://github.com/brianhitchin)
+[linkedIn](https://www.linkedin.com/in/brian-hitchin-940b57268/)
+Background by talented LLY (I will link her site as soon as I find it. I lost it.) 
 
 ### What is MeetPup?
 - A project to emulate [Meetup](https://www.meetup.com/).
-- This is a project built on express backend and react / redux frontend.
+- This is a project built on **express** backend and **react / redux** frontend.
 
 ### Some planned features
 - Group CRUD
@@ -17,34 +23,34 @@
 - Google Maps 
 
 ## How to get started
-1. From the root, run:
+1. From the root, run install which will install both frontend and backend dependencies.
 
-    npm run install
+        npm run install
 
-which will install both frontend and backend dependencies.
 2. In the backend, reference .env.example and configure appropriately.
 3. Run the appropriate migrations and seeders in the backend directory:
 
-    npx dotenv sequelize db:migrate:all
-    npx dotenv sequelize db:seed:all
+        npx dotenv sequelize db:migrate:all
+        npx dotenv sequelize db:seed:all
 
 4. Start both frontend and backend servers (on development, separately) with:
 
-    npm run
+        npm run
 
 ## How to use MeetPup
-Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...  
-<br>
+Eventually, most of the functionalities implemented in MeetUp will be mirrored here as well. This includes creating events, groups, RSVP, etc...
+
+
 Sign up through the sign-up button on the top right. 
-<br>
-<img src='./step1.png' alt='step1'>  
-<br>
-One can also access the webpage with full functionality with the demo user under login.
-<img src='./step2.png' alt='step2'>  
-<br>
-Alternatively, you may also click on the *Log In as Demo* button on the bottom of the page!
-<img src='./step3.png' alt='step3'>  
-<br>
+
+
+![step1](https://user-images.githubusercontent.com/63670745/224509441-1a724a44-f437-42c2-9ccf-c2218d597183.png)
+
+
+One can also access the webpage with full available functionalites with the demo user under login.
+
+
+![step2](https://user-images.githubusercontent.com/63670745/224509446-05e93f25-5775-4156-b2f5-b673ed4bb2db.png)
+
+
 Enjoy!
-
-
