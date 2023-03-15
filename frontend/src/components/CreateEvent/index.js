@@ -22,7 +22,7 @@ const CreateEvent = () => {
         e.preventDefault();
         setErrors([]);
         window.scrollTo(0, 0)
-        console.log({ venueId: 1, capacity: 20, name, description, type, price: price, startDate: new Date(startDate), endDate: new Date(endDate)})
+        //console.log({ venueId: 1, capacity: 20, name, description, type, price: price, startDate: new Date(startDate), endDate: new Date(endDate)})
         return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: parseFloat(price), startDate: new Date(startDate), endDate: new Date(endDate)}))
             .then((res) => history.push(`/events/${res}`))
             .catch(

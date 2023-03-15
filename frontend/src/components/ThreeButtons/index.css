@@ -48,6 +48,11 @@
     color: teal;
 }
 
+.tbh3d {
+    font-weight: bold;
+    color: darkgray;
+}
+
 .tbh3:hover {
     text-decoration: underline;
     cursor: grab;

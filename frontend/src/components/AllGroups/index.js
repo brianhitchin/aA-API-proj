@@ -1,4 +1,4 @@
-import { NavLink, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialGroups } from '../../store/groups'
@@ -18,8 +18,8 @@ const AllGroups = () => {
         <>
             <div className="egtop">
                 <div className="egsub">
-                    <NavLink to='/groups' activeClassName="eglinkactive" className="eglink">Groups</NavLink>
-                    <NavLink to='/events' activeClassName="eglinkactive" className="eglink">Events</NavLink>
+                    <Link to='/groups' className="eglinkactive">Groups</Link>
+                    <Link to='/events' className="eglinkinactive">Events</Link>
                 </div>
             </div>
             <div className="groupsmaindiv">
