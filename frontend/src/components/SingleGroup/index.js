@@ -78,6 +78,12 @@ const SingleGroup = () => {
         return () => document.removeEventListener("click", closeMenu);
     }, [closeMenu]);
 
+    const rightformat = (startDate) => {
+        const splitted = startDate.split('T')
+        const fixed = splitted[1].substring(0, splitted[1].length-1)
+        return `${splitted[0]} · ${fixed}`
+    }
+
     return (
         <div className="singlegroupmain">
             <div className='groupsum'>
@@ -123,12 +129,18 @@ const SingleGroup = () => {
                         <div className='eventholder'>
                             {Object.values(groupevents) && Object.values(groupevents).map((el) => {
                                 return (
-                                    <div>
-                                        <div>{el.name}</div>
-                                        <div>{el.previewImage}</div>
-                                        <div>{el.startDate}</div>
-                                        <div>{el.Venue?.city}</div>
-                                        <div>{el.description}</div>
+                                    <div className='indiveventholder' onClick={() => history.push(`/events/${el.id}`)}>
+                                        <div className='indiveventtop'>
+                                            <div className='indiveventtopimgholder'>
+                                                <img src={el.previewImage} alt=''></img>
+                                            </div>
+                                            <div className='indiveventtoprest'>
+                                                <div className='tealme megabold'>{rightformat(el.startDate)}</div>
+                                                <h4 className='topresttitle'>{el.name}</h4>
+                                                <div className='greyme'>{`${el.Venue?.city}, ${el.Venue?.state}`}</div>
+                                            </div>
+                                        </div>
+                                        <div className='indiveventbot'>{el.description}</div>
                                     </div>
                                 )
                             })}
