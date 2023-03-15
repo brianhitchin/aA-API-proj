@@ -94,10 +94,10 @@ const SingleGroup = () => {
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
                                 <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
-                                {confirm && <OpenModalMenuItem
+                                {confirm && <div className="sgowneropt"><OpenModalMenuItem
                                                 itemText="Delete Group"
                                                 onItemClick={closeMenu}
-                                                modalComponent={<DeleteGroupModal />}></OpenModalMenuItem>}
+                                                modalComponent={<DeleteGroupModal />}></OpenModalMenuItem></div>}
                             </div> :
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
                                 Join this group</button></div>}

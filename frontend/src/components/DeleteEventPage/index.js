@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import hooray from './eventhooray.png'
 import './index.css'
 
@@ -7,10 +7,11 @@ const DEPage = () => {
 
     const [counter, setCounter] = useState(3)
     const history = useHistory();
-
+    const { groupId } = useParams()
+    console.log(groupId)
     useEffect(() => {
         setTimeout(() => {
-            history.push('/events')
+            history.push(`/groups/${groupId}`)
         }, 3000)
     }, [history])
 
