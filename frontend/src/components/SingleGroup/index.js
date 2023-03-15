@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react';
 import { oneGroup, deleteGroup } from '../../store/groups';
+import { oneGroupEvent } from '../../store/events';
 import EditGroup from '../EditGroup';
 import DeleteGroupModal from '../DeleteModalG';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -41,6 +42,7 @@ const SingleGroup = () => {
         try {
             setImgurl(group.GroupImages[0].url)
             setOner(group.organizerId)
+            dispatch(oneGroupEvent(groupId))
         } catch (e) {
             setImgurl(sorry)
         }
@@ -48,8 +50,7 @@ const SingleGroup = () => {
 
     useEffect(() => {
         try {
-            if (Object.values(curruser))
-                setLoggedin(true)
+            if (Object.values(curruser)) setLoggedin(true)
         } catch(e) {
             setLoggedin(false)
         }
