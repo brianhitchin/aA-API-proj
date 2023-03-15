@@ -2,6 +2,12 @@
 ![welcome](https://user-images.githubusercontent.com/63670745/224509427-420412cb-df23-4725-b5d9-8f0f8150f530.png)
 *(ReadMe v1.1, updated 3/11/2013)*
 
+### Credits
+This is made by Brian!
+[github](https://github.com/brianhitchin)
+[linkedIn](https://www.linkedin.com/in/brian-hitchin-940b57268/)
+Background by talented LLY (I will link her site as soon as I find it. I lost it.) 
+
 ### What is MeetPup?
 - A project to emulate [Meetup](https://www.meetup.com/).
 - This is a project built on **express** backend and **react / redux** frontend.
