@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as groupsActions from "../../store/groups";
 import './index.css'
 
 const CreateGroup = () => {
+
+
+    useEffect(() => {
+        document.title = 'Start a New Group';
+    }, []);
 
     const [location, setLocation] = useState('')
     const [name, setName] = useState('')
@@ -22,23 +27,23 @@ const CreateGroup = () => {
         const [city, state] = location.split(', ')
         window.scrollTo(0, 0)
         if (url) {
-        return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
-            .then((res) => history.push(`/groups/${res}`))
-            .catch(
-                async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                }
-            );
+            return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
+                .then((res) => history.push(`/groups/${res}`))
+                .catch(
+                    async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) setErrors(data.errors);
+                    }
+                );
         } else {
             return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url: "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" }))
-            .then((res) => history.push(`/groups/${res}`))
-            .catch(
-                async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                }
-            );
+                .then((res) => history.push(`/groups/${res}`))
+                .catch(
+                    async (res) => {
+                        const data = await res.json();
+                        if (data && data.errors) setErrors(data.errors);
+                    }
+                );
         }
     };
 
@@ -53,8 +58,8 @@ const CreateGroup = () => {
             </div>
             <div className="grouploc">
                 <span className="toptwodes">First, set your group's location.</span>
-                <span className="groupmsg">MeetPup groupos meet locally, in person and online.</span>
-                <span className="groupmsg">We'll connect you to pups in your area! And more to follow!</span>
+                <span className="groupmsg">MeetPup groups meet locally, in person and online.</span>
+                <span className="groupmsg">We'll connect you to pups in your area!</span>
                 <label for="location"></label>
                 <input type="text" id="location" placeholder="City, STATE" className="cginput"
                     value={location} onChange={(e) => setLocation(e.target.value)}></input>
