@@ -3,7 +3,6 @@ import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react';
 import { oneGroup, deleteGroup } from '../../store/groups';
 import { oneGroupEvent } from '../../store/events';
-import EditGroup from '../EditGroup';
 import DeleteGroupModal from '../DeleteModalG';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './index.css'
@@ -24,6 +23,7 @@ const SingleGroup = () => {
     const history = useHistory();
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
+    const groupevents = useSelector(state => state.events)
     
     useEffect(() => {
         dispatch(oneGroup(groupId))
