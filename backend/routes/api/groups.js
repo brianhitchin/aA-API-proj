@@ -424,11 +424,12 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
     //startDate = new Date(startDate.toString().slice(0, 10))
     //endDate = new Date(endDate.toString().slice(0, 10))
     
-    venueId = parseFloat(venueId)
-    capacity = parseFloat(capacity)
+    venueId = parseInt(venueId)
+    capacity = parseInt(capacity)
+    price = parseInt(price)
     startDate = new Date(startDate)
     endDate = new Date(endDate)
-    console.log(req.body, price)
+    console.log(req.body, price, typeof(price))
 
     const groupchk = await Group.findByPk(req.params.groupId)
     if (!groupchk) {
@@ -449,15 +450,15 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
             startDate,
             endDate
         })
-        const rightVenue = await Venue.findByPk(venueId)
+        //const rightVenue = await Venue.findByPk(venueId)
         const newEventChk = await Event.scope('cevent').findOne({
             where: {
                 name: name
             }
         })
-        // || newEventChk.startDate > newEventChk.endDate 
-        if (!rightVenue || !newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
-            || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description) {
+        // !rightVenue || 
+        if (!newEventChk || !newEventChk.id || !newEventChk.startDate || !newEventChk.endDate || !newEventChk.venueId || !newEventChk.name
+            || !newEventChk.type || !newEventChk.capacity || !newEventChk.price || !newEventChk.description || newEventChk.startDate > newEventChk.endDate) {
             await Event.destroy({
                 where: {
                     name: name
@@ -478,9 +479,8 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
                 }
             })
         }
-        newEventChk.startDate = newEventChk.startDate.toDateString()
-        newEventChk.endDate = newEventChk.endDate.toDateString()
-        newEventChk.price = parseFloat(newEventChk.price)
+        newEventChk.startDate = newEventChk.startDate
+        newEventChk.endDate = newEventChk.endDate
         const newAttendance = await Attendance.create({
             eventId: newEvent.id,
             userId: req.user.id,

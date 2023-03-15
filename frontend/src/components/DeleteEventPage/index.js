@@ -24,7 +24,7 @@ const DEPage = () => {
     return (
         <div className='dgmain'>
             <h1>Event successfully deleted!</h1>
-            <h2>{`We will redirect you to the event page in ${counter} seconds...`}</h2>
+            <h2>{`We will redirect you to the group page in ${counter} seconds...`}</h2>
             <img src={hooray} alt="sorry!"></img>
         </div>
     )

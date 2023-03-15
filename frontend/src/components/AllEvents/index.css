@@ -40,12 +40,21 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-direction: row;
+    flex-direction: column;
     padding: 20px;
     border-bottom: 3px inset gray;
     margin: 10px;
     overflow: hidden;
     cursor: grab;
+}
+
+.indiveventsI {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
 }
 
 .indivevents:hover {
@@ -92,4 +101,17 @@
     font-size: 20px;
     color: darkgray;
     margin: 10px;
+}
+
+.indiveventdesc {
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: bold;   
+    padding-top: 20px;
+    padding-left: 10px;
+    justify-content: flex-start;
 }

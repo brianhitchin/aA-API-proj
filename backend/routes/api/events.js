@@ -91,6 +91,7 @@ router.get('/', async (req, res, next) => {
                 { model: EventImage, attributes: [] },
                 { model: Attendance, attributes: [] }],
             group: ['Event.id'],
+            order: [['startDate', 'DESC']],
             ...pagination
         })
         let resObj = []

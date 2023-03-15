@@ -68,20 +68,21 @@ const CreateGroup = () => {
                 <span className="toptwodes">What will your group's name be?</span>
                 <span className="groupmsg">Choose a name that will give people a clear idea of what the group is about.</span>
                 <span className="groupmsg">With MeetPup Pro, you can change the group name for free once a year.</span>
+                <span className="groupmsg">Just kidding, choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</span>
                 <label for="groupname">
                     <input type="text" id="groupname" placeholder="What is your group name?" className="cginput"
                         value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
             </div>
             <div className="grouploc">
-                <span className="toptwodes">Now describe what your group will be about</span>
-                <span className="groupmsg">Everyone can see this! You can edit this later, too.</span>
+                <span className="toptwodes">Describe the purpose of your group.</span>
+                <span className="groupmsg">People will see this when we promote your group, but you'll be able to add to it later, too.</span>
                 <span className="groupmsg">Here's a general guideline: </span>
-                <span className="groupmsg wb">1. What's the purpose of the group?</span>
+                <span className="groupmsg wb">1. What's the purpose of the group? </span>
                 <span className="groupmsg">2. Who should join? </span>
-                <span className="groupmsg">3. Why do you like dogs?? </span>
+                <span className="groupmsg">3. What will you do at your events?</span>
                 <label for="groupabout">
-                    <textarea id="groupabout" placeholder="Be creative!" className="cginput textbox"
+                    <textarea id="groupabout" placeholder="Please write at least 30 characters." className="cginput textbox"
                         value={about} onChange={(e) => setAbout(e.target.value)}></textarea>
                 </label>
             </div>
@@ -102,6 +103,7 @@ const CreateGroup = () => {
                     <option value={false}>Public</option>
                 </select>
                 <span className="groupmsg wb">Please add an image url for your group below:</span>
+                <span className="groupmsgwb">This works. Try it!</span>
                 <label for="groupurl">
                     <input type="text" id="groupurl" placeholder="Optional, leave blank if no suitable image." className="cginput"
                         value={url} onChange={(e) => setUrl(e.target.value)}></input>
