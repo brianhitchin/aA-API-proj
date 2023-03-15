@@ -34,6 +34,12 @@ function OpenModalMenuItem({
     );
   }
 
+  if (itemText === 'Delete Group') {
+    return (
+      <span onClick={onClick} className="ddbarspan2">{itemText}</span>
+    );
+  }
+
   return (
     <span onClick={onClick} className="ddbarspan2 nb">{itemText}</span>
   );

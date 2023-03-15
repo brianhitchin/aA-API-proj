@@ -141,7 +141,14 @@ router.get('/:groupId', async (req, res, next) => {
 })
 
 router.post('/', requireAuth, async (req, res, next) => {
-    const { name, about, type, private, city, state } = req.body
+    let { name, about, type, private, city, state } = req.body
+    name = name.toString();
+    about = about.toString();
+    type = type.toString();
+    private = !!private
+    city = city.toString();
+    state = state.toString();
+    console.log(name, about, type, private, city, state)
     try {
         const newGroup = await Group.create({
             organizerId: req.user.id,

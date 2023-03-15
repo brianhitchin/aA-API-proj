@@ -25,6 +25,7 @@ const CreateGroup = () => {
         e.preventDefault();
         setErrors([]);
         const [city, state] = location.split(', ')
+        if (state.startsWith(' ')) {state.slice(1)}
         window.scrollTo(0, 0)
         if (url) {
             return dispatch(groupsActions.create({ name, about, type, private: priorpub, city, state, url }))
