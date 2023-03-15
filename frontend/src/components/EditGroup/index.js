@@ -22,14 +22,26 @@ const EditGroup = () => {
         e.preventDefault();
         setErrors([]);
         window.scrollTo(0, 0)
-        return dispatch(groupsActions.editGroup(groupId, { name: newName, about: newAbout, type: newType, private: newPrivate, city: newCity, state: newState }))
-            .then((_res) => history.push(`/groups/${groupId}`))
-            .catch(
-                async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                }
-            );
+        if (newName && newAbout && newType && newCity && newState && newPrivate) {
+            if (newAbout.length >= 30) {
+                return dispatch(groupsActions.editGroup(groupId, { name: newName, about: newAbout, type: newType, private: newPrivate, city: newCity, state: newState }))
+                    .then((_res) => history.push(`/groups/${groupId}`))
+                    .catch(
+                        async (res) => {
+                            const data = await res.json();
+                            if (data && data.errors) setErrors(data.errors);
+                        }
+                    );
+            } else {
+                setErrors([]);
+                setErrors(['Description needs to be longer than 30 characters.'])
+                window.scrollTo(0, 0)
+            }
+        } else {
+            setErrors([]);
+            setErrors(['There cannot be an empty field.'])
+            window.scrollTo(0, 0)
+        }
     };
 
     !curruser && history.push('/')
@@ -58,14 +70,14 @@ const EditGroup = () => {
                     <span className="toptwodes2">What is your new group type?</span>
                     <label for="grouptype"></label>
                     <select id="grouptype" value={newType} className="cginput2" onChange={(e) => setNewType(e.target.value)}>
-                        <option value="" disabled>(select one)</option>
+                        <option value="" disabled selected>(select one)</option>
                         <option value="In person">In person</option>
                         <option value="Online">Online</option>
                     </select>
                     <span className="toptwodes2">Do you want your group to be private?</span>
                     <label for="groupprivate"></label>
                     <select id="groupprivate" value={newPrivate} className="cginput2" onChange={(e) => setNewPrivate(e.target.value)}>
-                        <option value="" disabled>(select one)</option>
+                        <option value="" disabled selected>(select one)</option>
                         <option value={true}>Yes</option>
                         <option value={false}>No</option>
                     </select>

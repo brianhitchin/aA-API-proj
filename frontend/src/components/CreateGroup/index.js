@@ -16,7 +16,7 @@ const CreateGroup = () => {
     const [about, setAbout] = useState(null)
     const [url, setUrl] = useState(null)
     const [type, setType] = useState(null)
-    const [priorpub, setPriorpub] = useState(true)
+    const [priorpub, setPriorpub] = useState(null)
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -112,14 +112,14 @@ const CreateGroup = () => {
                 <span className="groupmsg">Is this an in person or online group?</span>
                 <label for="grouptype"></label>
                 <select name="pets" id="grouptype" value={type} className="cginput" onChange={(e) => setType(e.target.value)}>
-                    <option value="" disabled>(select one)</option>
+                    <option value="" disabled selected>(select one)</option>
                     <option value="In person">In person</option>
                     <option value="Online">Online</option>
                 </select>
                 <span className="groupmsgwb">Is this group private or public?</span>
                 <label for="groupprivate"></label>
                 <select name="private" id="groupprivate" value={priorpub} className="cginput" onChange={(e) => setPriorpub(e.target.value)}>
-                    <option value="" disabled>(select one)</option>
+                    <option value="" disabled selected>(select one)</option>
                     <option value={true}>Private</option>
                     <option value={false}>Public</option>
                 </select>
