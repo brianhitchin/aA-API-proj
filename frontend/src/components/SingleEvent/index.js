@@ -38,12 +38,11 @@ const SingleEvent = () => {
         } catch (e) {
             setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
         }
-    }, [events, setCurrEvent, setImgurl])
+    }, [events, setCurrEvent])
 
     useEffect(() => {
         try {
             setCurrGroup(groups)
-            (events.EventImages.length > 0) ? setImgurl(events.EventImages[0].url) : setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
         } catch (e) {
             setCurrGroup(groups)
         }
@@ -73,6 +72,8 @@ const SingleEvent = () => {
             setShowMenu(false);
         }
     };
+
+    events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
 
     useEffect(() => {
         document.addEventListener('click', closeMenu);
