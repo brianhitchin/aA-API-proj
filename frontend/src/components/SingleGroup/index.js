@@ -78,12 +78,6 @@ const SingleGroup = () => {
         return () => document.removeEventListener("click", closeMenu);
     }, [closeMenu]);
 
-    const rightformat = (startDate) => {
-        const splitted = startDate.split('T')
-        const fixed = splitted[1].substring(0, splitted[1].length-1)
-        return `${splitted[0]} · ${fixed}`
-    }
-
     return (
         <div className="singlegroupmain">
             <div className='groupsum'>
@@ -136,7 +130,7 @@ const SingleGroup = () => {
                                                 <img src={el.previewImage} alt=''></img>
                                             </div>
                                             <div className='indiveventtoprest'>
-                                                <div className='tealme megabold'>{rightformat(el.startDate)}</div>
+                                                <div className='tealme megabold'>{el.startDate}</div>
                                                 <h4 className='topresttitle'>{el.name}</h4>
                                                 <div className='greyme'>{`${el.Venue?.city}, ${el.Venue?.state}`}</div>
                                             </div>
