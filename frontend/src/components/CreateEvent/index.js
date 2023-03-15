@@ -25,7 +25,7 @@ const CreateEvent = () => {
         if (name && description && type && price && startDate && endDate) {
             const newstartDate = new Date(startDate)
             const newendDate = new Date(endDate)
-            if (newstartDate <= newendDate && description.length >= 30) {
+            if (newstartDate <= newendDate && description.length >= 30 && typeof(price) === 'number') {
                 return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: price.startsWith('0') ? parseInt(price.slice(1)) : parseInt(price), startDate: new Date(startDate), endDate: new Date(endDate) }))
                     .then((res) => history.push(`/events/${res}`))
                     .catch(
@@ -38,6 +38,10 @@ const CreateEvent = () => {
                 if (newstartDate > newendDate) {
                     setErrors([]);
                     setErrors(['Start date cannot be after the end date.'])
+                    window.scrollTo(0, 0)
+                } else if (typeof(price) !== 'number') {
+                    setErrors([]);
+                    setErrors(['Price has to be a number.'])
                     window.scrollTo(0, 0)
                 } else {
                     setErrors([]);
