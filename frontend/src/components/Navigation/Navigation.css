@@ -17,13 +17,15 @@
 }
 
 .deletesignup {
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
+    font-size: 12px;
     color: white;
     background-color: rgb(55, 51, 51);
     border: 2px solid black;
-    padding: 10px;
+    padding: 5px;
     font-weight: bold;
+    font-family: 'Tilt Neon', serif;
 }
 
 .alonesignup {
@@ -41,8 +43,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .custombutton {
@@ -50,9 +52,13 @@
     max-height: 30px;
 }
 
+.profile-dropdown {
+    padding: 0px;
+}
+
 .profile-dropdown > span {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .nl {
@@ -77,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 #modal-content {
@@ -91,10 +97,10 @@
 
 .ddbagcag {
     color: teal;
-    width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-right: 8px;
 }
 
 .ddbagcag2 {
@@ -102,6 +108,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-right: 8px;
 }
 
 .interholder {

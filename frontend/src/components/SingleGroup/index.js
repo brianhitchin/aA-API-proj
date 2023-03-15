@@ -83,10 +83,6 @@ const SingleGroup = () => {
                 <div className="groupnav">
                     <NavLink to={'/groups'}>{"< Groups"}</NavLink>
                 </div>
-                {showEdit && <div className="formholder">
-                    <EditGroup group={group} privacy={currGroup.private} id={groupId} />
-                    <button onClick={() => setShowEdit(false)} className="groupbuttonns">X</button>
-                    </div>}
                 <div className="groupov">
                     <div className="imgholder">
                         <img src={imgurl}
@@ -101,7 +97,7 @@ const SingleGroup = () => {
                         {loggedin && oner && oner === curruser.id &&
                             <div className='gobot2'>
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
-                                <button className="sgowneropt" onClick={() => setShowEdit(!showEdit)}>Update</button>
+                                <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/edit`)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
                                 {confirm && <div className="sgowneropt"><OpenModalMenuItem
                                                 itemText="Delete Group"

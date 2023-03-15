@@ -16,6 +16,8 @@ import DEPage from "./components/DeleteEventPage";
 import AllEvents from "./components/AllEvents";
 import SingleEvent from "./components/SingleEvent";
 import CreateEvent from "./components/CreateEvent";
+import EditGroup from "./components/EditGroup";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +32,10 @@ function App() {
         <Route path="/groups/:groupId/events/new" exact>
           <Navigation isLoaded={isLoaded} />
           <CreateEvent />
+        </Route>
+        <Route path="/groups/:groupId/edit" exact>
+          <Navigation isLoaded={isLoaded} />
+          <EditGroup />
         </Route>
         <Route path="/creategroup" exact>
           <Navigation isLoaded={isLoaded} />

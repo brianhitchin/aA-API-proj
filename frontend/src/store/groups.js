@@ -145,7 +145,7 @@ const groupsReducer = (state = initialState, action) => {
             delete newState.groups[action.id]
             return newState
         case EDIT_GROUP:
-            newState = { ...state, groups: { [action.payload.id]: action.payload }}
+            newState = Object.assign({groups: action.payload}, state)
             return newState
         default:
             return state;
