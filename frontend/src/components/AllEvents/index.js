@@ -17,7 +17,7 @@ const AllEvents = () => {
     useEffect(() => {
         try {
             setEventlist(events)
-        } catch(e) {
+        } catch (e) {
             setEventlist({})
         }
     }, [events])
@@ -39,15 +39,18 @@ const AllEvents = () => {
                 {Array.isArray(eventlist) && eventlist.map((event) => {
                     return (
                         <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
-                            <div className='indiveventimg'>
-                                <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : "../../sorry.png"} alt="" height={"300px"} width={"300px"}></img>
+                            <div className='indiveventsI'>
+                                <div className='indiveventimg'>
+                                    <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : "../../sorry.png"} alt="" height={"300px"} width={"300px"}></img>
+                                </div>
+                                <div className='indiveventdetail'>
+                                    <span className='indiveventname'>{event.name}</span>
+                                    <span className='indiveventtime tealme'>{formatter(event.startDate)} <i class="fa-regular fa-clock"></i></span>
+                                    <span className='indiveventloc'>{`Location: ${event.Venue?.city}, ${event.Venue?.state}`}</span>
+                                    <span className='indiveventhost'>Hosted by: {event.Group.name}</span>
+                                </div>
                             </div>
-                            <div className='indiveventdetail'>
-                                <span className='indiveventname'>{event.name}</span>
-                                <span className='indiveventtime tealme'>{formatter(event.startDate)} <i class="fa-regular fa-clock"></i></span>
-                                <span className='indiveventloc'>{`Location: ${event.Venue?.city}, ${event.Venue?.state}`}</span>
-                                <span className='indiveventhost'>Hosted by: {event.Group.name}</span>
-                            </div>
+                            <div className='indiveventdesc'>{event.description}</div>
                         </div>
                     )
                 })}

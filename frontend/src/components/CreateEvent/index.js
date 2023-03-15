@@ -39,7 +39,7 @@ const CreateEvent = () => {
                 {Object.values(errors).map((error, idx) => <li key={idx} className="signuperror">{error}{idx}</li>)}
             </ul>
             <div className="grouploc">
-                <h2 className="groupmsg bb">{`Create an event for ${name}`}</h2>
+                <h2 className="groupmsg bb">{`Create an event for ${thisgroup.name}`}</h2>
                 <span className="groupmsg">What is the name of your event?</span>
                 <label for="name"></label>
                 <input type="text" id="name" placeholder="Event name" className="cginput"
