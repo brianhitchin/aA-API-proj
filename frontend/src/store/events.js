@@ -5,6 +5,14 @@ const initialState = {}
 const POPULATE_EPAGE = 'events/start'
 const GET_ONE_EVENT = 'events/getone'
 const ADD_EVENT = 'events/add'
+const DELETE_EVENT = 'events/delete'
+
+export const deleteaEvent = (id) => {
+    return {
+        type: DELETE_EVENT,
+        id
+    }
+}
 
 export const getEvent = (payload) => {
     return {
@@ -27,9 +35,22 @@ export const startEvents = (payload) => {
     }
 }
 
+export const deleteEvent = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if (response.ok) {
+        dispatch(deleteaEvent(id))
+    }
+}
+
 export const create = (groupId, value) => async dispatch => {
     const response = await csrfFetch(`/api/groups/${groupId}/events`, {
-        method: 'POST', 
+        method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
@@ -71,8 +92,12 @@ const eventsReducer = (state = initialState, action) => {
             newState = { ...action.payload };
             return newState;
         case ADD_EVENT:
-            newState = { ...state, events: {...state.events, [action.payload.id]: action.payload}}
+            newState = { ...state, events: { ...state.events, [action.payload.id]: action.payload } }
             return newState;
+        case DELETE_EVENT:
+            newState = { ...state, events: { ...state.events } }
+            delete newState.events[action.id]
+            return newState
         default:
             return state;
     }

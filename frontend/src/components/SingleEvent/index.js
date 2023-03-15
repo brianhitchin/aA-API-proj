@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink, useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { oneGroup } from '../../store/groups'
 import { oneEvent } from '../../store/events';
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteEventModal from '../DeleteModal';
 import './index.css'
 
 const SingleEvent = () => {
@@ -20,6 +22,8 @@ const SingleEvent = () => {
     const curruserid = useSelector(state => state.session.user.id)
     const [curruseridstate, setCurruseridstate] = useState(curruserid ? curruserid : 1000000)
     const history = useHistory();
+    const ulRef = useRef();
+    const [showMenu, setShowMenu] = useState(false);
 
     const showEdit = false
 
@@ -30,18 +34,17 @@ const SingleEvent = () => {
     useEffect(() => {
         try {
             setCurrEvent(events)
-            setImgurl(events.EventImages[0].url)
             dispatch(oneGroup(events.groupId))
         } catch (e) {
             setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
         }
-    }, [events, setCurrEvent, setImgurl])
+    }, [events, setCurrEvent])
 
     useEffect(() => {
         try {
             setCurrGroup(groups)
         } catch (e) {
-            setCurrGroup({})
+            setCurrGroup(groups)
         }
     }, [groups])
 
@@ -52,11 +55,30 @@ const SingleEvent = () => {
             setOwnerId(currGroup.Organizer.id)
             setGroupPrev(currGroup.GroupImages[0].url)
             setCurruseridstate(curruserid)
-        } catch {
+        } catch(e) {
             setName('')
             setOwnerId(0)
         }
     }, [currGroup])
+
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    };
+
+    const closeMenu = (e) => {
+        if (!showMenu) return;
+        if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
+        }
+    };
+
+    events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
+
+    useEffect(() => {
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+    }, [closeMenu]);
 
     return (
         <div className="singleeventmain">
@@ -83,6 +105,10 @@ const SingleEvent = () => {
                         <div className="eventtopbottom">
                             <div className="timeholder">
                                 <div className="timeholderinnerL"><i class="fa-regular fa-clock"></i></div>
+                                <div className="timeholderinnerM">
+                                    <div>·</div>
+                                    <div>·</div>
+                                </div>
                                 <div className="timeholderinnerR">
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">START</div>
@@ -108,15 +134,21 @@ const SingleEvent = () => {
                                 <div className="timeholderinnerL">
                                     <i class="fa-solid fa-map-pin"></i>
                                 </div>
-                                <div className='timeholderinnerR toomuchcss wtfgray'>
+                                <div className='timeholderinnerRnC toomuchcss wtfgray'>
                                     {`${currEvent?.type}`}
+                                    {curruseridstate && curruseridstate === ownerId &&
+                                        <div className="delbuttonholder">
+                                            <OpenModalMenuItem
+                                                itemText="Delete"
+                                                onItemClick={closeMenu}
+                                                modalComponent={<DeleteEventModal />}
+                                            /></div>}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <h1>Details</h1>
-                {curruseridstate && curruseridstate === ownerId && <div>Plz</div>}
                 {currEvent && <p>{currEvent.description}</p>}
             </div>
         </div >

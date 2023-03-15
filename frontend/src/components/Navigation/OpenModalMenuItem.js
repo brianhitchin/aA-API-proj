@@ -27,6 +27,13 @@ function OpenModalMenuItem({
       <span onClick={onClick} className="alonesignup">{itemText}</span>
     );
   }
+
+  if (itemText === 'Delete') {
+    return (
+      <span onClick={onClick} className="deletesignup">{itemText}</span>
+    );
+  }
+
   return (
     <span onClick={onClick} className="ddbarspan2 nb">{itemText}</span>
   );
