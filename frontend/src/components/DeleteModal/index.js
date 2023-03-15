@@ -9,6 +9,7 @@ function DeleteEventModal() {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const eventId = useSelector(state => state.events.id)
+    const groupId = useSelector(state => state.events.groupId)
     const [errors, setErrors] = useState([]);
     const history = useHistory();
     const handleSubmitY = (e) => {
@@ -16,7 +17,7 @@ function DeleteEventModal() {
 
         return dispatch(eventsActions.deleteEvent(eventId))
             .then(closeModal)
-            .then(history.push('/deletedevent'))
+            .then(history.push(`/deletedevent/${groupId}`))
             .catch(
                 async (res) => {
                     const data = await res.json();

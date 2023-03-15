@@ -39,7 +39,7 @@ function App() {
           <Navigation isLoaded={isLoaded} />
           <DGPage />
         </Route>
-        <Route path="/deletedevent" exact>
+        <Route path="/deletedevent/:groupId">
           <Navigation isLoaded={isLoaded} />
           <DEPage />
         </Route>
