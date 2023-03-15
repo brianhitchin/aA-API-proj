@@ -8,6 +8,7 @@ const ADD_GROUP = 'group/add'
 const ADD_GROUP_IMAGE = 'group/addimage'
 const DELETE_GROUP = 'group/delete'
 const EDIT_GROUP = 'group/edit'
+const GET_ONE_GROUP_EVENTS = 'group/getoneevents'
 
 export const deleteaGroup = (id) => {
     return {
@@ -33,6 +34,13 @@ export const startGroups = (payload) => {
 export const getGroup = (payload) => {
     return {
         type: GET_ONE_GROUP,
+        payload
+    }
+}
+
+export const getOneGroupEvents = (payload) => {
+    return {
+        type: GET_ONE_GROUP_EVENTS,
         payload
     }
 }

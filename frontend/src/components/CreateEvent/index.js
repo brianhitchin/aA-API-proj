@@ -51,13 +51,6 @@ const CreateEvent = () => {
                     <option value="In Person">In Person</option>
                     <option value="Online">Online</option>
                 </select>
-                <span className="groupmsg">Is this event private or public?</span>
-                <label for="type"></label>
-                <select id="type" className="cginput">
-                    <option value="" disabled>(select one)</option>
-                    <option value="HawHaw">Private</option>
-                    <option value="HeeHee">Public</option>
-                </select>
                 <span className="groupmsg">What is the price for your event?</span>
                 <label for="price"></label>
                 <input type="text" id="start" placeholder="$$" className="cginput"
