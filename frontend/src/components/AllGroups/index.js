@@ -34,7 +34,10 @@ const AllGroups = () => {
                                 <span className='indivgroupname'>{group.name}</span>
                                 <span className='indivgrouploc'>{`${group.city}, ${group.state}`}</span>
                                 <p className='indivgroupabout'>{group.about}</p>
-                                <span className='indivgrouppri'>{(group.private === true) ? "Private" : "Public"}</span>
+                                <div className='indivgrouppri'>
+                                    <span>{'Num Events · '}</span>
+                                    <span>{(group.private === true) ? "Private" : "Public"}</span>
+                                </div>
                             </div>
                         </div>
                     )

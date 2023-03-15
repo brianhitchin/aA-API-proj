@@ -102,6 +102,7 @@ const SingleGroup = () => {
                         <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
                         <div className="pubeveholder">
                             <h3 className="greymep">{Object.values(groupevents) ? Object.values(groupevents).length : "0"}</h3>
+                            <h3 className="greymep">{" events"}</h3>
                             <h3 className="boldmep">·</h3>
                             <h3 className="greymep">{currGroup.private === true ? "Private" : "Public"}</h3>
                         </div>
