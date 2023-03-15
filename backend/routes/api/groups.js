@@ -149,6 +149,7 @@ router.post('/', requireAuth, async (req, res, next) => {
     city = city.toString();
     state = state.toString();
     console.log(name, about, type, private, city, state)
+    console.log(typeof(name), typeof(about), typeof(type), typeof(private), typeof(city), typeof(state))
     try {
         const newGroup = await Group.create({
             organizerId: req.user.id,
@@ -384,7 +385,8 @@ router.get('/:groupId/events', async (req, res, next) => {
         where: {
             groupId: req.params.groupId
         },
-        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate']
+        attributes: ['id', 'groupId', 'venueId', 'name', 'type', 'capacity', 'price', 'description', 'startDate', 'endDate'],
+        order: [['startDate', 'DESC']]
     })
     const resObj = []
     for (let i = 0; i < events.length; i++) {

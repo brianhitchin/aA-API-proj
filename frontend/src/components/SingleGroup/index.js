@@ -24,7 +24,7 @@ const SingleGroup = () => {
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
     const groupevents = useSelector(state => state.events)
-    
+
     useEffect(() => {
         dispatch(oneGroup(groupId))
     }, [groupId, dispatch])
@@ -51,7 +51,7 @@ const SingleGroup = () => {
     useEffect(() => {
         try {
             if (Object.values(curruser)) setLoggedin(true)
-        } catch(e) {
+        } catch (e) {
             setLoggedin(false)
         }
     }, [curruser])
@@ -60,7 +60,7 @@ const SingleGroup = () => {
         e.preventDefault();
         setConfirm(!confirm)
     }
-    
+
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -94,17 +94,21 @@ const SingleGroup = () => {
                         <h2 className="groupname">{currGroup.name}</h2>
                         <h3 className="greyme">{`${currGroup.city}, ${currGroup.state}`}</h3>
                         <h3 className="greyme">{currGroup.Organizer ? `Organizer: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h3>
-                        <h3 className="greyme">{currGroup.private === true ? "Private" : "Public"}</h3>
+                        <div className="pubeveholder">
+                            <h3 className="greymep">{Object.values(groupevents) ? Object.values(groupevents).length : "0"}</h3>
+                            <h3 className="boldmep">·</h3>
+                            <h3 className="greymep">{currGroup.private === true ? "Private" : "Public"}</h3>
+                        </div>
                         {loggedin && oner && oner === curruser.id &&
-                            <div className='gobot2'>
+                            <div className="gobot2">
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/events/new`)}>Create event</button>
                                 <button className="sgowneropt" onClick={() => history.push(`/groups/${groupId}/edit`)}>Update</button>
                                 <button className="sgowneropt" onClick={deletehandler}>{confirm ? "Undo" : "Delete"}</button>
                                 {confirm && <div className="sgowneropt"><OpenModalMenuItem
-                                                itemText="Delete Group"
-                                                onItemClick={closeMenu}
-                                                modalComponent={<DeleteGroupModal />}></OpenModalMenuItem></div>}
-                            </div>} 
+                                    itemText="Delete Group"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<DeleteGroupModal />}></OpenModalMenuItem></div>}
+                            </div>}
                         {loggedin && oner && oner !== curruser.id &&
                             <div class="gobot"><button className="groupbutton" onClick={() => alert('Feature coming soon...')}>
                                 Join this group</button></div>}
@@ -115,6 +119,20 @@ const SingleGroup = () => {
                         <h2 className="greymeintro">{currGroup.Organizer ? `Organized by: ${currGroup.Organizer.firstName} ${currGroup.Organizer.lastName}` : ``}</h2>
                         <h2>What we're about</h2>
                         <p className="grayabout">{currGroup.about}</p>
+                        <h2>{`Upcoming events (${Object.values(groupevents) ? Object.values(groupevents).length : '0'})`}</h2>
+                        <div className='eventholder'>
+                            {Object.values(groupevents) && Object.values(groupevents).map((el) => {
+                                return (
+                                    <div>
+                                        <div>{el.name}</div>
+                                        <div>{el.previewImage}</div>
+                                        <div>{el.startDate}</div>
+                                        <div>{el.Venue?.city}</div>
+                                        <div>{el.description}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
