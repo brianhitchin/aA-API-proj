@@ -27,7 +27,7 @@ const CreateGroup = () => {
         window.scrollTo(0, 0)
         if (location && name && about && type && priorpub && about?.length >= 30) {
             try {
-                const [city, state] = location.split(', ')
+                const [city, state] = location.split(',')
                 if (state.startsWith(' ')) { state.slice(1) }
                 if (city && state) {
                     if (url) {

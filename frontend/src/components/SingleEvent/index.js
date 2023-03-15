@@ -19,8 +19,8 @@ const SingleEvent = () => {
     const dispatch = useDispatch();
     const events = useSelector(state => state.events)
     const groups = useSelector(state => state.groups)
-    const curruserid = useSelector(state => state.session.user.id)
-    const [curruseridstate, setCurruseridstate] = useState(curruserid ? curruserid : 1000000)
+    const curruserid2 = useSelector(state => state.session.user)
+    const [curruseridstate, setCurruseridstate] = useState(1000000)
     const history = useHistory();
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
@@ -54,7 +54,7 @@ const SingleEvent = () => {
             setName(fullName)
             setOwnerId(currGroup.Organizer.id)
             setGroupPrev(currGroup.GroupImages[0].url)
-            setCurruseridstate(curruserid)
+            setCurruseridstate(curruserid2.id)
         } catch(e) {
             setName('')
             setOwnerId(0)
@@ -74,6 +74,8 @@ const SingleEvent = () => {
     };
 
     events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
+    !Object.values(curruserid2) && history.push('/')
+    
 
     useEffect(() => {
         document.addEventListener('click', closeMenu);
