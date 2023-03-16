@@ -88,8 +88,7 @@ const CreateGroup = () => {
             <div className="grouploc">
                 <span className="toptwodes">What will your group's name be?</span>
                 <span className="groupmsg">Choose a name that will give people a clear idea of what the group is about.</span>
-                <span className="groupmsg">With MeetPup Pro, you can change the group name for free once a year.</span>
-                <span className="groupmsg">Just kidding, choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</span>
+                <span className="groupmsg">Feel free to get creative! You can edit this later if you change your mind.</span>
                 <label for="groupname">
                     <input type="text" id="groupname" placeholder="What is your group name?" className="cginput"
                         value={name} onChange={(e) => setName(e.target.value)}></input>
