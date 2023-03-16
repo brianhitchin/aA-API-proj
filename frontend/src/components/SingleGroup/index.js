@@ -134,7 +134,7 @@ const SingleGroup = () => {
                                                 <img src={el.previewImage} alt=''></img>
                                             </div>
                                             <div className='indiveventtoprest'>
-                                                <div className='tealme megabold'>{el.startDate}</div>
+                                                <div className='tealme megabold'>{el.startDate ? el.startDate.slice(0, 10) + " · " + el.startDate.slice(12, el.startDate.length - 1) : ""}</div>
                                                 <h4 className='topresttitle'>{el.name}</h4>
                                                 <div className='greyme'>{`${el.Venue?.city}, ${el.Venue?.state}`}</div>
                                             </div>
