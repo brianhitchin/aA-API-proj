@@ -435,7 +435,8 @@ router.post('/:groupId/events', requireAuth, orgCheck('Co-Host'), async (req, re
     
     venueId = parseInt(venueId)
     capacity = parseInt(capacity)
-    price = parseInt(price)
+    price === 0 || price === undefined ? 0 : parseInt(price)
+    console.log(price, typeof(price))
     startDate = new Date(startDate)
     endDate = new Date(endDate)
     console.log(req.body, price, typeof(price))
