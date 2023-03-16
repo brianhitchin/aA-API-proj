@@ -26,6 +26,10 @@ const SingleGroup = () => {
     const groupevents = useSelector(state => state.events)
 
     useEffect(() => {
+        document.title = 'Meetpup!';
+    }, []);
+
+    useEffect(() => {
         dispatch(oneGroup(groupId))
     }, [groupId, dispatch])
 
