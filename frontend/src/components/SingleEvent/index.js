@@ -118,11 +118,11 @@ const SingleEvent = () => {
                                 <div className="timeholderinnerR">
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">START</div>
-                                        <div className="tealme vcxz">{currEvent && currEvent?.startDate ? currEvent.startDate.slice(0, 10) + " · " + currEvent.startDate.slice(11, currEvent.startDate.length - 1) : ""}</div>
+                                        {currEvent && currEvent.startDate && <div className="tealme vcxz">{currEvent && currEvent?.startDate ? currEvent.startDate.slice(0, 10) + " · " + currEvent.startDate.slice(11, currEvent.startDate.length - 1) : ""}</div>}
                                     </div>
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">END</div>
-                                        <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.enDate.length - 1) : ""}</div>
+                                        {currEvent && currEvent.endDate && <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.endDate.length - 1) : ""}</div>}
                                     </div>
                                 </div>
                             </div>

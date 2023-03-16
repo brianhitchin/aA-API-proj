@@ -88,7 +88,7 @@ const CreateEvent = () => {
                 <span className="groupmsg">What is the price for your event?</span>
                 <label for="price"></label>
                 <input type="text" id="start" placeholder="0" className="cginput"
-                    value={price} onChange={(e) => setPrice(e.target.value)}></input>
+                    value={price} onChange={(e) => setPrice(e.target.value.toString())}></input>
                 <span className="groupmsg">When does your event start?</span>
                 <label for="start"></label>
                 <input type="text" id="start" placeholder="MM/DD/YYYY, HH/mm AM" className="cginput"
