@@ -17,14 +17,14 @@ function OpenModalMenuItem({
     if (onItemClick) onItemClick();
   };
 
-  if (itemText === 'Log In') {
+  if (itemText === 'Log In' || itemText === 'Sign Up') {
     return (
-      <span onClick={onClick} className="ddbarspan2 nl">{itemText}</span>
+      <span onClick={onClick} className="ddbarspan2 buttonme">{itemText}</span>
     );
   }
   if (itemText === 'Join MeetPup') {
     return (
-      <span onClick={onClick} className="alonesignup">{itemText}</span>
+      <span onClick={onClick} className="alonesignup buttonme">{itemText}</span>
     );
   }
 

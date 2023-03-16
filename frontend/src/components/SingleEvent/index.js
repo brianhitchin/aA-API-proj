@@ -155,8 +155,10 @@ const SingleEvent = () => {
                         </div>
                     </div>
                 </div>
-                <h1>Details</h1>
-                {currEvent && <p>{currEvent.description}</p>}
+                <div className='graysection'>
+                    <h1>Details</h1>
+                    {currEvent && <p>{currEvent.description}</p>}
+                </div>
             </div>
         </div >
     )

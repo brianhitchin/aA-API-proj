@@ -16,6 +16,20 @@
     padding-top: 2px;
 }
 
+.buttonme {
+    cursor: grabbing;
+    padding: 8px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.buttonme:hover {
+    background-color: rgb(203, 201, 201);
+    border: 3px solid black;
+    font-weight: bolder;
+}
+
 .deletesignup {
     border-radius: 5px;
     text-align: center;
