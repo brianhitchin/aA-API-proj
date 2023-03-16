@@ -19,7 +19,7 @@ const EditGroup = () => {
     const history = useHistory();
 
     useEffect(() => {
-        document.title = 'MeetPup!';
+        document.title = 'Update your group';
     }, []);
 
     const handleSubmit = (e) => {
