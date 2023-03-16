@@ -155,7 +155,7 @@ const SingleEvent = () => {
                         </div>
                     </div>
                 </div>
-                <div className='graysection'>
+                <div className='graysection2'>
                     <h1>Details</h1>
                     {currEvent && <p>{currEvent.description}</p>}
                 </div>
