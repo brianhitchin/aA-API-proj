@@ -30,7 +30,7 @@ const CreateEvent = () => {
             const newstartDate = new Date(startDate)
             const newendDate = new Date(endDate)
             if (newstartDate <= newendDate && description.length >= 30) {
-                return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: price.startsWith('0') ? parseInt(price.slice(1)) : parseInt(price), startDate: new Date(startDate), endDate: new Date(endDate) }))
+                return dispatch(eventsActions.create(thisgroup.id, { venueId: 1, capacity: 20, name, description, type, price: price.length > 1 && price.startsWith('0') ? parseInt(price.slice(1)) : parseInt(price), startDate: new Date(startDate), endDate: new Date(endDate) }))
                     .then((res) => history.push(`/events/${res}`))
                     .catch(
                         async (res) => {
