@@ -122,7 +122,7 @@ const SingleEvent = () => {
                                     </div>
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">END</div>
-                                        <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.endDate.length - 1) : ""}</div>
+                                        <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.enDate.length - 1) : ""}</div>
                                     </div>
                                 </div>
                             </div>
