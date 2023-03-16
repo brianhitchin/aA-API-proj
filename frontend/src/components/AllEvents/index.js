@@ -11,6 +11,10 @@ const AllEvents = () => {
     const history = useHistory();
 
     useEffect(() => {
+        document.title = 'MeetPup!';
+    }, []);
+
+    useEffect(() => {
         dispatch(initialEvents())
     }, [dispatch])
 

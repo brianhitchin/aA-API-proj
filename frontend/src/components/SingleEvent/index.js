@@ -28,6 +28,10 @@ const SingleEvent = () => {
     const showEdit = false
 
     useEffect(() => {
+        document.title = 'Meetpup!';
+    }, []);
+
+    useEffect(() => {
         dispatch(oneEvent(eventId))
     }, [eventId, dispatch])
 
@@ -74,7 +78,7 @@ const SingleEvent = () => {
     };
 
     events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
-    !Object.values(curruserid2) && history.push('/')
+    curruserid2 && !Object.values(curruserid2) && history.push('/')
     
 
     useEffect(() => {

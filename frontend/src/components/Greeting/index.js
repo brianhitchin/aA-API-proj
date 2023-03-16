@@ -1,7 +1,13 @@
+import { useEffect } from 'react';
 import dogs from './dogfull.png'
 import './index.css'
 
 const Greeting = () => {
+
+    useEffect(() => {
+        document.title = 'MeetPup!';
+    }, []);
+
     return (
         <div className='greeting'>
             <div className='greetingdiv'>

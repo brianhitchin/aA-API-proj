@@ -11,6 +11,10 @@ const AllGroups = () => {
     const sorry = "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg"
 
     useEffect(() => {
+        document.title = 'MeetPup!';
+    }, []);
+
+    useEffect(() => {
         dispatch(initialGroups())
     }, [dispatch])
 

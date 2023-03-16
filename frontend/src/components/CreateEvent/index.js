@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import * as eventsActions from "../../store/events";
 import './index.css'
 
 const CreateEvent = () => {
+
+    useEffect(() => {
+        document.title = 'Create an event';
+    }, []);
 
     const thisgroup = useSelector(state => state.groups)
     const [name, setName] = useState(null)
