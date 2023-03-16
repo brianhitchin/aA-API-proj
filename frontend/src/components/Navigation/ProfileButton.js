@@ -59,10 +59,10 @@ function ProfileButton({ user }) {
             <div className={showMenu ? "ddbagcag2" : "ddbagcag"} onClick={caghandler}>Create a group</div>
             <ul className={ulClassName} ref={ulRef}>
               <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
-              <span className="ddbarspan nb"><i class="fa-regular fa-envelope"></i> {user.email}</span>
-              <span className="ddbarspan nb"><i class="fa-solid fa-users"></i><Link to="/groups">View all groups</Link></span>
-              <span className="ddbarspan nb"><i class="fa-solid fa-rocket"></i><Link to="/events">View events</Link></span>
-              <span className="ddbarspan2 nr" onClick={logout}>Log Out</span>
+              <span className="ddbarspan nl"><i class="fa-regular fa-envelope"></i> {user.email}</span>
+              <span className="ddbarspan buttonme"><i class="fa-solid fa-users"></i><Link to="/groups">View all groups</Link></span>
+              <span className="ddbarspan buttonme"><i class="fa-solid fa-rocket"></i><Link to="/events">View events</Link></span>
+              <span className="ddbarspan2 buttonme" onClick={logout}>Log Out</span>
             </ul>
           </div>
         ) : (
