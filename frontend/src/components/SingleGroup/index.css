@@ -213,6 +213,8 @@
 
 .eventholder {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 50%;
     max-width: 50%;
     border-radius: 10px;
