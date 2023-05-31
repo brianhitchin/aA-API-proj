@@ -36,10 +36,10 @@ const SingleEvent = () => {
     }, [eventId, dispatch])
 
     useEffect(() => {
-        try {
+        if (events.groupId != undefined) {
             setCurrEvent(events)
             dispatch(oneGroup(events.groupId))
-        } catch (e) {
+        } else {
             setImgurl("https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg")
         }
     }, [events, setCurrEvent])
