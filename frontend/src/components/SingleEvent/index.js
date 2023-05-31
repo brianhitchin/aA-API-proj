@@ -80,6 +80,7 @@ const SingleEvent = () => {
     events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
     curruserid2 && !Object.values(curruserid2) && history.push('/')
     
+    if (currEvent) {console.log(currEvent.Group)}
 
     useEffect(() => {
         document.addEventListener('click', closeMenu);
@@ -92,7 +93,7 @@ const SingleEvent = () => {
                 <div className="eventsnav">
                     <NavLink to={'/events'}>{"< Events"}</NavLink>
                     <h1>{currEvent && currEvent.name}</h1>
-                    <h3 className="greyme">{currEvent && currEvent.Group ? `Hosted by ${name}` : ``}</h3>
+                    <h3 className="greyme">{currEvent && currEvent.Group ? `Hosted by ${currEvent.Group.name}` : ``}</h3>
                 </div>
                 <div className="eventov">
                     <div className="imgholder">

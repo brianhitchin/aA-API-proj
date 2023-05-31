@@ -11,17 +11,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'https://cdn.maikoapp.com/3d4b/4r2dg/180h.jpg',
+        url: 'https://en.wikipedia.org/wiki/Galaxy#/media/File:NGC_4414_(NASA-med).jpg',
         preview: true
       },
       {
         eventId: 2,
-        url: 'https://cdn.maikoapp.com/3d4b/4qy9k/180w.jpg',
+        url: 'https://en.wikipedia.org/wiki/Dark_matter#/media/File:CMS_Higgs-event.jpg',
         preview: true
       },
       {
         eventId: 3,
-        url: 'https://cdn.maikoapp.com/3d4b/4qwzz/180w.png',
+        url: 'https://en.wikipedia.org/wiki/Anisotropy#/media/File:WMAP_2010.png',
         preview: true
       },
       {
