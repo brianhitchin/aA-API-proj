@@ -93,7 +93,7 @@ const SingleEvent = () => {
                 <div className="eventsnav">
                     <NavLink to={'/events'}>{"< Events"}</NavLink>
                     <h1>{currEvent && currEvent.name}</h1>
-                    <h3 className="greyme">{currEvent && currEvent.Group ? `Hosted by ${name}` : ``}</h3>
+                    <h3 className="greyme">{currEvent && currEvent.Group ? `Hosted by ${currEvent.Group.name}` : ``}</h3>
                 </div>
                 <div className="eventov">
                     <div className="imgholder">
