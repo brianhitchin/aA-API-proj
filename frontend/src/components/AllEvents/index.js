@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initialEvents } from '../../store/events'
 import './index.css'
+import plz from "./plz.jpg"
 
 const AllEvents = () => {
     const events = useSelector(state => state.events)
@@ -45,7 +46,7 @@ const AllEvents = () => {
                         <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventsI'>
                                 <div className='indiveventimg'>
-                                    <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : "../../sorry.png"} alt="" height={"300px"} width={"300px"}></img>
+                                    <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : plz} alt="" height={"300px"} width={"300px"}></img>
                                 </div>
                                 <div className='indiveventdetail'>
                                     <span className='indiveventname'>{event.name}</span>

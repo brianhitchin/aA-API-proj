@@ -5,6 +5,7 @@ import { oneGroup } from '../../store/groups'
 import { oneEvent } from '../../store/events';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteEventModal from '../DeleteModal';
+import plz from "./plz.jpg"
 import './index.css'
 
 const SingleEvent = () => {
@@ -97,7 +98,7 @@ const SingleEvent = () => {
                 </div>
                 <div className="eventov">
                     <div className="imgholder">
-                        <img src={imgurl} className="eventovimg" alt=""></img>
+                        <img src={plz} className="eventovimg" alt=""></img>
                     </div>
                     <div className="eventright">
                         <div className="eventtoptop">
