@@ -11,24 +11,24 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        address: 'Venue1 address',
-        city: 'Venue1 city',
+        address: '111 Fake Address',
+        city: 'Irvine',
         state: 'CA',
         lat: 1.1,
         lng: 1.11
       },
       {
         groupId: 2,
-        address: 'Venue2 address',
-        city: 'Venue2 city',
+        address: '222 Fake Address',
+        city: 'NYC',
         state: 'NY',
         lat: 2.2,
         lng: 2.22
       },
       {
         groupId: 3,
-        address: 'Venue3 address',
-        city: 'Venue3 city',
+        address: '333 Fake Address',
+        city: 'Chicago',
         state: 'IL',
         lat: 3.3,
         lng: 3.33

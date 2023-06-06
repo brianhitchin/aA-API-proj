@@ -48,9 +48,11 @@
 
 .indivgroups {
     max-width: 50%;
+    min-width: 50%;
+    width: 50%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: stretch;
     flex-direction: row;
     padding: 20px;
     border-bottom: 3px inset gray;
