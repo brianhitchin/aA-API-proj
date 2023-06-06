@@ -37,7 +37,8 @@
 }
 
 .logindemo:hover {
-    color: darkgreen
+    color: darkgreen;
+    cursor: pointer;
 }
 
 .loginbutton {

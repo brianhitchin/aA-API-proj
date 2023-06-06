@@ -12,8 +12,8 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         organizerId: 1,
-        name: 'Group1Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        about: 'Group1about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac.',
+        name: 'Brunch with the Dogs',
+        about: 'Get brunch with Dogs! What else?.',
         type: 'Outdoor',
         private: true,
         city: 'SF',
@@ -21,17 +21,17 @@ module.exports = {
       },
       {
         organizerId: 2,
-        name: 'Group2',
-        about: 'Group2about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac.',
-        type: 'Indoor',
+        name: 'NYC Dog Walks',
+        about: 'This group is for dog owners who want to socialize, enrich and exercise their dog and prefer on-leash group activities.',
+        type: 'Outdoor',
         private: false,
         city: 'NYC',
         state: 'NY'
       },
       {
         organizerId: 3,
-        name: 'Group3',
-        about: 'Group3about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et lectus fringilla, dapibus leo et, vulputate turpis. Vestibulum ac consectetur elit. Aenean dignissim molestie mi, dapibus venenatis nibh porta ac.',
+        name: 'BarkHappy Dogs Chicago: Doggy meetup',
+        about: 'This group is for Chicago area dog lovers.',
         type: 'Social',
         private: true,
         city: 'Chicago',
