@@ -11,7 +11,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         groupId: 1,
-        url: 'http://commondatastorage.googleapis.com/codeskulptor-assets/cards.jfitz.png',
+        url: 'https://i.imgur.com/H37kxPH.jpeg',
         preview: true
       },
       {
@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         groupId: 2,
-        url: 'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/debris3_brown.png',
+        url: 'https://i.imgur.com/gtWsPu9.jpeg',
         preview: true
       },
       {
@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         groupId: 3,
-        url: 'http://codeskulptor-demos.commondatastorage.googleapis.com/pang/9v5ehnO.png',
+        url: 'https://i.imgur.com/A8eQsll.jpeg',
         preview: true
       },
       {

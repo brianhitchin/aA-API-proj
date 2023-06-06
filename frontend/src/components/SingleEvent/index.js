@@ -98,7 +98,7 @@ const SingleEvent = () => {
                 </div>
                 <div className="eventov">
                     <div className="imgholder">
-                        <img src={plz} className="eventovimg" alt=""></img>
+                        <img src={imgurl} className="eventovimg" alt=""></img>
                     </div>
                     <div className="eventright">
                         <div className="eventtoptop">
@@ -120,11 +120,11 @@ const SingleEvent = () => {
                                 <div className="timeholderinnerR">
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">START</div>
-                                        {currEvent && currEvent.startDate && <div className="tealme vcxz">{currEvent && currEvent?.startDate ? currEvent.startDate.slice(0, 10) + " · " + currEvent.startDate.slice(11, currEvent.startDate.length - 1) : ""}</div>}
+                                        {currEvent && currEvent.startDate && <div className="tealme vcxz">{currEvent && currEvent?.startDate ? currEvent.startDate.slice(0, 10) + " · " + currEvent.startDate.slice(11, currEvent.startDate.length - 8) : ""}</div>}
                                     </div>
                                     <div className="timeholderinnerRinner">
                                         <div className="wtfgray vcxz">END</div>
-                                        {currEvent && currEvent.endDate && <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.endDate.length - 1) : ""}</div>}
+                                        {currEvent && currEvent.endDate && <div className="tealme vcxz">{currEvent && currEvent?.endDate ? currEvent.endDate.slice(0, 10) + " · " + currEvent.endDate.slice(11, currEvent.endDate.length - 8) : ""}</div>}
                                     </div>
                                 </div>
                             </div>
@@ -158,8 +158,10 @@ const SingleEvent = () => {
                     </div>
                 </div>
                 <div className='graysection2'>
-                    <h1>Details</h1>
-                    {currEvent && <p>{currEvent.description}</p>}
+                    <div className='gsinner'>
+                        <h1>Details</h1>
+                        {currEvent && <p>{currEvent.description}</p>}
+                    </div>
                 </div>
             </div>
         </div >

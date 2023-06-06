@@ -11,17 +11,17 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         eventId: 1,
-        url: 'https://en.wikipedia.org/wiki/Galaxy#/media/File:NGC_4414_(NASA-med).jpg',
+        url: 'https://i.imgur.com/yErFr19.jpeg',
         preview: true
       },
       {
         eventId: 2,
-        url: 'https://en.wikipedia.org/wiki/Dark_matter#/media/File:CMS_Higgs-event.jpg',
+        url: 'https://i.imgur.com/fSgnUKW.jpeg',
         preview: true
       },
       {
         eventId: 3,
-        url: 'https://en.wikipedia.org/wiki/Anisotropy#/media/File:WMAP_2010.png',
+        url: 'https://i.imgur.com/hei8F.jpeg',
         preview: true
       },
       {

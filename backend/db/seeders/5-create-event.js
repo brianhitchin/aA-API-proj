@@ -16,9 +16,9 @@ module.exports = {
       {
         venueId: 1,
         groupId: 1,
-        name: 'Event 1 name',
-        description: 'Event1 description',
-        type: 'In Person',
+        name: 'CHIHUAHUA CHAT - CHIHUA-WOW!',
+        description: 'JUST TALKING ABOUT CHIHUAHUAS-the magical beasts. CAMERAS ON! CHIHUAHUAS UP!',
+        type: 'Online',
         capacity: 50,
         price: 30,
         startDate: dc('2022-01-01 00:00:00'),
@@ -27,8 +27,8 @@ module.exports = {
       {
         venueId: 2,
         groupId: 2,
-        name: 'Event 2 name',
-        description: 'Event2 description',
+        name: 'Ask a trainer!',
+        description: 'Ever had burning questions? Come ask!',
         type: 'Online',
         capacity: 20,
         price: 10,
@@ -38,8 +38,8 @@ module.exports = {
       {
         venueId: 3,
         groupId: 3,
-        name: 'Event 3 name',
-        description: 'Event3 description',
+        name: 'Dinner with dogs!',
+        description: 'Nice Italian place in the suburbs. Good food. Doggy friendly.',
         type: 'In Person',
         capacity: 1000,
         price: 100,
@@ -53,7 +53,7 @@ module.exports = {
     options.tableName = 'Events';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Event1', 'Event2', 'Event3'] }
+      name: { [Op.in]: ['CHIHUAHUA CHAT - CHIHUA-WOW!', 'Ask a trainer!', 'Dinner with dogs!'] }
     }, {});
   }
 };
