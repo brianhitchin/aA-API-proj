@@ -55,7 +55,7 @@
     justify-content: stretch;
     flex-direction: row;
     padding: 20px;
-    border-bottom: 3px inset gray;
+    border: 3px inset gray;
     margin: 10px;
     overflow: hidden;
     cursor: grab;
