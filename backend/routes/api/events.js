@@ -187,6 +187,7 @@ router.get('/:eventId', async (req, res, next) => {
     resObj.Group = orger
     resObj.Venue = rightvenue
     resObj.EventImages = images
+    resObj.attendees = attender
     res.json(resObj)
 })
 

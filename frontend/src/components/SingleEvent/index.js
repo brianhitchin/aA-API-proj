@@ -155,12 +155,16 @@ const SingleEvent = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className='joinnow'>
+                            <button className='sgowneropt'>RSVP</button>
+                        </div>
                     </div>
                 </div>
                 <div className='graysection2'>
                     <div className='gsinner'>
                         <h1>Details</h1>
                         {currEvent && <p>{currEvent.description}</p>}
+                        <h3>{currEvent && `${currEvent.attendees.length} other people are coming!`}</h3>
                     </div>
                 </div>
             </div>
