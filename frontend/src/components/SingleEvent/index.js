@@ -80,8 +80,6 @@ const SingleEvent = () => {
 
     events.EventImages?.length >= 1 && imgurl === "https://spoiltpig.co.uk/wp-content/plugins/responsive-menu/v4.0.0/assets/images/no-preview.jpeg" && setImgurl(events.EventImages[0].url)
     curruserid2 && !Object.values(curruserid2) && history.push('/')
-    
-    if (currEvent) {console.log(currEvent.Group)}
 
     useEffect(() => {
         document.addEventListener('click', closeMenu);
