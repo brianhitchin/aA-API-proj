@@ -14,7 +14,11 @@ const MyRSVP = () => {
         dispatch(AllMembersThunk())
     }, [])
 
-    memberstate && setLoaded([...memberstate])
+    useEffect(() => {
+        if (memberstate) {
+            setLoaded([...Object.values(memberstate)])
+        }
+    }, [memberstate])
 
     return (
         <div className='mainmain'>

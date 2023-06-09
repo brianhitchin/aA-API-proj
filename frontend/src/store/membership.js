@@ -26,7 +26,7 @@ const memberReducer = (state = initialState, action) => {
         case ALL_MEMBERS:
             newState = {...state, all_memberships: {}}
             action.payload.forEach((membership) => {
-                newState.all_membership[membership.id] = membership
+                newState.all_memberships[membership.id] = membership
             })
             return newState
         default:
