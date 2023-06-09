@@ -17,6 +17,7 @@ import AllEvents from "./components/AllEvents";
 import SingleEvent from "./components/SingleEvent";
 import CreateEvent from "./components/CreateEvent";
 import EditGroup from "./components/EditGroup";
+import MyRSVP from "./components/Rsvp";
 
 
 function App() {
@@ -71,6 +72,10 @@ function App() {
           <HMW />
           <ThreeFunctions />
           <JM />
+        </Route>
+        <Route path="/rsvp" exact>
+          <Navigation isLoaded={isLoaded} />
+          <MyRSVP />
         </Route>
         <Route>
           <Navigation isLoaded={isLoaded} />

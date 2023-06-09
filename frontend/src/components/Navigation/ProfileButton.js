@@ -62,7 +62,7 @@ function ProfileButton({ user }) {
               <span className="ddbarspan nl"><i class="fa-regular fa-envelope"></i> {user.email}</span>
               <span className="ddbarspan buttonme"><i class="fa-solid fa-users"></i><Link to="/groups">View all groups</Link></span>
               <span className="ddbarspan buttonme"><i class="fa-solid fa-rocket"></i><Link to="/events">View events</Link></span>
-              <span className="ddbarspan buttonme"><i class="fa-solid fa-spinner"></i><Link to="/events">RSVP'd events</Link></span>
+              <span className="ddbarspan buttonme"><i class="fa-solid fa-spinner"></i><Link to="/rsvp">RSVP'd events</Link></span>
               <span className="ddbarspan2 buttonme" onClick={logout}>Log Out</span>
             </ul>
           </div>
