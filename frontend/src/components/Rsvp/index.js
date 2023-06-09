@@ -53,7 +53,7 @@ const MyRSVP = () => {
             <div className='mymember'>
                 {loaded.length > 0 && fvnt && fvnt.map((event) => {
                     return (
-                        <div className='indivevents' onClick={() => history.push(`/events/${event.id}`)}>
+                        <div className='indivevents' id='mwme' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventsI'>
                                 <div className='indiveventimg'>
                                     <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : plz} alt="" height={"300px"} width={"300px"}></img>
