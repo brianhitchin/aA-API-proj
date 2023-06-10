@@ -171,8 +171,8 @@ const SingleEvent = () => {
                         </div>
                         <div className='joinnow'>
                             {currEvent && acheck(curruserid2.id, currEvent.attendees) ?
-                                <button className='sgowneropt' onClick={rhandler}>Un-RSVP</button> :
-                                <button className='sgowneropt' onClick={urhandler}>RSVP</button>
+                                <button className='sgowneropt' onClick={urhandler}>Un-RSVP</button> :
+                                <button className='sgowneropt' onClick={rhandler}>RSVP</button>
                             } 
                         </div>
                     </div>

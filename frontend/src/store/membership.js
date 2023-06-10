@@ -51,7 +51,7 @@ export const AddMembersThunk = (id) => async dispatch => {
 }
 
 export const DelMembersThunk = (eid, body) => async dispatch => {
-    const response = await csrfFetch(`/api/events/${eid}`, {
+    const response = await csrfFetch(`/api/events/${eid}/attendance`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
