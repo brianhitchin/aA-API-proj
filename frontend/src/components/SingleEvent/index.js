@@ -91,6 +91,14 @@ const SingleEvent = () => {
         return glist2.includes(me)
     }
 
+    const rhandler = (e) => {
+        e.preventDefault();
+    }
+
+    const urhandler = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className="singleeventmain">
             <div className='eventsum'>
