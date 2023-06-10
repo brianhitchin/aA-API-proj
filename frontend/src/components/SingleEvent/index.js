@@ -3,6 +3,7 @@ import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react';
 import { oneGroup } from '../../store/groups'
 import { oneEvent } from '../../store/events';
+import { AddMembersThunk, DelMembersThunk } from '../../store/membership';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteEventModal from '../DeleteModal';
 import plz from "./plz.jpg"
@@ -91,12 +92,14 @@ const SingleEvent = () => {
         return glist2.includes(me)
     }
 
-    const rhandler = (e) => {
+    function rhandler(e) {
         e.preventDefault();
+        dispatch(AddMembersThunk(eventId))
     }
 
-    const urhandler = (e) => {
+    function urhandler(e) {
         e.preventDefault();
+        dispatch(DelMembersThunk(eventId, curruseridstate.id))
     }
 
     return (
@@ -168,8 +171,8 @@ const SingleEvent = () => {
                         </div>
                         <div className='joinnow'>
                             {currEvent && acheck(curruserid2.id, currEvent.attendees) ?
-                                <button className='sgowneropt'>Un-RSVP</button> :
-                                <button className='sgowneropt'>RSVP</button>
+                                <button className='sgowneropt' onClick={rhandler}>Un-RSVP</button> :
+                                <button className='sgowneropt' onClick={urhandler}>RSVP</button>
                             } 
                         </div>
                     </div>

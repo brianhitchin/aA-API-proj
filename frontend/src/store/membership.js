@@ -51,12 +51,17 @@ export const AddMembersThunk = (id) => async dispatch => {
 }
 
 export const DelMembersThunk = (eid, body) => async dispatch => {
-    const response = await csrfFetch(`/api/events/${id}`, {
+    const response = await csrfFetch(`/api/events/${eid}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(body)
     })
+
+    if (response.ok) {
+        dispatch(DelMembers(eid))
+    }
 }
 
 const memberReducer = (state = initialState, action) => {
