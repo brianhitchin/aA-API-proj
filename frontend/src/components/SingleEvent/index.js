@@ -86,6 +86,11 @@ const SingleEvent = () => {
         return () => document.removeEventListener("click", closeMenu);
     }, [closeMenu]);
 
+    const acheck = (me, glist) => {
+        const glist2 = glist.map(el => el = el.userId)
+        return glist2.includes(me)
+    }
+
     return (
         <div className="singleeventmain">
             <div className='eventsum'>
@@ -154,7 +159,10 @@ const SingleEvent = () => {
                             </div>
                         </div>
                         <div className='joinnow'>
-                            <button className='sgowneropt'>RSVP</button>
+                            {currEvent && acheck(curruserid2.id, currEvent.attendees) ?
+                                <button className='sgowneropt'>Un-RSVP</button> :
+                                <button className='sgowneropt'>RSVP</button>
+                            } 
                         </div>
                     </div>
                 </div>

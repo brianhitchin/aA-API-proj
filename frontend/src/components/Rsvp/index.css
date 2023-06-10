@@ -33,3 +33,8 @@
     overflow: hidden;
     cursor: grab;
 }
+
+.indivevents2:hover {
+    border: 4px solid black;
+    background-color: white;
+}

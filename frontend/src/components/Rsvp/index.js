@@ -32,7 +32,7 @@ const MyRSVP = () => {
 
     if (loaded.length > 0 && userstate && eventstate.length > 0) {
         filtered = loaded.filter(el => el.userId == userstate.id)
-        fids = filtered.map(el => el = el.groupId)
+        fids = filtered.map(el => el = el.eventId)
         fvnt = eventstate.filter(el => fids.includes(el.id))
     }
 
@@ -53,7 +53,7 @@ const MyRSVP = () => {
             <div className='mymember'>
                 {loaded.length > 0 && fvnt && fvnt.map((event) => {
                     return (
-                        <div className='indivevents' id='mwme' onClick={() => history.push(`/events/${event.id}`)}>
+                        <div className='indivevents2' onClick={() => history.push(`/events/${event.id}`)}>
                             <div className='indiveventsI'>
                                 <div className='indiveventimg'>
                                     <img src={(event.previewImage !== "No image yet!" && event.previewImage.includes('http')) ? event.previewImage : plz} alt="" height={"300px"} width={"300px"}></img>
