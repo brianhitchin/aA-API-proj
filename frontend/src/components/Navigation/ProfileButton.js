@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
     <div className="ddbar">
         {user ? (
           <div className="interholder">
-            <div className={showMenu ? "ddbagcag2" : "ddbagcag"} onClick={caghandler}>Create a group</div>
+            <div className={showMenu ? "ddbagcag2 hmmm" : "ddbagcag hmmm"} onClick={caghandler}>Create a group</div>
             <ul className={ulClassName} ref={ulRef}>
               <span className="ddbarspan nl"><i class="fa-solid fa-person"></i> Hello, {user.firstName} {user.lastName}</span>
               <span className="ddbarspan nl"><i class="fa-regular fa-envelope"></i> {user.email}</span>

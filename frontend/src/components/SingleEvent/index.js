@@ -99,7 +99,7 @@ const SingleEvent = () => {
 
     function urhandler(e) {
         e.preventDefault();
-        dispatch(DelMembersThunk(eventId, curruseridstate.id))
+        dispatch(DelMembersThunk(eventId, { userId: curruseridstate.id }))
     }
 
     return (
@@ -170,7 +170,7 @@ const SingleEvent = () => {
                             </div>
                         </div>
                         <div className='joinnow'>
-                            {currEvent && acheck(curruserid2.id, currEvent.attendees) ?
+                            {currEvent && curruserid2 && acheck(curruserid2.id, currEvent.attendees) ?
                                 <button className='sgowneropt' onClick={urhandler}>Un-RSVP</button> :
                                 <button className='sgowneropt' onClick={rhandler}>RSVP</button>
                             } 
