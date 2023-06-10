@@ -20,10 +20,10 @@ export const AddMembers = (payload) => {
     }
 }
 
-export const DelMembers = (payload) => {
+export const DelMembers = (eid) => {
     return {
         type: DEL_MEMBERS,
-        payload
+        eid
     }
 }
 
@@ -60,7 +60,8 @@ export const DelMembersThunk = (eid, body) => async dispatch => {
     })
 
     if (response.ok) {
-        dispatch(DelMembers(eid))
+        const data = await response.json()
+        dispatch(DelMembers(data))
     }
 }
 
@@ -79,7 +80,7 @@ const memberReducer = (state = initialState, action) => {
             return newState
         case DEL_MEMBERS:
             newState = { ...state, all_memberships: { ...state.all_memberships } }
-            delete newState.all_memberships[action.payload]
+            delete newState.all_memberships[action.eid]
             return newState
         default:
             return state

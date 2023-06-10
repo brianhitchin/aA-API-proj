@@ -741,6 +741,7 @@ router.delete('/:groupId/membership', requireAuth, orgCheck('Member'), async (re
         err.status = 404;
         return next(err)
     }
+    const delconst = Membership.id
     try {
         await Membership.destroy({
             where: {
@@ -749,7 +750,7 @@ router.delete('/:groupId/membership', requireAuth, orgCheck('Member'), async (re
             }
         });
         res.json({
-            message: "Successfully deleted membership from group"
+            id: delconst
         })
     } catch (error) {
         return res.status(404).json({

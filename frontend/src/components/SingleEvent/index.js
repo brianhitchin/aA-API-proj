@@ -94,12 +94,12 @@ const SingleEvent = () => {
 
     function rhandler(e) {
         e.preventDefault();
-        dispatch(AddMembersThunk(eventId))
+        dispatch(AddMembersThunk(Number(eventId)))
     }
 
     function urhandler(e) {
         e.preventDefault();
-        dispatch(DelMembersThunk(eventId, { userId: curruseridstate.id }))
+        dispatch(DelMembersThunk(Number(eventId), { userId: curruserid2.id }))
     }
 
     return (
