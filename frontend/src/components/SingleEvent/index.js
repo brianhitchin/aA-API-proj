@@ -105,11 +105,13 @@ const SingleEvent = () => {
     function rhandler(e) {
         e.preventDefault();
         dispatch(AddMembersThunk(Number(eventId)))
+        window.location.reload(false);
     }
 
     function urhandler(e) {
         e.preventDefault();
         dispatch(DelMembersThunk(Number(eventId), { userId: curruserid2.id }))
+        window.location.reload(false);
     }
 
     return (
