@@ -379,10 +379,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res, next) => {
         userId: req.user.id,
         status: "Pending"
     })
-    res.json({
-        userId: req.user.id,
-        status: "Pending"
-    })
+    res.json(newAttendance.toJSON())
 })
 
 router.put('/:eventId/attendance', requireAuth, orgCheckEv('Co-Host'), async (req, res, next) => {
