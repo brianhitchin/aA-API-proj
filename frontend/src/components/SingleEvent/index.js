@@ -23,9 +23,11 @@ const SingleEvent = () => {
     const groups = useSelector(state => state.groups)
     const curruserid2 = useSelector(state => state.session.user)
     const [curruseridstate, setCurruseridstate] = useState(1000000)
+    const attendeestate = useSelector(state => state.events.attendees)
     const history = useHistory();
     const ulRef = useRef();
     const [showMenu, setShowMenu] = useState(false);
+    const [isR, setIsR] = useState(false);
 
     const showEdit = false
 
@@ -53,6 +55,14 @@ const SingleEvent = () => {
             setCurrGroup(groups)
         }
     }, [groups])
+
+    useEffect(() => {
+        if (attendeestate && curruserid2) {
+            const abc = [...attendeestate]
+            const filtered = abc.filter(el => el.userId == curruserid2.id)
+            filtered.length > 0 ? setIsR(true) : setIsR(false)
+        }
+    }, [attendeestate])
 
     useEffect(() => {
         try {
@@ -170,7 +180,7 @@ const SingleEvent = () => {
                             </div>
                         </div>
                         <div className='joinnow'>
-                            {currEvent && curruserid2 && acheck(curruserid2.id, currEvent.attendees) ?
+                            {currEvent && curruserid2 && isR ?
                                 <button className='sgowneropt' onClick={urhandler}>Un-RSVP</button> :
                                 <button className='sgowneropt' onClick={rhandler}>RSVP</button>
                             } 
@@ -182,6 +192,7 @@ const SingleEvent = () => {
                         <h1>Details</h1>
                         {currEvent && <p>{currEvent.description}</p>}
                         <h3>{currEvent && `${currEvent.attendees.length} other people are coming!`}</h3>
+                        <h4>{isR && `You're also going as well! Save the date!`}</h4>
                     </div>
                 </div>
             </div>
